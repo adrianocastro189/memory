@@ -5,3 +5,4 @@ A World of Warcraft addon to register memories while players do stuff around the
 ## Changelog
 
 ### 2020.10.13 - alpha version
+* Add the `.toc` file
