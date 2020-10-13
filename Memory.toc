@@ -1,0 +1,6 @@
+## Author: Adriano Castro
+## Interface: 80300
+## Name: Memory
+## Notes: Addon to register memories while players do stuff around the world.
+## Title: Memory |cffffee77Alpha|r
+## Version: Alpha
