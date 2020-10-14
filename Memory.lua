@@ -5,4 +5,5 @@ Fires up the addon.
 ]]
 local function initializeCore()
 
+  MemoryCore = {};
 end
