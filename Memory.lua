@@ -28,3 +28,17 @@ local function initializeCore()
   self:initializeSingletons();
 
 end
+
+-- The main event frame used to trigger all the Memory listeners
+local MemoryEventFrame = CreateFrame( "Frame" );
+
+-- Fires up the Memory addon when the player logs in
+MemoryEventFrame:SetScript( "OnEvent",
+  function( self, event, ... )
+
+    if event == "PLAYER_LOGIN" then
+
+      initializeCore();
+    end
+  end
+);
