@@ -25,4 +25,6 @@ local function initializeCore()
   end
 
 
+  self:initializeSingletons();
+
 end
