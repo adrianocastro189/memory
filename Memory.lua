@@ -20,12 +20,12 @@ local function initializeCore()
 
   @since 0.1.0-alpha
   ]]
-  MemoryCore:initializeSingletons()
+  function MemoryCore:initializeSingletons()
 
   end
 
 
-  self:initializeSingletons();
+  MemoryCore:initializeSingletons();
 
 end
 
