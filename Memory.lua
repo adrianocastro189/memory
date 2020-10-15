@@ -53,7 +53,7 @@ local function initializeCore()
 
     local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
 
-    DEFAULT_CHAT_FRAME:AddMessage( prefix .. value );
+    DEFAULT_CHAT_FRAME:AddMessage( prefix .. " " .. value );
   end
 
 
