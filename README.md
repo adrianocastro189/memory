@@ -6,3 +6,4 @@ A World of Warcraft addon to register memories while players do stuff around the
 
 ### 2020.10.13 - version 0.1.0-alpha
 * Add the `.toc` file
+* Add the `MemoryCore` object
