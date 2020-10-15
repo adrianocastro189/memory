@@ -32,6 +32,9 @@ end
 -- The main event frame used to trigger all the Memory listeners
 local MemoryEventFrame = CreateFrame( "Frame" );
 
+-- Register the PLAYER_LOGIN event
+MemoryEventFrame:RegisterEvent( "PLAYER_LOGIN" );
+
 -- Fires up the Memory addon when the player logs in
 MemoryEventFrame:SetScript( "OnEvent",
   function( self, event, ... )
