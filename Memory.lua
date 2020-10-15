@@ -42,6 +42,21 @@ local function initializeCore()
   end
 
 
+  --[[
+  Prints a string in the default chat frame with the highlighted addon name as the prefix.
+
+  @since 0.1.0-alpha
+
+  @param string value
+  ]]
+  function MemoryCore:print( value )
+
+    local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
+
+    DEFAULT_CHAT_FRAME:AddMessage( prefix .. value );
+  end
+
+
   MemoryCore:initializeSingletons();
 
 end
