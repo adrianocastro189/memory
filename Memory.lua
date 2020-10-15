@@ -57,6 +57,17 @@ local function initializeCore()
   end
 
 
+  --[[
+  Prints the Memory addon version number.
+
+  @since 0.1.0-alpha
+  ]]
+  function MemoryCore:printVersion()
+
+    MemoryCore:print( MemoryCore.ADDON_VERSION );
+  end
+
+
   MemoryCore:initializeSingletons();
 
 end
