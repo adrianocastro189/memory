@@ -14,6 +14,23 @@ local function initializeCore()
   -- The addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = "0.1.0-alpha";
 
+  -- The pattern used to wrap strings in the addon highlight color
+  MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
+
+
+  --[[
+  Highlights a string using the addon highlight color.
+
+  @since 0.1.0-alpha
+
+  @param string value
+  @return string
+  ]]
+  function MemoryCore:highlight( value )
+
+    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, "{0}", value );
+  end
+
 
   --[[
   Initializes all the singleton instances in the MemoryCore object.
@@ -25,7 +42,34 @@ local function initializeCore()
   end
 
 
+  --[[
+  Prints a string in the default chat frame with the highlighted addon name as the prefix.
+
+  @since 0.1.0-alpha
+
+  @param string value
+  ]]
+  function MemoryCore:print( value )
+
+    local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
+
+    DEFAULT_CHAT_FRAME:AddMessage( prefix .. " " .. value );
+  end
+
+
+  --[[
+  Prints the Memory addon version number.
+
+  @since 0.1.0-alpha
+  ]]
+  function MemoryCore:printVersion()
+
+    MemoryCore:print( MemoryCore.ADDON_VERSION );
+  end
+
+
   MemoryCore:initializeSingletons();
+  MemoryCore:printVersion();
 
 end
 
