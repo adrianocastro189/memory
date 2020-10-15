@@ -19,6 +19,20 @@ local function initializeCore()
 
 
   --[[
+  Highlights a string using the addon highlight color.
+
+  @since 0.1.0-alpha
+
+  @param string value
+  @return string
+  ]]
+  function MemoryCore:highlight( value )
+
+    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, "{0}", value );
+  end
+
+
+  --[[
   Initializes all the singleton instances in the MemoryCore object.
 
   @since 0.1.0-alpha
