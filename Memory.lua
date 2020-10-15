@@ -69,6 +69,7 @@ local function initializeCore()
 
 
   MemoryCore:initializeSingletons();
+  MemoryCore:printVersion();
 
 end
 
