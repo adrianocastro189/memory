@@ -4,5 +4,6 @@
 ## Notes: Addon to register memories while players do stuff around the world.
 ## Title: Memory |cffffee770.1.0-alpha|r
 ## Version: 0.1.0-alpha
+## X-Curse-Project-ID: 413371
 
 Memory.lua
