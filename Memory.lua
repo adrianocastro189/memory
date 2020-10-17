@@ -5,6 +5,8 @@ Fires up the addon.
 ]]
 local function initializeCore()
 
+  -- initializes the memory data set that stores all the players memories
+  if not MemoryDataSet then MemoryDataSet = {} end
 
   MemoryCore = {};
 
