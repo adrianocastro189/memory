@@ -24,5 +24,18 @@ function MemoryRepository:new( player, realm )
   instance.player = player;
   instance.realm = realm;
 
+
+  --[[
+  Determines whether the memory data set is set.
+
+  @since 0.2.0-alpha
+
+  @return bool
+  ]]
+  instance.testConnection = function()
+  
+    return MemoryDataSet ~= nil;
+  end
+
   return instance;
 end
