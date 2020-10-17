@@ -20,7 +20,7 @@ Constructs a new instance of a memory repository.
 function MemoryRepository:new( player, realm )
 
   local instance = {};
-  setmetatable(instance, MemoryRepository);
+  setmetatable( instance, MemoryRepository );
   instance.player = player;
   instance.realm = realm;
 
