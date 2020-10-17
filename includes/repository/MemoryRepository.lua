@@ -26,6 +26,32 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Crafts a memory string used to store important data to a player memory.
+
+  @since 0.2.0-alpha
+
+  @return string
+  ]]
+  function instance:craftMemoryString()
+
+    -- gets the memory string data values
+    local currentDate = date( "%y-%m-%d" );
+    local playerLevel = UnitLevel( "player" );
+    local zoneName    = GetZoneText();
+    local subZoneName = GetSubZoneText();
+
+    -- replaces nil values with a slash
+    if currentDate == nil then currentDate = '-' end
+    if playerLevel == nil or playerLevel == 0 then playerLevel = '-' end
+    if zoneName    == nil then zoneName    = '-' end
+    if subZoneName == nil then subZoneName = '-' end
+
+    -- crafts and returns the memory string
+    return currentDate .. "|" .. playerLevel .. "|" .. zoneName .. "|" .. subZoneName;
+  end
+
+
+  --[[
   Determines whether the memory data set is set.
 
   @since 0.2.0-alpha
