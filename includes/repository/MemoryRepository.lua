@@ -26,6 +26,18 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Crafts a memory string used to store important data to a player memory.
+
+  @since 0.2.0-alpha
+
+  @return string
+  ]]
+  function instance:craftMemoryString()
+
+  end
+
+
+  --[[
   Determines whether the memory data set is set.
 
   @since 0.2.0-alpha
