@@ -32,8 +32,8 @@ function MemoryRepository:new( player, realm )
 
   @return bool
   ]]
-  instance.testConnection = function()
-  
+  function instance:testConnection()
+
     return MemoryDataSet ~= nil;
   end
 
