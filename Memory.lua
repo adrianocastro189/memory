@@ -19,6 +19,22 @@ local function initializeCore()
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
+  -- the unique repository instance
+  MemoryCore.repository = nil;
+
+
+  --[[
+  Gets the unique repository instance.
+
+  @since 0.2.0-alpha
+
+  @return MemoryRepository
+  ]]
+  function MemoryCore:getRepository()
+
+    return self.repository;
+  end
+
 
   --[[
   Highlights a string using the addon highlight color.
@@ -41,6 +57,7 @@ local function initializeCore()
   ]]
   function MemoryCore:initializeSingletons()
 
+    self.repository = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
   end
 
 
