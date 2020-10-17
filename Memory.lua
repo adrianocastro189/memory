@@ -5,16 +5,18 @@ Fires up the addon.
 ]]
 local function initializeCore()
 
+  -- initializes the memory data set that stores all the players memories
+  if not MemoryDataSet then MemoryDataSet = {} end
 
   MemoryCore = {};
 
-  -- The addon name
+  -- the addon name
   MemoryCore.ADDON_NAME = "Memory";
 
-  -- The addon version which is the same as the toc file
+  -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = "0.1.0-alpha";
 
-  -- The pattern used to wrap strings in the addon highlight color
+  -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
 
@@ -73,13 +75,13 @@ local function initializeCore()
 
 end
 
--- The main event frame used to trigger all the Memory listeners
+-- the main event frame used to trigger all the Memory listeners
 local MemoryEventFrame = CreateFrame( "Frame" );
 
--- Register the PLAYER_LOGIN event
+-- registers the PLAYER_LOGIN event
 MemoryEventFrame:RegisterEvent( "PLAYER_LOGIN" );
 
--- Fires up the Memory addon when the player logs in
+-- fires up the Memory addon when the player logs in
 MemoryEventFrame:SetScript( "OnEvent",
   function( self, event, ... )
 
