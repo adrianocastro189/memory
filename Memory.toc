@@ -2,6 +2,7 @@
 ## Interface: 80300
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
+## SavedVariables: MemoryDataSet
 ## Title: Memory |cffffee770.2.0-alpha|r
 ## Version: 0.2.0-alpha
 ## X-Curse-Project-ID: 413371
