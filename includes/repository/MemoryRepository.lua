@@ -40,11 +40,14 @@ function MemoryRepository:new( player, realm )
     local zoneName    = GetZoneText();
     local subZoneName = GetSubZoneText();
 
-    -- replace nil values with a slash
+    -- replaces nil values with a slash
     if currentDate == nil then currentDate = '-' end
     if playerLevel == nil then playerLevel = '-' end
     if zoneName    == nil then zoneName    = '-' end
     if subZoneName == nil then subZoneName = '-' end
+
+    -- crafts and returns the memory string
+    return currentDate .. "|" .. playerLevel .. "|" .. zoneName .. "|" .. subZoneName;
   end
 
 
