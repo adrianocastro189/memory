@@ -34,6 +34,11 @@ function MemoryRepository:new( player, realm )
   ]]
   function instance:craftMemoryString()
 
+    -- gets the memory string data values
+    local currentDate = date( "%y-%m-%d" );
+    local playerLevel = UnitLevel( "player" );
+    local zoneName    = GetZoneText();
+    local subZoneName = GetSubZoneText();
   end
 
 
