@@ -152,6 +152,38 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Stores a player's memory.
+
+  @since 0.2.0-alpha
+
+  @param string category
+  @param string[] path
+  @param string interaction_type
+  @param int x (optional)
+  ]]
+  function instance:store( category, path, interaction_type, --[[optional]] x )
+
+    -- sets the default value for x if not defined
+    x = x or 1;
+
+    -- makes sure the full memory path is already set
+    local memoryPath = self:check( category, path, interaction_type );
+
+    -- gets the memory string to store the player's memory
+    local memoryString = self:craftMemoryString();
+
+    -- stores the first time player experienced this memory
+    if memoryPath["first"] == -1 then memoryPath["first"] = memoryString; end
+
+    -- stores the last time player experienced this memory
+    memoryPath["last"] = self:craftMemoryString();
+
+    -- increases the number of times player experienced this memory
+    memoryPath["x"] = memoryPath["x"] + x;
+  end
+
+
+  --[[
   Determines whether the memory data set is set.
 
   @since 0.2.0-alpha
