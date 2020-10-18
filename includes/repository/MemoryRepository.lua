@@ -26,6 +26,23 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Checks if the current realm is already initialized in memory.
+
+  If this is the first time of a player in a realm, it will be created as an
+  empty array.
+
+  @since 0.2.0-alpha
+  ]]
+  function instance:checkRealm()
+
+    if MemoryDataSet[ self.realm ] == nil then
+
+      MemoryDataSet[ self.realm ] = {}
+    end
+  end
+
+
+  --[[
   Crafts a memory string used to store important data to a player memory.
 
   @since 0.2.0-alpha
