@@ -112,5 +112,8 @@ function MemoryRepository:new( player, realm )
     return MemoryDataSet ~= nil;
   end
 
+  -- may initialize the player's memories
+  instance:checkMyself();
+
   return instance;
 end
