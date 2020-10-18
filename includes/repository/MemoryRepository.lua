@@ -142,9 +142,9 @@ function MemoryRepository:new( player, realm )
 
     -- replaces nil values with a slash
     if currentDate == nil then currentDate = '-' end
-    if playerLevel == nil or playerLevel == 0 then playerLevel = '-' end
-    if zoneName    == nil then zoneName    = '-' end
-    if subZoneName == nil then subZoneName = '-' end
+    if playerLevel == nil or playerLevel == 0  then playerLevel = '-' end
+    if zoneName    == nil or zoneName    == "" then zoneName    = '-' end
+    if subZoneName == nil or subZoneName == "" then subZoneName = '-' end
 
     -- crafts and returns the memory string
     return currentDate .. "|" .. playerLevel .. "|" .. zoneName .. "|" .. subZoneName;
