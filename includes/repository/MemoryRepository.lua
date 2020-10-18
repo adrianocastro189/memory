@@ -26,6 +26,38 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Checks if the player memories are already initialized.
+
+  If this is the first time of a player in a realm, it will be created as an
+  empty array along with the player's memories about npcs, players, zones, etc.
+
+  @since 0.2.0-alpha
+  ]]
+  function instance:checkMyself()
+
+    self:checkRealm();
+
+    if MemoryDataSet[ self.realm ][ self.player ] == nil then
+
+      -- initializes the player memory
+      MemoryDataSet[ self.realm ][ self.player ] = {};
+
+      -- initializes the player memories about npcs
+      MemoryDataSet[ self.realm ][ self.player ]["npcs"] = {};
+
+      -- initializes the player memories about other players
+      MemoryDataSet[ self.realm ][ self.player ]["players"] = {};
+
+      -- initializes the player memories about zones
+      MemoryDataSet[ self.realm ][ self.player ]["zones"] = {};
+
+      -- initializes the player memories about items
+      MemoryDataSet[ self.realm ][ self.player ]["items"] = {};
+    end
+  end
+
+
+  --[[
   Checks if the current realm is already initialized in memory.
 
   If this is the first time of a player in a realm, it will be created as an
