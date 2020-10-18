@@ -70,6 +70,9 @@ function MemoryRepository:new( player, realm )
       -- initializes the number of times player experienced this memory
       memoryDataSetAux[ interaction_type ]["x"] = 0;
     end
+
+    -- returns the current pointer to ease on the store method
+    return memoryDataSetAux[ interaction_type ];
   end
 
 
