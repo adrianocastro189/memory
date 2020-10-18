@@ -26,6 +26,54 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Checks if a full memory path is set.
+
+  A full memory path is where all the player memories about a thing are stored.
+
+  If this is the first time of a player in a realm, the full memory path will be
+  created with the interaction type.
+
+  @since 0.2.0-alpha
+
+  @param string category
+  @param string[] path
+  @param string interaction_type
+  ]]
+  function instance:check( category, path, interaction_type )
+
+    -- creates a pointer to the current path in the memory array
+    local memoryDataSetAux = MemoryDataSet[ self.realm ][ self.player ][ category ];
+
+    for i = 1, #path, 1 do
+
+      if memoryDataSetAux[ path[ i ] ] == nil then
+
+        -- initializes the current path
+        memoryDataSetAux[ path[ i ] ] = {};
+      end
+
+      -- sets the current path index in the pointer
+      memoryDataSetAux = memoryDataSetAux[ path[ i ] ];
+    end
+
+    if memoryDataSetAux[ interaction_type ] == nil then
+
+      -- initializes the memory interaction type
+      memoryDataSetAux[ interaction_type ] = {};
+
+      -- initializes the first time player experienced this memory
+      memoryDataSetAux[ interaction_type ]["first"] = -1;
+
+      -- initializes the last time player experienced this memory
+      memoryDataSetAux[ interaction_type ]["last"] = -1;
+
+      -- initializes the number of times player experienced this memory
+      memoryDataSetAux[ interaction_type ]["x"] = 0;
+    end
+  end
+
+
+  --[[
   Checks if the player memories are already initialized.
 
   If this is the first time of a player in a realm, it will be created as an
