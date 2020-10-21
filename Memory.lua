@@ -26,6 +26,18 @@ local function initializeCore()
   MemoryCore.repository = nil;
 
 
+  --[[
+  Attaches an event listener to the core.
+
+  Listeners will be triggered by player actions in the game.
+
+  @param MemoryEvent listener
+  ]]
+  function MemoryCore:addEventListener( listener )
+
+    table.insert(self.eventListeners, listener);
+  end
+
 
   --[[
   Gets the unique repository instance.
