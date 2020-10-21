@@ -22,4 +22,26 @@ function MemoryEvent:new( events, action )
   instance.action = action;
 
 
+  --[[
+  Checks if the current instance triggers for the given event and call the action.
+
+  @since 0.3.0-alpha
+
+  @param string event
+  @param string[] params
+  ]]
+  function instance:maybeTrigger( event, params )
+
+    for i, value in ipairs( self:events ) do
+
+      if value == event then
+
+        -- calls the event action
+        self:action( params );
+        return;
+      end
+    end
+  end
+
+
 end
