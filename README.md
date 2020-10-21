@@ -4,6 +4,8 @@ A World of Warcraft addon to register memories while players do stuff around the
 
 ## Changelog
 
+### 2020.nn.nn - version 0.3.0-alpha
+
 ### 2020.10.18 - version 0.2.0-alpha
 * Add the MemoryRepository and its unique instance to core
 * Add the check and store methods to repository
