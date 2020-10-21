@@ -19,8 +19,12 @@ local function initializeCore()
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
+  -- the memory event listeners that will add memories
+  MemoryCore.eventListeners = {};
+
   -- the unique repository instance
   MemoryCore.repository = nil;
+
 
 
   --[[
