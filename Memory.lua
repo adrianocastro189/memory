@@ -35,7 +35,16 @@ local function initializeCore()
   ]]
   function MemoryCore:addEventListener( listener )
 
-    table.insert(self.eventListeners, listener);
+    table.insert( self.eventListeners, listener );
+
+    for i, event in ipairs( listener.events ) do
+
+      -- removes the event to avoid registering them twice
+      MemoryEventFrame:UnregisterEvent( event );
+
+      -- adds the event to the memory frame
+      MemoryEventFrame:RegisterEvent( event );
+    end
   end
 
 
