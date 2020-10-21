@@ -32,7 +32,7 @@ function MemoryEvent:new( events, action )
   ]]
   function instance:maybeTrigger( event, params )
 
-    for i, value in ipairs( self:events ) do
+    for i, value in ipairs( self.events ) do
 
       if value == event then
 
