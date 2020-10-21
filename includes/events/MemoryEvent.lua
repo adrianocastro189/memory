@@ -43,5 +43,5 @@ function MemoryEvent:new( events, action )
     end
   end
 
-
+  return instance;
 end
