@@ -9,4 +9,6 @@
 
 Memory.lua
 
+includes\events\MemoryEvent.lua
+
 includes\repository\MemoryRepository.lua
