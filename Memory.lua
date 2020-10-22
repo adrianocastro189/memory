@@ -115,6 +115,13 @@ local function initializeCore()
   MemoryEventFrame:SetScript( "OnEvent",
     function( self, event, ... )
 
+      local params = ...;
+
+      for i, listener in ipairs( MemoryCore.eventListeners ) do
+
+        -- dispatch the event to a listener
+        listener.maybeTrigger( event, params );
+      end
     end
   );
 
