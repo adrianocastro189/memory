@@ -112,6 +112,11 @@ local function initializeCore()
   end
 
 
+  --[[
+  Dispatch every registered events to the registered listeners.
+
+  @since 0.3.0-alpha
+  ]]
   MemoryEventFrame:SetScript( "OnEvent",
     function( self, event, ... )
 
