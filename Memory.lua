@@ -112,6 +112,12 @@ local function initializeCore()
   end
 
 
+  MemoryEventFrame:SetScript( "OnEvent",
+    function( self, event, ... )
+
+    end
+  );
+
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
