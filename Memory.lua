@@ -118,7 +118,7 @@ local function initializeCore()
 end
 
 -- the main event frame used to trigger all the Memory listeners
-local MemoryEventFrame = CreateFrame( "Frame" );
+MemoryEventFrame = CreateFrame( "Frame" );
 
 -- registers the PLAYER_LOGIN event
 MemoryEventFrame:RegisterEvent( "PLAYER_LOGIN" );
