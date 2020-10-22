@@ -19,8 +19,33 @@ local function initializeCore()
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
+  -- the memory event listeners that will add memories
+  MemoryCore.eventListeners = {};
+
   -- the unique repository instance
   MemoryCore.repository = nil;
+
+
+  --[[
+  Attaches an event listener to the core.
+
+  Listeners will be triggered by player actions in the game.
+
+  @param MemoryEvent listener
+  ]]
+  function MemoryCore:addEventListener( listener )
+
+    table.insert( self.eventListeners, listener );
+
+    for i, event in ipairs( listener.events ) do
+
+      -- removes the event to avoid registering them twice
+      MemoryEventFrame:UnregisterEvent( event );
+
+      -- adds the event to the memory frame
+      MemoryEventFrame:RegisterEvent( event );
+    end
+  end
 
 
   --[[
