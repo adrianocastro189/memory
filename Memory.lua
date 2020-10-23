@@ -112,13 +112,31 @@ local function initializeCore()
   end
 
 
+  --[[
+  Dispatch every registered events to the registered listeners.
+
+  @since 0.3.0-alpha
+  ]]
+  MemoryEventFrame:SetScript( "OnEvent",
+    function( self, event, ... )
+
+      local params = ...;
+
+      for i, listener in ipairs( MemoryCore.eventListeners ) do
+
+        -- dispatch the event to a listener
+        listener:maybeTrigger( event, params );
+      end
+    end
+  );
+
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
 end
 
 -- the main event frame used to trigger all the Memory listeners
-local MemoryEventFrame = CreateFrame( "Frame" );
+MemoryEventFrame = CreateFrame( "Frame" );
 
 -- registers the PLAYER_LOGIN event
 MemoryEventFrame:RegisterEvent( "PLAYER_LOGIN" );
