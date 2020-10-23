@@ -125,7 +125,7 @@ local function initializeCore()
       for i, listener in ipairs( MemoryCore.eventListeners ) do
 
         -- dispatch the event to a listener
-        listener.maybeTrigger( event, params );
+        listener:maybeTrigger( event, params );
       end
     end
   );
