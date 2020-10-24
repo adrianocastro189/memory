@@ -93,6 +93,9 @@ function MemoryRepository:new( player, realm )
       -- initializes the player memory
       MemoryDataSet[ self.realm ][ self.player ] = {};
 
+      -- initializes the miscellaneous memories, mainly for admin purposes
+      MemoryDataSet[ self.realm ][ self.player ]["misc"] = {};
+
       -- initializes the player memories about npcs
       MemoryDataSet[ self.realm ][ self.player ]["npcs"] = {};
 

@@ -133,6 +133,9 @@ local function initializeCore()
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
+  -- stores a symbolic memory (this is the first memory stored by the addon!)
+  MemoryCore:getRepository():store( "misc", {}, "login" );
+
 end
 
 -- the main event frame used to trigger all the Memory listeners
