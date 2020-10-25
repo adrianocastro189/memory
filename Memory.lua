@@ -154,6 +154,9 @@ local function MemoryAddon_initializeCore()
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
+  -- will add all event listeners to this core instance
+  MemoryAddon_appendEvents( MemoryCore );
+
   -- stores a symbolic memory (this is the first memory stored by the addon!)
   MemoryCore:getRepository():store( "misc", {}, "login" );
 
