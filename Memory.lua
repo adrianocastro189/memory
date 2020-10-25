@@ -16,6 +16,9 @@ local function initializeCore()
   -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = "0.4.0-alpha";
 
+  -- determines whether the addon is in debug mode or not
+  MemoryCore.DEBUG = true;
+
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
@@ -44,6 +47,22 @@ local function initializeCore()
 
       -- adds the event to the memory frame
       MemoryEventFrame:RegisterEvent( event );
+    end
+  end
+
+
+  --[[
+  Prints a debug message if the debug mode is on.
+
+  @since 0.4.0-alpha
+  ]]
+  function MemoryCore:debug( message )
+
+    if self.DEBUG then
+
+      local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
+
+      self:print( message, prefix );
     end
   end
 
@@ -92,10 +111,12 @@ local function initializeCore()
   @since 0.1.0-alpha
 
   @param string value
+  @param string prefix (optional)
   ]]
-  function MemoryCore:print( value )
+  function MemoryCore:print( value, --[[optional]] prefix )
 
-    local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
+    -- creates a default prefix if not informed
+    local prefix = prefix or MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
 
     DEFAULT_CHAT_FRAME:AddMessage( prefix .. " " .. value );
   end
@@ -135,6 +156,9 @@ local function initializeCore()
 
   -- stores a symbolic memory (this is the first memory stored by the addon!)
   MemoryCore:getRepository():store( "misc", {}, "login" );
+
+  -- prints a debug message confirming the end of the initialization
+  MemoryCore:debug( "MemoryCore initialized" );
 
 end
 
