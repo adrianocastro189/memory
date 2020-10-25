@@ -11,13 +11,15 @@ Constructs a new instance of a memory event.
 
 @since 0.3.0-alpha
 
+@param string name
 @param string[] events
 @param callable action
 ]]
-function MemoryEvent:new( events, action )
+function MemoryEvent:new( name, events, action )
 
   local instance = {};
   setmetatable( instance, MemoryEvent );
+  instance.name   = name;
   instance.events = events;
   instance.action = action;
 
