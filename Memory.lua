@@ -52,6 +52,22 @@ local function initializeCore()
 
 
   --[[
+  Prints a debug message if the debug mode is on.
+
+  @since 0.4.0-alpha
+  ]]
+  function MemoryCore:debug( message )
+
+    if self.DEBUG then
+
+      local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
+
+      self:print( message, prefix );
+    end
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
