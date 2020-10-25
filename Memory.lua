@@ -3,7 +3,7 @@ Fires up the addon.
 
 @since 0.1.0-alpha
 ]]
-local function initializeCore()
+local function MemoryAddon_initializeCore()
 
   -- initializes the memory data set that stores all the players memories
   if not MemoryDataSet then MemoryDataSet = {} end
@@ -154,6 +154,9 @@ local function initializeCore()
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
+  -- will add all event listeners to this core instance
+  MemoryAddon_appendEvents( MemoryCore );
+
   -- stores a symbolic memory (this is the first memory stored by the addon!)
   MemoryCore:getRepository():store( "misc", {}, "login" );
 
@@ -174,7 +177,7 @@ MemoryEventFrame:SetScript( "OnEvent",
 
     if event == "PLAYER_LOGIN" then
 
-      initializeCore();
+      MemoryAddon_initializeCore();
     end
   end
 );
