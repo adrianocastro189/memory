@@ -95,10 +95,12 @@ local function initializeCore()
   @since 0.1.0-alpha
 
   @param string value
+  @param string prefix (optional)
   ]]
-  function MemoryCore:print( value )
+  function MemoryCore:print( value, --[[optional]] prefix )
 
-    local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
+    -- creates a default prefix if not informed
+    local prefix = prefix or MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
 
     DEFAULT_CHAT_FRAME:AddMessage( prefix .. " " .. value );
   end
