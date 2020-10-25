@@ -13,7 +13,10 @@ Constructs a new instance of a memory event.
 
 @param string name
 @param string[] events
-@param callable action
+@param callable action a callable function that must accept two params {
+  @param string event
+  @param string[] params
+}
 ]]
 function MemoryEvent:new( name, events, action )
 
@@ -54,7 +57,7 @@ function MemoryEvent:new( name, events, action )
         self:debug( "Event " .. event .. " matched, calling action" );
 
         -- calls the event action
-        self:action( params );
+        self:action( event, params );
         return;
       end
     end
