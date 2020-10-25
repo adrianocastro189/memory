@@ -14,7 +14,7 @@ local function initializeCore()
   MemoryCore.ADDON_NAME = "Memory";
 
   -- the addon version which is the same as the toc file
-  MemoryCore.ADDON_VERSION = "0.3.0-alpha";
+  MemoryCore.ADDON_VERSION = "0.4.0-alpha";
 
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
