@@ -25,6 +25,19 @@ function MemoryEvent:new( name, events, action )
 
 
   --[[
+  Prints a debug message for the specific event.
+
+  @since 0.4.0-alpha
+
+  @param string message
+  ]]
+  function instance:debug( message )
+
+    MemoryCore:debug( "[" .. self.name .. "] " .. message );
+  end
+
+
+  --[[
   Checks if the current instance triggers for the given event and call the action.
 
   @since 0.3.0-alpha
