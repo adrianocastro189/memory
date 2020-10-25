@@ -11,15 +11,30 @@ Constructs a new instance of a memory event.
 
 @since 0.3.0-alpha
 
+@param string name
 @param string[] events
 @param callable action
 ]]
-function MemoryEvent:new( events, action )
+function MemoryEvent:new( name, events, action )
 
   local instance = {};
   setmetatable( instance, MemoryEvent );
+  instance.name   = name;
   instance.events = events;
   instance.action = action;
+
+
+  --[[
+  Prints a debug message for the specific event.
+
+  @since 0.4.0-alpha
+
+  @param string message
+  ]]
+  function instance:debug( message )
+
+    MemoryCore:debug( "[" .. self.name .. "] " .. message );
+  end
 
 
   --[[
@@ -36,12 +51,18 @@ function MemoryEvent:new( events, action )
 
       if value == event then
 
+        self:debug( "Event " .. event .. " matched, calling action" );
+
         -- calls the event action
         self:action( params );
         return;
       end
     end
   end
+
+
+  -- prints a debug message after initializing the event
+  instance:debug( "Event created" );
 
   return instance;
 end
