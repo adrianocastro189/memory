@@ -16,6 +16,9 @@ local function initializeCore()
   -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = "0.4.0-alpha";
 
+  -- determines whether the addon is in debug mode or not
+  MemoryCore.DEBUG = true;
+
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
