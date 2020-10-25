@@ -58,5 +58,9 @@ function MemoryEvent:new( name, events, action )
     end
   end
 
+
+  -- prints a debug message after initializing the event
+  instance:debug( "Event created" );
+
   return instance;
 end
