@@ -157,6 +157,9 @@ local function initializeCore()
   -- stores a symbolic memory (this is the first memory stored by the addon!)
   MemoryCore:getRepository():store( "misc", {}, "login" );
 
+  -- prints a debug message confirming the end of the initialization
+  MemoryCore:debug( "MemoryCore initialized" );
+
 end
 
 -- the main event frame used to trigger all the Memory listeners
