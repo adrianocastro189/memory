@@ -77,13 +77,14 @@ function MemoryAddon_appendEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
     { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" },
     function( event, params )
 
     end
-  ) );
+  );
+  core:addEventListener( eventZoneVisit );
 
   --[[
   Event triggered when a player visits a sub zone.
