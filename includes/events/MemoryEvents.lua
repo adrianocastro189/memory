@@ -20,5 +20,18 @@ function MemoryAddon_appendEvents( core )
     end
   ) );
 
+  --[[
+  Event triggered when a player speaks with an NPC.
+
+  @since 0.4.0-alpha
+  ]]
+  core:addEventListener( MemoryEvent:new(
+    "EventNpcTalk",
+    {},
+    function( event, params )
+
+    end
+  ) );
+
   core:debug( "Events appended" );
 end
