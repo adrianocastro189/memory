@@ -84,6 +84,8 @@ function MemoryAddon_appendEvents( core )
 
     end
   );
+  eventZoneVisit.disabled = false;
+  eventZoneVisit.lastZone = "";
   core:addEventListener( eventZoneVisit );
 
   --[[
