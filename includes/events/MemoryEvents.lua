@@ -79,7 +79,7 @@ function MemoryAddon_appendEvents( core )
   ]]
   core:addEventListener( MemoryEvent:new(
     "EventZoneVisit",
-    {},
+    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" },
     function( event, params )
 
     end
