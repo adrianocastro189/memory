@@ -20,5 +20,5 @@ function MemoryAddon_appendEvents( core )
     end
   ) );
 
-  MemoryCore:debug( "Events appended" );
+  core:debug( "Events appended" );
 end
