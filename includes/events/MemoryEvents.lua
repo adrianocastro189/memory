@@ -80,7 +80,6 @@ function MemoryAddon_appendEvents( core )
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
     { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" },
-    function( event, params )
     function( listener, event, params )
 
       -- turns off the event listener when player losts control
@@ -96,6 +95,37 @@ function MemoryAddon_appendEvents( core )
         listener:debug( "Player gained control, enabling " .. listener.name );
         listener.disabled = false;
       end
+
+      -- prevents the memory to be saved since the listener is disabled
+      if listener.disabled then
+
+        listener:debug( "Listener is in disabled state, no memories will be recorded" );
+        return;
+      end
+
+      -- gets the zone name
+      local zoneName = GetZoneText();
+
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
+      if zoneName == listener.lastZone then
+
+        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
+        return;
+      end
+
+      -- sanity check
+      if "" == zoneName then
+
+        listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
+        return;
+      end
+
+      -- stores a memory about the new zone player is visiting
+      MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+
+      -- will prevent the memory to be recorded twice in another event call
+      listener.lastZone = zoneName;
     end
   );
   eventZoneVisit.disabled = false;
