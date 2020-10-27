@@ -15,7 +15,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcBusiness",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -28,7 +28,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcTalk",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -41,7 +41,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcFight",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -54,7 +54,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcQuest",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -67,7 +67,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventPlayerParty",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -81,6 +81,7 @@ function MemoryAddon_appendEvents( core )
     "EventZoneVisit",
     { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" },
     function( event, params )
+    function( listener, event, params )
 
     end
   );
@@ -96,7 +97,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventSubZoneVisit",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -109,7 +110,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventItemLoot",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
