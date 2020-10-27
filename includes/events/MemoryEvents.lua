@@ -79,27 +79,14 @@ function MemoryAddon_appendEvents( core )
   ]]
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" },
+    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
     function( listener, event, params )
 
-      -- turns off the event listener when player losts control
-      if "PLAYER_CONTROL_LOST" == event then
+      -- prevents the memory to be saved if player has no control of itself like
+      -- flying or being controlled by cinematics, etc
+      if not HasFullControl() then
 
-        listener:debug( "Player lost control, disabling " .. listener.name );
-        listener.disabled = true;
-      end
-
-      -- turns on the event listener when player gains control
-      if "PLAYER_CONTROL_GAINED" == event then
-
-        listener:debug( "Player gained control, enabling " .. listener.name );
-        listener.disabled = false;
-      end
-
-      -- prevents the memory to be saved since the listener is disabled
-      if listener.disabled then
-
-        listener:debug( "Listener is in disabled state, no memories will be recorded" );
+        listener:debug( "Player has no full control of itself, no memories will be recorded" );
         return;
       end
 
@@ -128,7 +115,6 @@ function MemoryAddon_appendEvents( core )
       listener.lastZone = zoneName;
     end
   );
-  eventZoneVisit.disabled = false;
   eventZoneVisit.lastZone = "";
   core:addEventListener( eventZoneVisit );
 
