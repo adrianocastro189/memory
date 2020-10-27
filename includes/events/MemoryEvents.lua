@@ -83,6 +83,19 @@ function MemoryAddon_appendEvents( core )
     function( event, params )
     function( listener, event, params )
 
+      -- turns off the event listener when player losts control
+      if "PLAYER_CONTROL_LOST" == event then
+
+        listener:debug( "Player lost control, disabling " .. listener.name );
+        listener.disabled = true;
+      end
+
+      -- turns on the event listener when player gains control
+      if "PLAYER_CONTROL_GAINED" == event then
+
+        listener:debug( "Player gained control, enabling " .. listener.name );
+        listener.disabled = false;
+      end
     end
   );
   eventZoneVisit.disabled = false;
