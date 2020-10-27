@@ -183,6 +183,9 @@ function MemoryRepository:new( player, realm )
 
     -- increases the number of times player experienced this memory
     memoryPath["x"] = memoryPath["x"] + x;
+
+    -- just a debug message to... help us debug!
+    MemoryCore:debug( "A '" .. interaction_type .. "' memory was stored for '" .. category .."'" );
   end
 
 
