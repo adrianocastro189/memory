@@ -8,7 +8,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 * Add a debug method to `MemoryCore`
 * Add a debug method to `MemoryEvent`
 * Add the `appendEvents` method to attach all the listeners to core
-* Add the first 8 event listener stubs to core
+* Add the first 8 event listeners to core
 
 ### 2020.10.23 - version 0.3.0-alpha
 * Add the `MemoryEvent` superclass
