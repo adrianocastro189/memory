@@ -84,7 +84,7 @@ function MemoryAddon_appendEvents( core )
 
       -- prevents the memory to be saved if player has no control of itself like
       -- flying or being controlled by cinematics, etc
-      if not HasFullControl() then
+      if not HasFullControl() or UnitOnTaxi( "player" ) then
 
         listener:debug( "Player has no full control of itself, no memories will be recorded" );
         return;
