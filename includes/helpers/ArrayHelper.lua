@@ -20,6 +20,19 @@ function MemoryAddon_ArrayHelper:new()
   local instance = {};
   setmetatable( instance, MemoryAddon_ArrayHelper );
 
+
+  --[[
+  Checks if a haystack array has a needle string.
+
+  @since 0.4.0-alpha
+
+  @return bool
+  ]]
+  function instance:inArray( needle, haystack )
+
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_ArrayHelper = nil;
 
