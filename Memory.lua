@@ -22,6 +22,9 @@ local function MemoryAddon_initializeCore()
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
+  -- the ArrayHelper instance
+  MemoryCore.arrayHelper = nil;
+
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
 
