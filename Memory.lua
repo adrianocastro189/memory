@@ -22,6 +22,9 @@ local function MemoryAddon_initializeCore()
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
+  -- the ArrayHelper instance
+  MemoryCore.arrayHelper = nil;
+
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
 
@@ -68,6 +71,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique array helper instance.
+
+  @since 0.4.0-alpha
+
+  @return MemoryAddon_ArrayHelper
+  ]]
+  function MemoryCore:getArrayHelper()
+
+    return self.arrayHelper;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
@@ -101,7 +117,8 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:initializeSingletons()
 
-    self.repository = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
+    self.arrayHelper = MemoryAddon_ArrayHelper:new();
+    self.repository  = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
   end
 
 
