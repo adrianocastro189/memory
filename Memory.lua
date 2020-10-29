@@ -71,6 +71,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique array helper instance.
+
+  @since 0.4.0-alpha
+
+  @return MemoryAddon_ArrayHelper
+  ]]
+  function MemoryCore:getArrayHelper()
+
+    return self.arrayHelper;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
