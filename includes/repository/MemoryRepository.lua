@@ -179,10 +179,13 @@ function MemoryRepository:new( player, realm )
     if memoryPath["first"] == -1 then memoryPath["first"] = memoryString; end
 
     -- stores the last time player experienced this memory
-    memoryPath["last"] = self:craftMemoryString();
+    memoryPath["last"] = memoryString;
 
     -- increases the number of times player experienced this memory
     memoryPath["x"] = memoryPath["x"] + x;
+
+    -- just a debug message to... help us debug!
+    MemoryCore:debug( "A '" .. interaction_type .. "' memory was stored for '" .. category .."' (" .. memoryString .. ")" );
   end
 
 

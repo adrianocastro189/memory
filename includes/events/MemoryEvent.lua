@@ -57,7 +57,7 @@ function MemoryEvent:new( name, events, action )
         self:debug( "Event " .. event .. " matched, calling action" );
 
         -- calls the event action
-        self:action( event, params );
+        self.action( self, event, params );
         return;
       end
     end

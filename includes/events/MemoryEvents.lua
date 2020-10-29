@@ -15,7 +15,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcBusiness",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -28,7 +28,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcTalk",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -41,7 +41,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcFight",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -54,7 +54,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventNpcQuest",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -67,7 +67,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventPlayerParty",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -77,13 +77,46 @@ function MemoryAddon_appendEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    {},
-    function( event, params )
+    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
+    function( listener, event, params )
 
+      -- prevents the memory to be saved if player has no control of itself like
+      -- flying or being controlled by cinematics, etc
+      if not HasFullControl() or UnitOnTaxi( "player" ) then
+
+        listener:debug( "Player has no full control of itself, no memories will be recorded" );
+        return;
+      end
+
+      -- gets the zone name
+      local zoneName = GetZoneText();
+
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
+      if zoneName == listener.lastZone then
+
+        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
+        return;
+      end
+
+      -- sanity check
+      if "" == zoneName then
+
+        listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
+        return;
+      end
+
+      -- stores a memory about the new zone player is visiting
+      MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+
+      -- will prevent the memory to be recorded twice in another event call
+      listener.lastZone = zoneName;
     end
-  ) );
+  );
+  eventZoneVisit.lastZone = "";
+  core:addEventListener( eventZoneVisit );
 
   --[[
   Event triggered when a player visits a sub zone.
@@ -93,7 +126,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventSubZoneVisit",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
@@ -106,7 +139,7 @@ function MemoryAddon_appendEvents( core )
   core:addEventListener( MemoryEvent:new(
     "EventItemLoot",
     {},
-    function( event, params )
+    function( listener, event, params )
 
     end
   ) );
