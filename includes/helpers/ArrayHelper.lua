@@ -13,12 +13,34 @@ Constructs a new instance of an array helper.
 
 @since 0.4.0-alpha
 
-@returns MemoryAddon_ArrayHelper
+@return MemoryAddon_ArrayHelper
 ]]
 function MemoryAddon_ArrayHelper:new()
 
   local instance = {};
   setmetatable( instance, MemoryAddon_ArrayHelper );
+
+
+  --[[
+  Checks if a haystack array has a needle string.
+
+  @since 0.4.0-alpha
+
+  @return bool
+  ]]
+  function instance:inArray( needle, haystack )
+
+    for i, value in ipairs( haystack ) do
+
+      if value == needle then
+
+        return true;
+      end
+    end
+
+    return false;
+  end
+
 
   -- destroys the prototype, so instance will be unique
   MemoryAddon_ArrayHelper = nil;

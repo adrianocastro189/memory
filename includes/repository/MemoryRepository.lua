@@ -15,7 +15,7 @@ Constructs a new instance of a memory repository.
 
 @param string realm
 @param string player
-@returns MemoryRepository
+@return MemoryRepository
 ]]
 function MemoryRepository:new( player, realm )
 
