@@ -11,6 +11,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 * Dev - Add the first 8 event listeners to core
 * Dev - Make MemoryRepository a real singleton
 * Dev - Prevent MemoryEvents from being initialized after core's initialization
+* Dev - Add an array helper instance to core
 
 ### 2020.10.23 - version 0.3.0-alpha
 * Dev - Add the `MemoryEvent` superclass
