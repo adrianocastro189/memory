@@ -30,6 +30,15 @@ function MemoryAddon_ArrayHelper:new()
   ]]
   function instance:inArray( needle, haystack )
 
+    for i, value in ipairs( haystack ) do
+
+      if value == needle then
+
+        return true;
+      end
+    end
+
+    return false;
   end
 
 
