@@ -155,6 +155,19 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Destroys the MemoryRepository prototype to prevent it from being initialized again.
+
+  This is the closest thing to a singleton I could come with so far.
+
+  @since 0.4.0-alpha
+  ]]
+  function instance:destroyPrototype()
+
+    MemoryRepository = nil;
+  end
+
+
+  --[[
   Stores a player's memory.
 
   @since 0.2.0-alpha
@@ -203,6 +216,9 @@ function MemoryRepository:new( player, realm )
 
   -- may initialize the player's memories
   instance:checkMyself();
+
+  -- destroys the prototype, so instance will be unique
+  instance:destroyPrototype();
 
   return instance;
 end
