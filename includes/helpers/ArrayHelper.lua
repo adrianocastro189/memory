@@ -13,7 +13,7 @@ Constructs a new instance of an array helper.
 
 @since 0.4.0-alpha
 
-@returns MemoryAddon_ArrayHelper
+@return MemoryAddon_ArrayHelper
 ]]
 function MemoryAddon_ArrayHelper:new()
 
