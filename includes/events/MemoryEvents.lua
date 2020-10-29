@@ -145,4 +145,7 @@ function MemoryAddon_appendEvents( core )
   ) );
 
   core:debug( "Events appended" );
+
+  -- prevents MemoryEvent from being exposed after all events are created
+  MemoryEvent:destroyPrototype();
 end

@@ -69,3 +69,14 @@ function MemoryEvent:new( name, events, action )
 
   return instance;
 end
+
+
+--[[
+Destroys the MemoryEvent prototype to prevent it from being exposed after core's initialization.
+
+@since 0.4.0-alpha
+]]
+function MemoryEvent:destroyPrototype()
+
+  MemoryEvent = nil;
+end
