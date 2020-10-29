@@ -104,7 +104,8 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:initializeSingletons()
 
-    self.repository = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
+    self.arrayHelper = MemoryAddon_ArrayHelper:new();
+    self.repository  = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
   end
 
 
