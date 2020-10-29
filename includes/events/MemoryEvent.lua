@@ -50,16 +50,12 @@ function MemoryEvent:new( name, events, action )
   ]]
   function instance:maybeTrigger( event, params )
 
-    for i, value in ipairs( self.events ) do
-
-      if value == event then
+    if MemoryCore:getArrayHelper():inArray( event, self.events ) then
 
         self:debug( "Event " .. event .. " matched, calling action" );
 
         -- calls the event action
         self.action( self, event, params );
-        return;
-      end
     end
   end
 
