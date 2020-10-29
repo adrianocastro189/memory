@@ -148,4 +148,7 @@ function MemoryAddon_appendEvents( core )
 
   -- prevents MemoryEvent from being exposed after all events are created
   MemoryEvent:destroyPrototype();
+
+  -- prevents this method to be called again
+  MemoryAddon_appendEvents = nil;
 end
