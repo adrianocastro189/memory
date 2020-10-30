@@ -93,18 +93,18 @@ function MemoryAddon_appendEvents( core )
       -- gets the zone name
       local zoneName = GetZoneText();
 
-      -- this event can be triggered whether the player is changing zones or not, so
-      -- we need to check if it had really changed zones
-      if zoneName == listener.lastZone then
+      -- sanity check
+      if "" == zoneName then
 
-        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
+        listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
         return;
       end
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
+      if zoneName == listener.lastZone then
 
-        listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
+        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
         return;
       end
 
