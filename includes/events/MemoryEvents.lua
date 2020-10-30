@@ -79,7 +79,7 @@ function MemoryAddon_appendEvents( core )
   ]]
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
+    { "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
     function( listener, event, params )
 
       -- prevents the memory to be saved if player has no control of itself like
@@ -101,8 +101,8 @@ function MemoryAddon_appendEvents( core )
         return;
       end
 
-      -- sanity check
-      if "" == zoneName then
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
 
         listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
         return;
@@ -115,7 +115,8 @@ function MemoryAddon_appendEvents( core )
       listener.lastZone = zoneName;
     end
   );
-  eventZoneVisit.lastZone = "";
+  eventZoneVisit.lastSubZones = {};
+  eventZoneVisit.lastZone     = "";
   core:addEventListener( eventZoneVisit );
 
   --[[
