@@ -25,6 +25,9 @@ local function MemoryAddon_initializeCore()
   -- the ArrayHelper instance
   MemoryCore.arrayHelper = nil;
 
+  -- the CompatibilityHelper instance
+  MemoryCore.compatibilityHelper = nil;
+
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
 
@@ -84,6 +87,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique compatibility helper instance.
+
+  @since 0.4.0-alpha
+
+  @return MemoryAddon_CompatibilityHelper
+  ]]
+  function MemoryCore:getCompatibilityHelper()
+
+    return self.compatibilityHelper;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
@@ -117,8 +133,9 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:initializeSingletons()
 
-    self.arrayHelper = MemoryAddon_ArrayHelper:new();
-    self.repository  = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
+    self.arrayHelper         = MemoryAddon_ArrayHelper:new();
+    self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
+    self.repository          = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
   end
 
 
