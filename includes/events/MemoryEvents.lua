@@ -113,6 +113,30 @@ function MemoryAddon_appendEvents( core )
         -- retests the last sub zones array when player changes zones
         listener.lastSubZones = {};
       end
+
+      -- gets the zone name
+      local subZoneName = GetSubZoneText() or GetMinimapZoneText();
+
+      -- sanity check
+      if "" == subZoneName then
+
+        listener:debug( "The sub zone name couldn't be retrieved, no memories will be recorded" );
+        return;
+      end
+
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
+      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then
+
+        listener:debug( "Player hasn't changed subzones, no memories will be recorded" );
+        return;
+      end
+
+      -- stores a memory about the new sub zone player is visiting
+      MemoryCore:getRepository():store( "zones", { zoneName, "subzones", subZoneName }, "visit" );
+
+      -- will prevent the memory to be recorded twice in another event call
+      table.insert( listener.lastSubZones, subZoneName );
     end
   );
   eventZoneVisit.lastSubZones = {};
