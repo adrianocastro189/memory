@@ -102,17 +102,17 @@ function MemoryAddon_appendEvents( core )
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
-      if zoneName == listener.lastZone then
+      if not zoneName == listener.lastZone then
 
-        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
-        return;
+        -- stores a memory about the new zone player is visiting
+        MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+
+        -- will prevent the memory to be recorded twice in another event call
+        listener.lastZone = zoneName;
+
+        -- retests the last sub zones array when player changes zones
+        listener.lastSubZones = {};
       end
-
-      -- stores a memory about the new zone player is visiting
-      MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
-
-      -- will prevent the memory to be recorded twice in another event call
-      listener.lastZone = zoneName;
     end
   );
   eventZoneVisit.lastSubZones = {};
