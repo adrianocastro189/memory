@@ -75,11 +75,18 @@ function MemoryAddon_appendEvents( core )
   --[[
   Event triggered when a player visits a zone.
 
+  The first approaches to this event were based on player switching zones, indoor zones,
+  areas, etc. However, sometimes those events are triggered before GetZoneText() and
+  GetMinimapZoneText() retrieve zone information.
+
+  After thinking about what a visit means, it makes more sense to register the memories
+  when the player walks through the place (moving or stop moving).
+
   @since 0.4.0-alpha
   ]]
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    { "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
+    { "PLAYER_STARTED_MOVING", "PLAYER_STOPPED_MOVING" },
     function( listener, event, params )
 
       -- prevents the memory to be saved if player has no control of itself like
