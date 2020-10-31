@@ -13,5 +13,6 @@ includes\events\MemoryEvent.lua
 includes\events\MemoryEvents.lua
 
 includes\helpers\ArrayHelper.lua
+includes\helpers\CompatibilityHelper.lua
 
 includes\repository\MemoryRepository.lua

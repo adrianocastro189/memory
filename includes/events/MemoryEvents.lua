@@ -75,31 +75,30 @@ function MemoryAddon_appendEvents( core )
   --[[
   Event triggered when a player visits a zone.
 
+  The first approaches to this event were based on player switching zones, indoor zones,
+  areas, etc. However, sometimes those events are triggered before GetZoneText() and
+  GetMinimapZoneText() retrieve zone information.
+
+  After thinking about what a visit means, it makes more sense to register the memories
+  when the player walks through the place (moving or stop moving).
+
   @since 0.4.0-alpha
   ]]
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    { "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
+    { "PLAYER_STARTED_MOVING", "PLAYER_STOPPED_MOVING" },
     function( listener, event, params )
 
       -- prevents the memory to be saved if player has no control of itself like
       -- flying or being controlled by cinematics, etc
-      if not HasFullControl() or UnitOnTaxi( "player" ) then
+      if not HasFullControl() or UnitOnTaxi( "player" ) or MemoryCore:getCompatibilityHelper():isFlying() then
 
-        listener:debug( "Player has no full control of itself, no memories will be recorded" );
+        listener:debug( "Player has no full control of itself or is flying, no memories will be recorded" );
         return;
       end
 
       -- gets the zone name
       local zoneName = GetZoneText();
-
-      -- this event can be triggered whether the player is changing zones or not, so
-      -- we need to check if it had really changed zones
-      if zoneName == listener.lastZone then
-
-        listener:debug( "Player hasn't changed zones, no memories will be recorded" );
-        return;
-      end
 
       -- sanity check
       if "" == zoneName then
@@ -108,14 +107,47 @@ function MemoryAddon_appendEvents( core )
         return;
       end
 
-      -- stores a memory about the new zone player is visiting
-      MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
+      if not zoneName == listener.lastZone then
+
+        -- stores a memory about the new zone player is visiting
+        MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+
+        -- will prevent the memory to be recorded twice in another event call
+        listener.lastZone = zoneName;
+
+        -- retests the last sub zones array when player changes zones
+        listener.lastSubZones = {};
+      end
+
+      -- gets the zone name
+      local subZoneName = GetSubZoneText() or GetMinimapZoneText();
+
+      -- sanity check
+      if "" == subZoneName then
+
+        listener:debug( "The sub zone name couldn't be retrieved, no memories will be recorded" );
+        return;
+      end
+
+      -- this event can be triggered whether the player is changing zones or not, so
+      -- we need to check if it had really changed zones
+      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then
+
+        listener:debug( "Player hasn't changed subzones, no memories will be recorded" );
+        return;
+      end
+
+      -- stores a memory about the new sub zone player is visiting
+      MemoryCore:getRepository():store( "zones", { zoneName, "subzones", subZoneName }, "visit" );
 
       -- will prevent the memory to be recorded twice in another event call
-      listener.lastZone = zoneName;
+      table.insert( listener.lastSubZones, subZoneName );
     end
   );
-  eventZoneVisit.lastZone = "";
+  eventZoneVisit.lastSubZones = {};
+  eventZoneVisit.lastZone     = "";
   core:addEventListener( eventZoneVisit );
 
   --[[
