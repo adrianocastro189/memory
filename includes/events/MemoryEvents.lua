@@ -93,7 +93,7 @@ function MemoryAddon_appendEvents( core )
       -- flying or being controlled by cinematics, etc
       if not HasFullControl() or UnitOnTaxi( "player" ) or IsFlying() then
 
-        listener:debug( "Player has no full control of itself, no memories will be recorded" );
+        listener:debug( "Player has no full control of itself or is flying, no memories will be recorded" );
         return;
       end
 
