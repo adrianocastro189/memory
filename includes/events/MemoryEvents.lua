@@ -79,7 +79,7 @@ function MemoryAddon_appendEvents( core )
   ]]
   local eventZoneVisit = MemoryEvent:new(
     "EventZoneVisit",
-    { "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
+    { "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" },
     function( listener, event, params )
 
       -- prevents the memory to be saved if player has no control of itself like
