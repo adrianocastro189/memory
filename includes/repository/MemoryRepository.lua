@@ -205,20 +205,7 @@ function MemoryRepository:new( player, realm )
   instance:checkMyself();
 
   -- destroys the prototype, so instance will be unique
-  MemoryRepository:destroyPrototype();
+  MemoryRepository = nil;
 
   return instance;
-end
-
-
---[[
-Destroys the MemoryRepository prototype to prevent it from being initialized again.
-
-This is the closest thing to a singleton I could come with so far.
-
-@since 0.4.0-alpha
-]]
-function MemoryRepository:destroyPrototype()
-
-  MemoryRepository = nil;
 end
