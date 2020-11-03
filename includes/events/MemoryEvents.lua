@@ -30,6 +30,13 @@ function MemoryAddon_addEvents( core )
     { "GOSSIP_SHOW", "ZONE_CHANGED" },
     function( listener, event, params )
 
+      if "ZONE_CHANGED" == event then
+
+        listener:debug( "Player changed zones, resetting last NPCs list" );
+        listener.lastNpcs = {};
+        return;
+      end
+
     end
   );
   eventNpcTalk.lastNpcs = {};
