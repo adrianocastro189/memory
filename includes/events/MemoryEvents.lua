@@ -5,7 +5,7 @@ Adds all the available memory event implementations to core as listeners.
 
 @param MemoryCore core the memory core instance
 ]]
-function MemoryAddon_appendEvents( core )
+function MemoryAddon_addEvents( core )
 
   --[[
   Event triggered when a player buys, sells or repairs with an NPC.
@@ -176,11 +176,11 @@ function MemoryAddon_appendEvents( core )
     end
   ) );
 
-  core:debug( "Events appended" );
+  core:debug( "Events added" );
 
   -- prevents MemoryEvent from being exposed after all events are created
   MemoryEvent:destroyPrototype();
 
   -- prevents this method to be called again
-  MemoryAddon_appendEvents = nil;
+  MemoryAddon_addEvents = nil;
 end
