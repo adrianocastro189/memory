@@ -71,6 +71,7 @@ function MemoryAddon_addPlayerPrototype( core )
     Determines whether the player is an npc.
 
     @since 0.4.0-alpha
+
     @return bool
     ]]
     function instance:isNpc()
@@ -83,6 +84,7 @@ function MemoryAddon_addPlayerPrototype( core )
     Determines whether the player is a human player.
 
     @since 0.4.0-alpha
+
     @return bool
     ]]
     function instance:isPlayer()
