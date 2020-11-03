@@ -25,13 +25,15 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventNpcTalk = MemoryEvent:new(
     "EventNpcTalk",
-    {},
+    { "GOSSIP_SHOW", "ZONE_CHANGED" },
     function( listener, event, params )
 
     end
-  ) );
+  );
+  eventNpcTalk.lastNpcs = {};
+  core:addEventListener( eventNpcTalk );
 
   --[[
   Event triggered when a player fights with an NPC.
