@@ -68,6 +68,19 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
     --[[
+    Gets the player type.
+
+    @since 0.4.0-alpha
+
+    @return string player's type
+    ]]
+    function instance:getType()
+
+      return self.type or '';
+    end
+
+
+    --[[
     Determines whether the player is an npc.
 
     @since 0.4.0-alpha
@@ -76,7 +89,7 @@ function MemoryAddon_addPlayerPrototype( core )
     ]]
     function instance:isNpc()
 
-      return self.type ~= nil and self.TYPE_NPC == self.type;
+      return self.TYPE_NPC == self:getType();
     end
 
 
@@ -89,7 +102,7 @@ function MemoryAddon_addPlayerPrototype( core )
     ]]
     function instance:isPlayer()
 
-      return self.type ~= nil and self.TYPE_PLAYER == self.type;
+      return self.TYPE_PLAYER == self:getType();
     end
 
 
