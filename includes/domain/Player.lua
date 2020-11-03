@@ -59,7 +59,7 @@ function MemoryAddon_addPlayerPrototype( core )
 
     @since 0.4.0-alpha
 
-    @return string guid player's name
+    @return string player's name
     ]]
     function instance:getName()
 
