@@ -42,6 +42,30 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
     --[[
+    Determines whether the player is an npc.
+
+    @since 0.4.0-alpha
+    @return bool
+    ]]
+    function instance:isNpc()
+
+      return self.type ~= nil and self.TYPE_NPC == self.type;
+    end
+
+
+    --[[
+    Determines whether the player is a human player.
+
+    @since 0.4.0-alpha
+    @return bool
+    ]]
+    function instance:isPlayer()
+
+      return self.type ~= nil and self.TYPE_PLAYER == self.type;
+    end
+
+
+    --[[
     Sets the player type based on its guid.
 
     @since 0.4.0-alpha
