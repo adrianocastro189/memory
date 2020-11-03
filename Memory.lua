@@ -188,6 +188,9 @@ local function MemoryAddon_initializeCore()
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
+  -- adds the player prototype to core
+  MemoryAddon_addPlayerPrototype( MemoryCore );
+
   -- will add all event listeners to this core instance
   MemoryAddon_appendEvents( MemoryCore );
 
