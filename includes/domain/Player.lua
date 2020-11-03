@@ -28,6 +28,13 @@ function MemoryAddon_addPlayerPrototype( core )
   function MemoryAddon_Player:new( guid, name )
 
     local instance = {};
+
+    -- defines a constant to represent npcs
+    instance.TYPE_NPC = 'npc';
+
+    -- defines a constant to represent human players
+    instance.TYPE_PLAYER = 'player';
+
     setmetatable( instance, MemoryAddon_Player );
     instance.guid = guid;
     instance.name = name;
