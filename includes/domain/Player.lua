@@ -40,6 +40,35 @@ function MemoryAddon_addPlayerPrototype( core )
     instance.name = name;
     instance.type = nil;
 
+
+    --[[
+    Sets the player type based on its guid.
+
+    @since 0.4.0-alpha
+    ]]
+    function instance:setPlayerType()
+
+      -- sanity check
+      if self.guid == nil or self.guid == '' then return; end
+
+      -- breaks the guid to get its properties
+      local type = strsplit( '-', self.guid );
+
+      if 'Player' == type then
+
+        -- target is a human player
+        self.type = self.TYPE_PLAYER;
+      elseif 'Creature' == type then
+
+        -- target is a non-playable character
+        self.type = self.TYPE_NPC;
+      end
+    end
+
+
+    -- sets the player type
+    instance:setPlayerType();
+
     return instance;
   end
 
