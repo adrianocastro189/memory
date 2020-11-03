@@ -42,6 +42,32 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
     --[[
+    Gets the player GUID.
+
+    @since 0.4.0-alpha
+
+    @return string guid player's unique ID
+    ]]
+    function instance:getGuid()
+
+      return self.guid;
+    end
+
+
+    --[[
+    Gets the player name.
+
+    @since 0.4.0-alpha
+
+    @return string guid player's name
+    ]]
+    function instance:getName()
+
+      return self.name;
+    end
+
+
+    --[[
     Determines whether the player is an npc.
 
     @since 0.4.0-alpha
