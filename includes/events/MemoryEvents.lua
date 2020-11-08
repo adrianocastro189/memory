@@ -46,6 +46,29 @@ function MemoryAddon_addEvents( core )
           listener:debug( "Player is not doing business, no memories will be recorded" );
           return;
         end
+
+        -- gets the player on target
+        local target = MemoryCore:getPlayerOnTarget();
+
+        -- sanity check
+        if not target:isNpc() then
+
+          MemoryCore:debug( "Target is not an NPC, no memories will be saved" );
+          return;
+        end
+
+        -- when a player does business with an npc again before leaving the zone, we won't count that as another memory
+        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then
+
+          listener:debug( "Player had done business with this npc recently, no memories will be recorded" );
+          return;
+        end
+
+        -- stores the player memory about doing business with that npc
+        MemoryCore:getRepository():store( 'npcs', { target:getName() }, 'business' );
+
+        -- will prevent the memory to be recorded twice if player does business with the same npc again before leaving the zone
+        table.insert( listener.lastNpcs, target:getName() );
       end
 
     end
