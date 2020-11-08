@@ -12,14 +12,13 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventNpcBusiness = MemoryEvent:new(
+  core:addEventListener( MemoryEvent:new(
     "EventNpcBusiness",
     {},
     function( listener, event, params )
 
     end
-  );
-  core:addEventListener( eventNpcBusiness );
+  ) );
 
   --[[
   Event triggered when a player speaks with an NPC.
