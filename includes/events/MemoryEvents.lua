@@ -17,10 +17,17 @@ function MemoryAddon_addEvents( core )
     { 'MERCHANT_CLOSED', 'MERCHANT_SHOW', 'PLAYER_MONEY', 'ZONE_CHANGED' },
     function( listener, event, params )
 
-      if "ZONE_CHANGED" == event then
+      if 'ZONE_CHANGED' == event then
 
         listener:debug( "Player changed zones, resetting last NPCs list" );
         listener.lastNpcs = {};
+        return;
+      end
+
+      if 'MERCHANT_CLOSED' == event then
+
+        listener:debug( "Merchant window closed, player is not doing business anymore" );
+        listener.doingBusiness = false;
         return;
       end
 
