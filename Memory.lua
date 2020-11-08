@@ -61,10 +61,13 @@ local function MemoryAddon_initializeCore()
   Prints a debug message if the debug mode is on.
 
   @since 0.4.0-alpha
-  ]]
-  function MemoryCore:debug( message )
 
-    if self.DEBUG then
+  @param string message the message to log
+  @param bool force (optional) will bypass self.DEBUG if true
+  ]]
+  function MemoryCore:debug( message, --[[optional]] force )
+
+    if self.DEBUG or force then
 
       local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
 

@@ -185,7 +185,7 @@ function MemoryRepository:new( player, realm )
     memoryPath["x"] = memoryPath["x"] + x;
 
     -- just a debug message to... help us debug!
-    MemoryCore:debug( "A '" .. interaction_type .. "' memory was stored for '" .. category .."' (" .. memoryString .. ")" );
+    MemoryCore:debug( "A '" .. interaction_type .. "' memory was stored for '" .. category .."' (" .. memoryString .. ")", true );
   end
 
 
