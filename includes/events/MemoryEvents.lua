@@ -14,7 +14,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcBusiness = MemoryEvent:new(
     "EventNpcBusiness",
-    {},
+    { 'MERCHANT_CLOSED', 'MERCHANT_SHOW', 'PLAYER_MONEY', 'ZONE_CHANGED' },
     function( listener, event, params )
 
     end
