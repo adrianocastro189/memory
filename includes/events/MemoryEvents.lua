@@ -31,6 +31,13 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
+      if 'MERCHANT_SHOW' == event then
+
+        listener:debug( "Merchant window opened, player is doing business" );
+        listener.doingBusiness = true;
+        return;
+      end
+
     end
   );
   eventNpcBusiness.doingBusiness = false;
