@@ -19,6 +19,8 @@ function MemoryAddon_addEvents( core )
 
     end
   );
+  eventNpcBusiness.doingBusiness = false;
+  eventNpcBusiness.lastNpcs      = {};
   core:addEventListener( eventNpcBusiness );
 
   --[[
