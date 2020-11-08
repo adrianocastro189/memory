@@ -38,6 +38,16 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
+      -- sanity check
+      if 'PLAYER_MONEY' == event then
+
+        if not listener.doingBusiness then
+
+          listener:debug( "Player is not doing business, no memories will be recorded" );
+          return;
+        end
+      end
+
     end
   );
   eventNpcBusiness.doingBusiness = false;
