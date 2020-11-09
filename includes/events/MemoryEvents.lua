@@ -71,7 +71,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcFight = MemoryEvent:new(
     "EventNpcFight",
-    {},
+    { 'COMBAT_LOG_EVENT' },
     function( listener, event, params )
 
     end
