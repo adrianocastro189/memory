@@ -95,6 +95,12 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
+      if not MemoryCore:inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
+
+        listener:debug( 'subEvent = ' .. subevent .. ', no memories will be recorded' );
+        return;
+      end
+
       -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
       table.insert( listener.lastNpcs, destGuid );
     end
