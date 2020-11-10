@@ -114,6 +114,9 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
+      -- stores a memory of fighting the npc
+      MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
+
       -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
       table.insert( listener.lastNpcs, destGuid );
     end
