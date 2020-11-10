@@ -74,8 +74,11 @@ function MemoryAddon_addEvents( core )
     { 'COMBAT_LOG_EVENT' },
     function( listener, event, params )
 
+      -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
+      table.insert( listener.lastNpcs, target:getName() );
     end
   );
+  eventNpcFight.lastNpcs = {};
   core:addEventListener( eventNpcFight );
 
   --[[
