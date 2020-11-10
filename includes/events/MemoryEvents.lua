@@ -67,15 +67,71 @@ function MemoryAddon_addEvents( core )
   --[[
   Event triggered when a player fights with an NPC.
 
+  @see https://wow.gamepedia.com/COMBAT_LOG_EVENT
+
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventNpcFight = MemoryEvent:new(
     "EventNpcFight",
-    {},
+    { 'COMBAT_LOG_EVENT', 'ZONE_CHANGED' },
     function( listener, event, params )
 
+      if 'ZONE_CHANGED' == event and not InCombatLockdown() then
+
+        listener:debug( "Player changed zones out of combat, clearing last npcs list" );
+        listener.lastNpcs = {};
+        return;
+      end
+
+      -- gets the combat log current event info
+      local timestamp, subEvent, _, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
+
+      -- fix a possible nil value for subEvent
+      subEvent = subEvent or 'NONE';
+
+      -- gets player guid to be used on the next conditionals
+      local playerGuid = UnitGUID( 'player' );
+
+      if not playerGuid == sourceGuid then
+
+        listener:debug( "Player wasn't the owner of this attack, no memories will be recorded" );
+        return;
+      end
+
+      if playerGuid == destGuid then
+
+        listener:debug( "Player was attacked, no memories will be recorded" );
+        return;
+      end
+
+      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
+
+        listener:debug( 'subEvent = ' .. subEvent .. ', no memories will be recorded' );
+        return;
+      end
+
+      if MemoryCore:getArrayHelper():inArray( destGuid, listener.lastNpcs ) then
+
+        listener:debug( 'Player has already attacked this NPC, no memories will be recorded' );
+        return;
+      end
+
+      -- sanity check
+      if destName == nil or '' == destName then
+
+        listener:debug( 'destName is null or empty, no memories will be recorded' );
+        return;
+      end
+
+      -- stores a memory of fighting the npc
+      MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
+
+      -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
+      table.insert( listener.lastNpcs, destGuid );
     end
-  ) );
+  );
+  eventNpcFight.lastNpcs = {};
+  core:addEventListener( eventNpcFight );
 
   --[[
   Event triggered when a player turns in a quest for an NPC.
