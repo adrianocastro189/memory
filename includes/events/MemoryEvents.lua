@@ -74,6 +74,9 @@ function MemoryAddon_addEvents( core )
     { 'COMBAT_LOG_EVENT' },
     function( listener, event, params )
 
+      -- gets the combat log current event info
+      local timestamp, subevent, _, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
+
       -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
       table.insert( listener.lastNpcs, target:getName() );
     end
