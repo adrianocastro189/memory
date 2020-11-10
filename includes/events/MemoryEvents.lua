@@ -86,7 +86,6 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
-
       if playerGuid == destGuid then
 
         listener:debug( "Player was attacked, no memories will be recorded" );
