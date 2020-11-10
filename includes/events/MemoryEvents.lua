@@ -12,13 +12,70 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventNpcBusiness = MemoryEvent:new(
     "EventNpcBusiness",
-    {},
+    { 'MERCHANT_CLOSED', 'MERCHANT_SHOW', 'PLAYER_MONEY', 'ZONE_CHANGED' },
     function( listener, event, params )
 
+      if 'ZONE_CHANGED' == event then
+
+        listener:debug( "Player changed zones, resetting last NPCs list" );
+        listener.lastNpcs = {};
+        return;
+      end
+
+      if 'MERCHANT_CLOSED' == event then
+
+        listener:debug( "Merchant window closed, player is not doing business anymore" );
+        listener.doingBusiness = false;
+        return;
+      end
+
+      if 'MERCHANT_SHOW' == event then
+
+        listener:debug( "Merchant window opened, player is doing business" );
+        listener.doingBusiness = true;
+        return;
+      end
+
+      -- sanity check
+      if 'PLAYER_MONEY' == event then
+
+        if not listener.doingBusiness then
+
+          listener:debug( "Player is not doing business, no memories will be recorded" );
+          return;
+        end
+
+        -- gets the player on target
+        local target = MemoryCore:getPlayerOnTarget();
+
+        -- sanity check
+        if not target:isNpc() then
+
+          MemoryCore:debug( "Target is not an NPC, no memories will be saved" );
+          return;
+        end
+
+        -- when a player does business with an npc again before leaving the zone, we won't count that as another memory
+        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then
+
+          listener:debug( "Player had done business with this npc recently, no memories will be recorded" );
+          return;
+        end
+
+        -- stores the player memory about doing business with that npc
+        MemoryCore:getRepository():store( 'npcs', { target:getName() }, 'business' );
+
+        -- will prevent the memory to be recorded twice if player does business with the same npc again before leaving the zone
+        table.insert( listener.lastNpcs, target:getName() );
+      end
+
     end
-  ) );
+  );
+  eventNpcBusiness.doingBusiness = false;
+  eventNpcBusiness.lastNpcs      = {};
+  core:addEventListener( eventNpcBusiness );
 
   --[[
   Event triggered when a player speaks with an NPC.
