@@ -75,7 +75,10 @@ function MemoryAddon_addEvents( core )
     function( listener, event, params )
 
       -- gets the combat log current event info
-      local timestamp, subevent, _, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
+      local timestamp, subEvent, _, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
+
+      -- fix a possible nil value for subEvent
+      subEvent = subEvent or 'NONE';
 
       -- gets player guid to be used on the next conditionals
       local playerGuid = UnitGUID( 'player' );
