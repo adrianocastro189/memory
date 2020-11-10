@@ -73,8 +73,15 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcFight = MemoryEvent:new(
     "EventNpcFight",
-    { 'COMBAT_LOG_EVENT' },
+    { 'COMBAT_LOG_EVENT', 'ZONE_CHANGED' },
     function( listener, event, params )
+
+      if 'ZONE_CHANGED' == event and not InCombatLockdown() then
+
+        listener:debug( "Player changed zones out of combat, clearing last npcs list" );
+        listener.lastNpcs = {};
+        return;
+      end
 
       -- gets the combat log current event info
       local timestamp, subEvent, _, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, destGuid, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
