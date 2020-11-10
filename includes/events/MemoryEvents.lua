@@ -97,7 +97,13 @@ function MemoryAddon_addEvents( core )
 
       if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
 
-        listener:debug( 'subEvent = ' .. subevent .. ', no memories will be recorded' );
+        listener:debug( 'subEvent = ' .. subEvent .. ', no memories will be recorded' );
+        return;
+      end
+
+      if MemoryCore:getArrayHelper():inArray( destGuid, listener.lastNpcs ) then
+
+        listener:debug( 'Player has already attacked this NPC, no memories will be recorded' );
         return;
       end
 
