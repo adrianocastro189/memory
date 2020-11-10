@@ -67,6 +67,8 @@ function MemoryAddon_addEvents( core )
   --[[
   Event triggered when a player fights with an NPC.
 
+  @see https://wow.gamepedia.com/COMBAT_LOG_EVENT
+
   @since 0.4.0-alpha
   ]]
   local eventNpcFight = MemoryEvent:new(
