@@ -95,7 +95,7 @@ function MemoryAddon_addEvents( core )
         return;
       end
 
-      if not MemoryCore:inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
+      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
 
         listener:debug( 'subEvent = ' .. subevent .. ', no memories will be recorded' );
         return;
