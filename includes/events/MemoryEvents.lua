@@ -70,7 +70,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcTalk = MemoryEvent:new(
     "EventNpcTalk",
-    { "GOSSIP_SHOW", "MERCHANT_SHOW", "ZONE_CHANGED" },
+    { 'GOSSIP_SHOW', 'MERCHANT_SHOW', 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING', 'ZONE_CHANGED' },
     function( listener, event, params )
 
       if "ZONE_CHANGED" == event then
