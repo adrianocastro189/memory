@@ -68,7 +68,7 @@ function MemoryEvent:new( name, events, action )
 
     if MemoryCore:getArrayHelper():inArray( event, self.events ) then
 
-        self:debug( "Event " .. event .. " matched, calling action" );
+        self:debug( event );
 
         -- calls the event action
         self.action( self, event, params );
