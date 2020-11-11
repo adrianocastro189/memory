@@ -41,6 +41,22 @@ function MemoryEvent:new( name, events, action )
 
 
   --[[
+  Prints a debug message to indicate that the event won't store memories.
+
+  @since 0.4.0-alpha
+
+  @param string message
+  @return int a symbolic value to indicate an exit
+  ]]
+  function instance:debugAndExit( message )
+
+    self:debug( '\124cffff0000[E]\124r ' .. message );
+
+    return -1;
+  end
+
+
+  --[[
   Checks if the current instance triggers for the given event and call the action.
 
   @since 0.3.0-alpha
@@ -52,7 +68,7 @@ function MemoryEvent:new( name, events, action )
 
     if MemoryCore:getArrayHelper():inArray( event, self.events ) then
 
-        self:debug( "Event " .. event .. " matched, calling action" );
+        self:debug( event );
 
         -- calls the event action
         self.action( self, event, params );

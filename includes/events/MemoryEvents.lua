@@ -19,50 +19,36 @@ function MemoryAddon_addEvents( core )
 
       if 'ZONE_CHANGED' == event then
 
-        listener:debug( "Player changed zones, resetting last NPCs list" );
         listener.lastNpcs = {};
-        return;
+        return listener:debugAndExit( "Resetting last NPCs list" );
       end
 
       if 'MERCHANT_CLOSED' == event then
 
-        listener:debug( "Merchant window closed, player is not doing business anymore" );
         listener.doingBusiness = false;
-        return;
+        return listener:debugAndExit( "Merchant window closed" );
       end
 
       if 'MERCHANT_SHOW' == event then
 
-        listener:debug( "Merchant window opened, player is doing business" );
         listener.doingBusiness = true;
-        return;
+        return listener:debugAndExit( "Merchant window opened" );
       end
 
       -- sanity check
       if 'PLAYER_MONEY' == event then
 
-        if not listener.doingBusiness then
-
-          listener:debug( "Player is not doing business, no memories will be recorded" );
-          return;
-        end
+        -- exit condition if player is not doing business
+        if not listener.doingBusiness then return listener:debugAndExit( "Player is not doing business" ); end
 
         -- gets the player on target
         local target = MemoryCore:getPlayerOnTarget();
 
         -- sanity check
-        if not target:isNpc() then
-
-          MemoryCore:debug( "Target is not an NPC, no memories will be saved" );
-          return;
-        end
+        if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
 
         -- when a player does business with an npc again before leaving the zone, we won't count that as another memory
-        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then
-
-          listener:debug( "Player had done business with this npc recently, no memories will be recorded" );
-          return;
-        end
+        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Recent business" ); end
 
         -- stores the player memory about doing business with that npc
         MemoryCore:getRepository():store( 'npcs', { target:getName() }, 'business' );
@@ -89,27 +75,18 @@ function MemoryAddon_addEvents( core )
 
       if "ZONE_CHANGED" == event then
 
-        listener:debug( "Player changed zones, resetting last NPCs list" );
         listener.lastNpcs = {};
-        return;
+        return listener:debugAndExit( "Resetting last NPCs list" );
       end
 
       -- gets the player on target
       local target = MemoryCore:getPlayerOnTarget();
 
       -- sanity check
-      if not target:isNpc() then
-
-        MemoryCore:debug( "Target is not an NPC, no memories will be saved" );
-        return;
-      end
+      if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
 
       -- when a player talks with an npc again before leaving the zone, we won't count that as another memory
-      if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then
-
-        listener:debug( "Player had spoken with this npc recently, no memories will be recorded" );
-        return;
-      end
+      if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
 
       -- stores the player memory about talking with that npc
       MemoryCore:getRepository():store( "npcs", { target:getName() }, "talk" );
@@ -135,9 +112,8 @@ function MemoryAddon_addEvents( core )
 
       if 'ZONE_CHANGED' == event and not InCombatLockdown() then
 
-        listener:debug( "Player changed zones out of combat, clearing last npcs list" );
         listener.lastNpcs = {};
-        return;
+        return listener:debugAndExit( "Clearing last npcs list" );
       end
 
       -- gets the combat log current event info
@@ -149,36 +125,20 @@ function MemoryAddon_addEvents( core )
       -- gets player guid to be used on the next conditionals
       local playerGuid = UnitGUID( 'player' );
 
-      if not playerGuid == sourceGuid then
+      -- exit condition if player is not the owner of the attack
+      if not playerGuid == sourceGuid then return listener:debugAndExit( "Player didn't attack" ); end
 
-        listener:debug( "Player wasn't the owner of this attack, no memories will be recorded" );
-        return;
-      end
+      -- exit condition if player was attacked
+      if playerGuid == destGuid then return listener:debugAndExit( "Player was attacked" ); end
 
-      if playerGuid == destGuid then
+      -- exit condition if subevent is not a known one
+      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
 
-        listener:debug( "Player was attacked, no memories will be recorded" );
-        return;
-      end
-
-      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then
-
-        listener:debug( 'subEvent = ' .. subEvent .. ', no memories will be recorded' );
-        return;
-      end
-
-      if MemoryCore:getArrayHelper():inArray( destGuid, listener.lastNpcs ) then
-
-        listener:debug( 'Player has already attacked this NPC, no memories will be recorded' );
-        return;
-      end
+      -- exit condition if player has already attacked this npc
+      if MemoryCore:getArrayHelper():inArray( destGuid, listener.lastNpcs ) then return listener:debugAndExit( 'Already attacked' ); end
 
       -- sanity check
-      if destName == nil or '' == destName then
-
-        listener:debug( 'destName is null or empty, no memories will be recorded' );
-        return;
-      end
+      if destName == nil or '' == destName then return listener:debugAndExit( 'destName is null or empty' ); end
 
       -- stores a memory of fighting the npc
       MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
@@ -235,21 +195,13 @@ function MemoryAddon_addEvents( core )
 
       -- prevents the memory to be saved if player has no control of itself like
       -- flying or being controlled by cinematics, etc
-      if not HasFullControl() or UnitOnTaxi( "player" ) or MemoryCore:getCompatibilityHelper():isFlying() then
-
-        listener:debug( "Player has no full control of itself or is flying, no memories will be recorded" );
-        return;
-      end
+      if not HasFullControl() or UnitOnTaxi( "player" ) or MemoryCore:getCompatibilityHelper():isFlying() then return listener:debugAndExit( "No full control" ); end
 
       -- gets the zone name
       local zoneName = GetZoneText();
 
       -- sanity check
-      if "" == zoneName then
-
-        listener:debug( "The zone name couldn't be retrieved, no memories will be recorded" );
-        return;
-      end
+      if "" == zoneName then return listener:debugAndExit( "Invalid zone name" ); end
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
@@ -269,19 +221,11 @@ function MemoryAddon_addEvents( core )
       local subZoneName = GetSubZoneText() or GetMinimapZoneText();
 
       -- sanity check
-      if "" == subZoneName then
-
-        listener:debug( "The sub zone name couldn't be retrieved, no memories will be recorded" );
-        return;
-      end
+      if "" == subZoneName then return listener:debugAndExit( "Invalid subzone name" ); end
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
-      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then
-
-        listener:debug( "Player hasn't changed subzones, no memories will be recorded" );
-        return;
-      end
+      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then return listener:debugAndExit( "Player hasn't changed subzones" ); end
 
       -- stores a memory about the new sub zone player is visiting
       MemoryCore:getRepository():store( "zones", { zoneName, "subzones", subZoneName }, "visit" );
