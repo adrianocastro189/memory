@@ -151,19 +151,6 @@ function MemoryAddon_addEvents( core )
   core:addEventListener( eventNpcFight );
 
   --[[
-  Event triggered when a player turns in a quest for an NPC.
-
-  @since 0.4.0-alpha
-  ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventNpcQuest",
-    {},
-    function( listener, event, params )
-
-    end
-  ) );
-
-  --[[
   Event triggered when a player parties with another player.
 
   @since 0.4.0-alpha
