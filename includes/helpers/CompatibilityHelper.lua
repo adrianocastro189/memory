@@ -22,6 +22,27 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets the quest gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @return string
+  ]]
+  function instance:getQuestGossipTitle()
+
+    -- just a pointer to improve readability
+    local questFrame = QuestFrameNpcNameText;
+
+    if nil ~= questFrame and nil ~= questFrame:GetText() and questFrame:IsVisible() then
+
+      return questFrame:GetText();
+    end
+
+    return '';
+  end
+
+
+  --[[
   Checks whether the player is flying.
 
   For Classic it will always return false.
