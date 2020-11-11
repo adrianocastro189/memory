@@ -22,6 +22,28 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets the dialog gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @return string
+  ]]
+  function instance:getDialogGossipTitle()
+
+    -- just a pointer to improve readability
+    local gossipFrame = GossipFrameNpcNameText;
+
+    if nil ~= gossipFrame and nil ~= gossipFrame:GetText() and gossipFrame:IsVisible() then
+
+      return gossipFrame:GetText();
+    end
+
+    return '';
+
+  end
+
+
+  --[[
   Gets the quest gossip title, which will be the npc name for almost all cases.
 
   @since 0.4.0-alpha
