@@ -185,7 +185,7 @@ function MemoryRepository:new( player, realm )
     memoryPath["x"] = memoryPath["x"] + x;
 
     -- just a debug message to... help us debug!
-    MemoryCore:debug( interaction_type .. ' memory stored for ' .. category, true );
+    MemoryCore:debug( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interaction_type .. ' memory stored for ' .. category, true );
   end
 
 
