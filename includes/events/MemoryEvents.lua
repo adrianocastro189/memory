@@ -85,6 +85,18 @@ function MemoryAddon_addEvents( core )
       -- sanity check
       if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
 
+      -- sanity check for dialog frames and the target name
+      if MemoryCore:getArrayHelper():inArray( event, { 'GOSSIP_SHOW' } ) and target:getName() ~= MemoryCore:getCompatibilityHelper():getDialogGossipTitle() then
+
+        return listener:debugAndExit( 'NPC name / gossip window title incompatibility' );
+      end
+
+      -- sanity check for dialog frames and the target name
+      if MemoryCore:getArrayHelper():inArray( event, { 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING' } ) and target:getName() ~= MemoryCore:getCompatibilityHelper():getQuestGossipTitle() then
+
+        return listener:debugAndExit( 'NPC name / quest window title incompatibility' );
+      end
+
       -- when a player talks with an npc again before leaving the zone, we won't count that as another memory
       if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
 
