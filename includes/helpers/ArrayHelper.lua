@@ -22,6 +22,31 @@ function MemoryAddon_ArrayHelper:new()
 
 
   --[[
+  Returns the values in needles that are not present in haystack.
+
+  @since 0.4.0-alpha
+
+  @param array needles values to check...
+  @param array haystack ...agains this array
+  @return array the values in needles that are not present in haystack
+  ]]
+  function instance:arrayDiff( needles, haystack )
+
+    local difference = {};
+
+    for key, needle in pairs( needles ) do
+
+      if not self:inArray( needle, haystack ) then
+
+        table.insert( difference, needle );
+      end
+    end
+
+    return difference;
+  end
+
+
+  --[[
   Checks if a haystack array has a needle string.
 
   @since 0.4.0-alpha
