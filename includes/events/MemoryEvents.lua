@@ -174,6 +174,7 @@ function MemoryAddon_addEvents( core )
 
     end
   );
+  eventPlayerParty.lastPlayers = {};
   core:addEventListener( eventPlayerParty );
 
   --[[
