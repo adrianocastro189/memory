@@ -168,8 +168,8 @@ function MemoryAddon_addEvents( core )
   @since 0.4.0-alpha
   ]]
   local eventPlayerParty = MemoryEvent:new(
-    "EventPlayerParty",
-    {},
+    'EventPlayerParty',
+    { 'GROUP_ROSTER_UPDATE' },
     function( listener, event, params )
 
     end
