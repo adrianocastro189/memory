@@ -167,13 +167,14 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
+  local eventPlayerParty = MemoryEvent:new(
     "EventPlayerParty",
     {},
     function( listener, event, params )
 
     end
-  ) );
+  );
+  core:addEventListener( eventPlayerParty );
 
   --[[
   Event triggered when a player visits a zone.
