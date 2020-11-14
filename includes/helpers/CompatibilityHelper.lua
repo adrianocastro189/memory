@@ -54,6 +54,44 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets all the member guids in a party or raid group.
+
+  @since 0.4.0-alpha
+
+  @return array list of group member guids
+  ]]
+  function instance:getGroupGuids()
+
+    -- gets the number of group members
+    local groupSize = GetNumGroupMembers();
+
+    -- array to be returned
+    local groupGuids = {};
+
+    -- helper var to iterate over group members
+    local counter = 1;
+
+    -- pointer to the current member
+    local currentMemberGuid = nil;
+
+    while counter <= groupSize do
+
+      -- attempts to get a raid or party member
+      currentMemberGuid = UnitGUID( 'raid' .. counter ) or UnitGUID( 'party' .. counter );
+
+      if nil ~= currentMemberGuid then
+
+        table.insert( groupGuids, currentMemberGuid );
+      end
+
+      counter = counter + 1;
+    end
+
+    return groupGuids;
+  end
+
+
+  --[[
   Gets the quest gossip title, which will be the npc name for almost all cases.
 
   @since 0.4.0-alpha
