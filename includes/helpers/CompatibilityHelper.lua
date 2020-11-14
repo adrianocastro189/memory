@@ -22,6 +22,19 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets the dialog gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @return string
+  ]]
+  function instance:getDialogGossipTitle()
+
+    return self:getGossipTitle( GossipFrameNpcNameText );
+  end
+
+
+  --[[
   Gets the gossip title, which will be the npc name for almost all cases.
 
   @since 0.4.0-alpha
@@ -37,19 +50,6 @@ function MemoryAddon_CompatibilityHelper:new()
     end
 
     return '';
-  end
-
-
-  --[[
-  Gets the dialog gossip title, which will be the npc name for almost all cases.
-
-  @since 0.4.0-alpha
-
-  @return string
-  ]]
-  function instance:getDialogGossipTitle()
-
-    return self:getGossipTitle( GossipFrameNpcNameText );
   end
 
 
