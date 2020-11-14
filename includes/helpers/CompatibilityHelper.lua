@@ -22,6 +22,51 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets the gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @param gossipFrame the gossip frame
+  @return string the gossip frame title
+  ]]
+  function instance:getGossipTitle( gossipFrame )
+
+    if nil ~= gossipFrame and nil ~= gossipFrame:GetText() and gossipFrame:IsVisible() then
+
+      return gossipFrame:GetText();
+    end
+
+    return '';
+  end
+
+
+  --[[
+  Gets the dialog gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @return string
+  ]]
+  function instance:getDialogGossipTitle()
+
+    return self:getGossipTitle( GossipFrameNpcNameText );
+  end
+
+
+  --[[
+  Gets the quest gossip title, which will be the npc name for almost all cases.
+
+  @since 0.4.0-alpha
+
+  @return string
+  ]]
+  function instance:getQuestGossipTitle()
+
+    return self:getGossipTitle( QuestFrameNpcNameText );
+  end
+
+
+  --[[
   Checks whether the player is flying.
 
   For Classic it will always return false.

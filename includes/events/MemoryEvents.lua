@@ -70,7 +70,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcTalk = MemoryEvent:new(
     "EventNpcTalk",
-    { "GOSSIP_SHOW", "MERCHANT_SHOW", "ZONE_CHANGED" },
+    { 'GOSSIP_SHOW', 'MERCHANT_SHOW', 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING', 'ZONE_CHANGED' },
     function( listener, event, params )
 
       if "ZONE_CHANGED" == event then
@@ -84,6 +84,18 @@ function MemoryAddon_addEvents( core )
 
       -- sanity check
       if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
+
+      -- sanity check for dialog frames and the target name
+      if MemoryCore:getArrayHelper():inArray( event, { 'GOSSIP_SHOW' } ) and target:getName() ~= MemoryCore:getCompatibilityHelper():getDialogGossipTitle() then
+
+        return listener:debugAndExit( 'NPC name / gossip window title incompatibility' );
+      end
+
+      -- sanity check for dialog frames and the target name
+      if MemoryCore:getArrayHelper():inArray( event, { 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING' } ) and target:getName() ~= MemoryCore:getCompatibilityHelper():getQuestGossipTitle() then
+
+        return listener:debugAndExit( 'NPC name / quest window title incompatibility' );
+      end
 
       -- when a player talks with an npc again before leaving the zone, we won't count that as another memory
       if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
@@ -149,19 +161,6 @@ function MemoryAddon_addEvents( core )
   );
   eventNpcFight.lastNpcs = {};
   core:addEventListener( eventNpcFight );
-
-  --[[
-  Event triggered when a player turns in a quest for an NPC.
-
-  @since 0.4.0-alpha
-  ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventNpcQuest",
-    {},
-    function( listener, event, params )
-
-    end
-  ) );
 
   --[[
   Event triggered when a player parties with another player.
