@@ -256,6 +256,8 @@ function MemoryAddon_addEvents( core )
   --[[
   Event triggered when a player loots an item.
 
+  @see https://wow.gamepedia.com/CHAT_MSG_LOOT
+
   @since 0.4.0-alpha
   ]]
   local eventItemLoot = MemoryEvent:new(
@@ -263,6 +265,20 @@ function MemoryAddon_addEvents( core )
     { 'CHAT_MSG_LOOT' },
     function( listener, event, params )
 
+      local lootString = params[1];
+      local playerGuid = params[12] or '';
+
+      -- sanity check in case this is triggered by another player message
+      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( "Player didn't loot it" ); end
+
+      -- gets the item loot information
+      local itemLootInfo = MemoryCore:getCompatibilityHelper():parseChatMsgLoot( lootString );
+
+      -- another sanity check
+      if not itemLootInfo.valid then return listener:debugAndExit( "Invalid item" ); end
+
+      -- stores a memory about looting the item
+      MemoryCore:getRepository():store( 'items', { itemLootInfo.name }, 'loot', itemLootInfo.quantity );
     end
   );
   core:addEventListener( eventItemLoot );
