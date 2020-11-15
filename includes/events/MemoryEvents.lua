@@ -155,7 +155,7 @@ function MemoryAddon_addEvents( core )
       -- stores a memory of fighting the npc
       MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
 
-      -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
+      -- will prevent the memory to be recorded twice if player fights with the same npc again before
       table.insert( listener.lastNpcs, destGuid );
     end
   );
@@ -172,6 +172,20 @@ function MemoryAddon_addEvents( core )
     { 'GROUP_ROSTER_UPDATE' },
     function( listener, event, params )
 
+      -- gets all member guids regardless of player is in a party or raid
+      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupGuids();
+
+      -- select group members that weren't added yet to the player's memory
+      local uniqueMembers = MemoryCore:getArrayHelper():arrayDiff( groupMemberGuids, listener.lastPlayers );
+
+      for i, playerGuid in pairs( uniqueMembers ) do
+
+        -- adds a party memory
+        MemoryCore:getRepository():store( 'players', { playerGuid }, 'party' );
+
+        -- will prevent the memory to be recorded twice if player has grouped with that member recently
+        table.insert( listener.lastPlayers, playerGuid );
+      end
     end
   );
   eventPlayerParty.lastPlayers = {};
