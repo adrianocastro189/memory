@@ -254,19 +254,6 @@ function MemoryAddon_addEvents( core )
   core:addEventListener( eventZoneVisit );
 
   --[[
-  Event triggered when a player visits a sub zone.
-
-  @since 0.4.0-alpha
-  ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventSubZoneVisit",
-    {},
-    function( listener, event, params )
-
-    end
-  ) );
-
-  --[[
   Event triggered when a player loots an item.
 
   @since 0.4.0-alpha
