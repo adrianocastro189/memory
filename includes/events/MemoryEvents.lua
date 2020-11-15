@@ -260,7 +260,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventItemLoot = MemoryEvent:new(
     'EventItemLoot',
-    {},
+    { 'CHAT_MSG_LOOT' },
     function( listener, event, params )
 
     end
