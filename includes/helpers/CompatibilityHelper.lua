@@ -148,16 +148,16 @@ function MemoryAddon_CompatibilityHelper:new()
     if msg:match( self.PATTERN_LOOT_ITEM_SELF_MULTIPLE ) then
 
       -- when the player loots more than 1 of the same item
-			itemLink, quantity = string.match( msg, self.PATTERN_LOOT_ITEM_SELF_MULTIPLE );
+      itemLink, quantity = string.match( msg, self.PATTERN_LOOT_ITEM_SELF_MULTIPLE );
 
       item.quantity = quantity;
 
-		elseif msg:match( self.PATTERN_LOOT_ITEM_SELF ) then
+    elseif msg:match( self.PATTERN_LOOT_ITEM_SELF ) then
 
       -- when the player loots only 1 item
-			itemLink = string.match( msg, self.PATTERN_LOOT_ITEM_SELF );
+      itemLink = string.match( msg, self.PATTERN_LOOT_ITEM_SELF );
 
-		else
+    else
 
       MemoryCore:debug( 'Invalid loot item msg' );
 
