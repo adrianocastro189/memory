@@ -178,7 +178,14 @@ local function MemoryAddon_initializeCore()
   MemoryEventFrame:SetScript( "OnEvent",
     function( self, event, ... )
 
-      local params = ...;
+      -- This weird code below was the only way I found to convert ... to an array
+      local params = {}; local param = nil; local counter = 1; repeat
+        param = select(counter, ...);
+
+        if nil ~= param then table.insert(params, param); end
+
+        counter = counter + 1;
+      until param == nil;
 
       for i, listener in ipairs( MemoryCore.eventListeners ) do
 
