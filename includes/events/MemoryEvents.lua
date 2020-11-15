@@ -258,13 +258,14 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventItemLoot",
+  local eventItemLoot = MemoryEvent:new(
+    'EventItemLoot',
     {},
     function( listener, event, params )
 
     end
-  ) );
+  );
+  core:addEventListener( eventItemLoot );
 
   core:debug( "Events added" );
 
