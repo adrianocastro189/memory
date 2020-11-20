@@ -17,7 +17,7 @@ local function MemoryAddon_initializeCore()
   MemoryCore.ADDON_VERSION = "0.4.0-alpha";
 
   -- determines whether the addon is in debug mode or not
-  MemoryCore.DEBUG = true;
+  MemoryCore.DEBUG = false;
 
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
@@ -178,7 +178,14 @@ local function MemoryAddon_initializeCore()
   MemoryEventFrame:SetScript( "OnEvent",
     function( self, event, ... )
 
-      local params = ...;
+      -- This weird code below was the only way I found to convert ... to an array
+      local params = {}; local param = nil; local counter = 1; repeat
+        param = select(counter, ...);
+
+        if nil ~= param then table.insert(params, param); end
+
+        counter = counter + 1;
+      until param == nil;
 
       for i, listener in ipairs( MemoryCore.eventListeners ) do
 
