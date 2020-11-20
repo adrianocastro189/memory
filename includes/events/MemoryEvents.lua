@@ -155,7 +155,7 @@ function MemoryAddon_addEvents( core )
       -- stores a memory of fighting the npc
       MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
 
-      -- will prevent the memory to be recorded twice if player fights with the same npc again before TODO
+      -- will prevent the memory to be recorded twice if player fights with the same npc again before
       table.insert( listener.lastNpcs, destGuid );
     end
   );
@@ -167,13 +167,29 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventPlayerParty",
-    {},
+  local eventPlayerParty = MemoryEvent:new(
+    'EventPlayerParty',
+    { 'GROUP_ROSTER_UPDATE' },
     function( listener, event, params )
 
+      -- gets all member guids regardless of player is in a party or raid
+      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupGuids();
+
+      -- select group members that weren't added yet to the player's memory
+      local uniqueMembers = MemoryCore:getArrayHelper():arrayDiff( groupMemberGuids, listener.lastPlayers );
+
+      for i, playerGuid in pairs( uniqueMembers ) do
+
+        -- adds a party memory
+        MemoryCore:getRepository():store( 'players', { playerGuid }, 'party' );
+
+        -- will prevent the memory to be recorded twice if player has grouped with that member recently
+        table.insert( listener.lastPlayers, playerGuid );
+      end
     end
-  ) );
+  );
+  eventPlayerParty.lastPlayers = {};
+  core:addEventListener( eventPlayerParty );
 
   --[[
   Event triggered when a player visits a zone.
@@ -238,30 +254,34 @@ function MemoryAddon_addEvents( core )
   core:addEventListener( eventZoneVisit );
 
   --[[
-  Event triggered when a player visits a sub zone.
-
-  @since 0.4.0-alpha
-  ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventSubZoneVisit",
-    {},
-    function( listener, event, params )
-
-    end
-  ) );
-
-  --[[
   Event triggered when a player loots an item.
 
+  @see https://wow.gamepedia.com/CHAT_MSG_LOOT
+
   @since 0.4.0-alpha
   ]]
-  core:addEventListener( MemoryEvent:new(
-    "EventItemLoot",
-    {},
+  local eventItemLoot = MemoryEvent:new(
+    'EventItemLoot',
+    { 'CHAT_MSG_LOOT' },
     function( listener, event, params )
 
+      local lootString = params[1];
+      local playerGuid = params[12] or '';
+
+      -- sanity check in case this is triggered by another player message
+      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( "Player didn't loot it" ); end
+
+      -- gets the item loot information
+      local itemLootInfo = MemoryCore:getCompatibilityHelper():parseChatMsgLoot( lootString );
+
+      -- another sanity check
+      if not itemLootInfo.valid then return listener:debugAndExit( "Invalid item" ); end
+
+      -- stores a memory about looting the item
+      MemoryCore:getRepository():store( 'items', { itemLootInfo.name }, 'loot', itemLootInfo.quantity );
     end
-  ) );
+  );
+  core:addEventListener( eventItemLoot );
 
   core:debug( "Events added" );
 
