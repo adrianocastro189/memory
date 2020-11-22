@@ -92,7 +92,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @return array the memory path
+    @return string[] the memory path
     ]]
     function instance:getPath()
 
@@ -289,7 +289,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @param array memory path
+    @param string[] memory path
     @return self MemoryAddon_Memory
     ]]
     function instance:setPath( path )
