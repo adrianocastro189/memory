@@ -166,6 +166,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the memory is a valid memory based on its primary properties.
+
+    @since 0.5.0-beta
+
+    @return bool
+    ]]
+    function instance:isValid()
+
+      return self:hasCategory() and self:hasInteractionType() and self:hasPath();
+    end
+
+
+    --[[
     Sets the memory category.
 
     @since 0.5.0-beta
