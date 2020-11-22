@@ -37,9 +37,9 @@ function MemoryRepository:new( player, realm )
 
   @param string category
   @param string[] path
-  @param string interaction_type
+  @param string interactionType
   ]]
-  function instance:check( category, path, interaction_type )
+  function instance:check( category, path, interactionType )
 
     -- creates a pointer to the current path in the memory array
     local memoryDataSetAux = MemoryDataSet[ self.realm ][ self.player ][ category ];
@@ -56,23 +56,23 @@ function MemoryRepository:new( player, realm )
       memoryDataSetAux = memoryDataSetAux[ path[ i ] ];
     end
 
-    if memoryDataSetAux[ interaction_type ] == nil then
+    if memoryDataSetAux[ interactionType ] == nil then
 
       -- initializes the memory interaction type
-      memoryDataSetAux[ interaction_type ] = {};
+      memoryDataSetAux[ interactionType ] = {};
 
       -- initializes the first time player experienced this memory
-      memoryDataSetAux[ interaction_type ]["first"] = -1;
+      memoryDataSetAux[ interactionType ]["first"] = -1;
 
       -- initializes the last time player experienced this memory
-      memoryDataSetAux[ interaction_type ]["last"] = -1;
+      memoryDataSetAux[ interactionType ]["last"] = -1;
 
       -- initializes the number of times player experienced this memory
-      memoryDataSetAux[ interaction_type ]["x"] = 0;
+      memoryDataSetAux[ interactionType ]["x"] = 0;
     end
 
     -- returns the current pointer to ease on the store method
-    return memoryDataSetAux[ interaction_type ];
+    return memoryDataSetAux[ interactionType ];
   end
 
 
@@ -161,16 +161,16 @@ function MemoryRepository:new( player, realm )
 
   @param string category
   @param string[] path
-  @param string interaction_type
+  @param string interactionType
   @param int x (optional)
   ]]
-  function instance:store( category, path, interaction_type, --[[optional]] x )
+  function instance:store( category, path, interactionType, --[[optional]] x )
 
     -- sets the default value for x if not defined
     x = x or 1;
 
     -- makes sure the full memory path is already set
-    local memoryPath = self:check( category, path, interaction_type );
+    local memoryPath = self:check( category, path, interactionType );
 
     -- gets the memory string to store the player's memory
     local memoryString = self:craftMemoryString();
@@ -185,7 +185,7 @@ function MemoryRepository:new( player, realm )
     memoryPath["x"] = memoryPath["x"] + x;
 
     -- just a debug message to... help us debug!
-    MemoryCore:debug( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interaction_type .. ' memory stored for ' .. category, true );
+    MemoryCore:debug( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interactionType .. ' memory stored for ' .. category, true );
   end
 
 
