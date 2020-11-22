@@ -179,6 +179,20 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    May print the memory in the chat frame based on a random chance.
+
+    @since 0.5.0-beta
+    ]]
+    function instance:maybePrint()
+
+      if math.random() <= 0.1 then
+
+        self:print();
+      end
+    end
+
+
+    --[[
     Prints the memory in the chat frame.
 
     @since 0.5.0-beta
