@@ -179,6 +179,21 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Prints the memory in the chat frame.
+
+    @since 0.5.0-beta
+    ]]
+    function instance:print()
+
+      -- TODO: Replace this for a better formatted string on future epics {AC 2020-11-22}
+      local tempMemoryString = 'First[' .. self:getFirst() .. '], Last[' .. self:getLast() .. '], x[' .. self:getX() .. ']';
+            tempMemoryString = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", tempMemoryString );
+
+      MemoryCore:print( tempMemoryString );
+    end
+
+
+    --[[
     Saves this memory in the repository.
 
     @see MemoryRepository:storeMemory()
