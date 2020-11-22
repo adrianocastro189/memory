@@ -9,6 +9,7 @@
 
 Memory.lua
 
+includes\domain\Memory.lua
 includes\domain\Player.lua
 
 includes\events\MemoryEvent.lua
