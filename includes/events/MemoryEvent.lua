@@ -76,6 +76,21 @@ function MemoryEvent:new( name, events, action )
   end
 
 
+  --[[
+  Stores a player's memory and may print it before (or not).
+
+  @since 0.5.0-beta
+
+  @param string category
+  @param string[] path
+  @param string interactionType
+  @param int x (optional)
+  ]]
+  function instance:printAndSave( category, path, interactionType, --[[optional]] x )
+
+  end
+
+
   -- prints a debug message after initializing the event
   instance:debug( "Event created" );
 
