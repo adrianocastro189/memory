@@ -198,6 +198,9 @@ local function MemoryAddon_initializeCore()
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
 
+  -- adds the memory prototype to the repository
+  MemoryAddon_addMemoryPrototype( MemoryCore.repository );
+
   -- adds the player prototype to core
   MemoryAddon_addPlayerPrototype( MemoryCore );
 
@@ -209,7 +212,6 @@ local function MemoryAddon_initializeCore()
 
   -- prints a debug message confirming the end of the initialization
   MemoryCore:debug( "MemoryCore initialized" );
-
 end
 
 -- the main event frame used to trigger all the Memory listeners
