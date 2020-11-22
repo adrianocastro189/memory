@@ -6,6 +6,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 
 ### 2020.nn.nn - version 0.5.0-beta
 * Dev - Add the `Memory` prototype
+* Dev - Add a `get` method to `MemoryRepository`
 
 ### 2020.11.20 - version 0.4.0-alpha
 * Dev - Add a debug method to `MemoryCore`
