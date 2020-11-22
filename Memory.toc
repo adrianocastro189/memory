@@ -3,8 +3,8 @@
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryDataSet
-## Title: Memory |cffffee770.4.0-alpha|r
-## Version: 0.4.0-alpha
+## Title: Memory |cffffee770.5.0-beta|r
+## Version: 0.5.0-beta
 ## X-Curse-Project-ID: 413371
 
 Memory.lua

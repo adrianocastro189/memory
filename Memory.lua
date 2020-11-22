@@ -14,7 +14,7 @@ local function MemoryAddon_initializeCore()
   MemoryCore.ADDON_NAME = "Memory";
 
   -- the addon version which is the same as the toc file
-  MemoryCore.ADDON_VERSION = "0.4.0-alpha";
+  MemoryCore.ADDON_VERSION = "0.5.0-beta";
 
   -- determines whether the addon is in debug mode or not
   MemoryCore.DEBUG = false;
