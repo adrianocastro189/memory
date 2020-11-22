@@ -88,6 +88,14 @@ function MemoryEvent:new( name, events, action )
   ]]
   function instance:printAndSave( category, path, interactionType, --[[optional]] x )
 
+    -- gets the memory from repository (may be already saved or a new kind of memory)
+    local memory = MemoryCore:getRepository():get( category, path, interactionType );
+
+    -- may print it
+    memory:maybePrint();
+
+    -- saves the memory
+    memory:save();
   end
 
 
