@@ -132,10 +132,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param string memory category
+    @return self MemoryAddon_Memory
     ]]
     function instance:setCategory( category )
 
       self.category = category or '';
+
+      return self;
     end
 
 
@@ -145,10 +148,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param string first a memory string
+    @return self MemoryAddon_Memory
     ]]
     function instance:setFirst( first )
 
       self.first = first or -1;
+
+      return self;
     end
 
 
@@ -158,10 +164,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param string memory interaction type
+    @return self MemoryAddon_Memory
     ]]
     function instance:setInteractionType( interactionType )
 
       self.interactionType = interactionType or '';
+
+      return self;
     end
 
 
@@ -171,10 +180,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param string last a memory string
+    @return self MemoryAddon_Memory
     ]]
     function instance:setLast( last )
 
       self.last = last or -1;
+
+      return self;
     end
 
 
@@ -184,10 +196,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param array memory path
+    @return self MemoryAddon_Memory
     ]]
     function instance:setPath( path )
 
       self.path = path or {};
+
+      return self;
     end
 
 
@@ -197,10 +212,13 @@ function MemoryAddon_addMemoryPrototype( repository )
     @since 0.5.0-beta
 
     @param int x
+    @return self MemoryAddon_Memory
     ]]
     function instance:setX( x )
 
       self.x = x or 0;
+
+      return self;
     end
 
 
