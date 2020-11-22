@@ -72,6 +72,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the player had already experienced this memory before.
+
+    @since 0.5.0-beta
+
+    @return bool
+    ]]
+    function instance:hasFirst()
+
+      return self:getFirst() ~= nil and self:getFirst() ~= -1;
+    end
+
+
+    --[[
     Sets the first time player had this memory.
 
     @since 0.5.0-beta
