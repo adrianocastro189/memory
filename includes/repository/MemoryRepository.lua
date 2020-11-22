@@ -155,6 +155,28 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Gets a player's memory.
+
+  @since 0.5.0-beta
+
+  @param string category
+  @param string[] path
+  @param string interactionType
+  ]]
+  function instance:get( category, path, interactionType )
+
+    -- creates the memory instance
+    local memoryInstance = self
+      :newMemory()
+      :setCategory( category )
+      :setPath( path )
+      :setInteractionType( interactionType );
+
+    return memoryInstance;
+  end
+
+
+  --[[
   Stores a player's memory.
 
   @since 0.2.0-alpha
