@@ -27,9 +27,25 @@ function MemoryAddon_addMemoryPrototype( repository )
     local instance = {};
 
     setmetatable( instance, MemoryAddon_Memory );
-    instance.first = -1;
-    instance.last  = -1;
-    instance.x     =  0;
+    instance.category        = '';
+    instance.first           = -1;
+    instance.interactionType = '';
+    instance.last            = -1;
+    instance.path            = {};
+    instance.x               =  0;
+
+
+    --[[
+    Gets the memory category.
+
+    @since 0.5.0-beta
+
+    @return string the memory category
+    ]]
+    function instance:getCategory()
+
+      return self.category;
+    end
 
 
     --[[
@@ -46,6 +62,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets the memory interaction type.
+
+    @since 0.5.0-beta
+
+    @return string the memory interaction type.
+    ]]
+    function instance:getInteractionType()
+
+      return self.interactionType;
+    end
+
+
+    --[[
     Gets the last time player had this memory.
 
     @since 0.5.0-beta
@@ -55,6 +84,19 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:getLast()
 
       return self.last;
+    end
+
+
+    --[[
+    Gets the memory path.
+
+    @since 0.5.0-beta
+
+    @return array the memory path
+    ]]
+    function instance:getPath()
+
+      return self.path;
     end
 
 
@@ -85,6 +127,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Sets the memory category.
+
+    @since 0.5.0-beta
+
+    @param string memory category
+    ]]
+    function instance:setCategory( category )
+
+      self.category = category or '';
+    end
+
+
+    --[[
     Sets the first time player had this memory.
 
     @since 0.5.0-beta
@@ -98,6 +153,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Sets the memory interaction type.
+
+    @since 0.5.0-beta
+
+    @param string memory interaction type
+    ]]
+    function instance:setInteractionType( interactionType )
+
+      self.interactionType = interactionType or '';
+    end
+
+
+    --[[
     Sets the last time player had this memory.
 
     @since 0.5.0-beta
@@ -107,6 +175,19 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:setLast( last )
 
       self.last = last or -1;
+    end
+
+
+    --[[
+    Sets the memory path.
+
+    @since 0.5.0-beta
+
+    @param array memory path
+    ]]
+    function instance:setPath( path )
+
+      self.path = path or {};
     end
 
 
