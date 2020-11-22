@@ -88,11 +88,17 @@ function MemoryEvent:new( name, events, action )
   ]]
   function instance:printAndSave( category, path, interactionType, --[[optional]] x )
 
+    -- sets the default value for x if not defined
+    x = x or 1;
+
     -- gets the memory from repository (may be already saved or a new kind of memory)
     local memory = MemoryCore:getRepository():get( category, path, interactionType );
 
     -- may print it
     memory:maybePrint();
+
+    -- prevents x to duplicate on save()
+    memory:setX( x );
 
     -- saves the memory
     memory:save();

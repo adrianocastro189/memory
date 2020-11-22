@@ -185,7 +185,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:maybePrint()
 
-      if math.random() <= 0.1 then
+      if self:hasFirst() and math.random() <= 0.1 then
 
         self:print();
       end
