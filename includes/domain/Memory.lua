@@ -179,6 +179,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Saves this memory in the repository.
+
+    @see MemoryRepository:storeMemory()
+
+    @since 0.5.0-beta
+    ]]
+    function instance:save()
+
+      MemoryCore:getRepository():storeMemory( self );
+    end
+
+
+    --[[
     Sets the memory category.
 
     @since 0.5.0-beta
