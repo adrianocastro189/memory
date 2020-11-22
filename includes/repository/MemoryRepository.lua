@@ -190,6 +190,33 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Overload to instance:store that accepts a MemoryAddon_Memory instance.
+
+  Note: although a memory instance has first, last and x properties, this method will
+        make use of category, path, interactionType and x only due to how store works.
+        That being said, you may want to change x to 1 or any other number in order to
+        avoid multiplying the current x if it's loaded by MemoryRepository:get().
+
+  @since 0.5.0-beta
+
+  @param MemoryAddon_Memory memory
+  ]]
+  function instance:storeMemory( memory )
+
+    -- sanity check
+    if memory == nil or not memory:isValid() then
+
+      MemoryCore:debug( 'Attempt to save an invalid memory' );
+
+      return;
+    end
+
+    -- stores the memory
+    self:store( memory:getCategory(), memory:getPath(), memory:getInteractionType(), memory:getX() );
+  end
+
+
+  --[[
   Determines whether the memory data set is set.
 
   @since 0.2.0-alpha
