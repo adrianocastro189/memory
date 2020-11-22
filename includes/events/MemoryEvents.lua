@@ -51,7 +51,7 @@ function MemoryAddon_addEvents( core )
         if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Recent business" ); end
 
         -- stores the player memory about doing business with that npc
-        MemoryCore:getRepository():store( 'npcs', { target:getName() }, 'business' );
+        listener:printAndSave( 'npcs', { target:getName() }, 'business' );
 
         -- will prevent the memory to be recorded twice if player does business with the same npc again before leaving the zone
         table.insert( listener.lastNpcs, target:getName() );
@@ -101,7 +101,7 @@ function MemoryAddon_addEvents( core )
       if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
 
       -- stores the player memory about talking with that npc
-      MemoryCore:getRepository():store( "npcs", { target:getName() }, "talk" );
+      listener:printAndSave( "npcs", { target:getName() }, "talk" );
 
       -- will prevent the memory to be recorded twice if player talks with the same npc again before leaving the zone
       table.insert( listener.lastNpcs, target:getName() );
@@ -153,7 +153,7 @@ function MemoryAddon_addEvents( core )
       if destName == nil or '' == destName then return listener:debugAndExit( 'destName is null or empty' ); end
 
       -- stores a memory of fighting the npc
-      MemoryCore:getRepository():store( "npcs", { destName }, "fight" );
+      listener:printAndSave( "npcs", { destName }, "fight" );
 
       -- will prevent the memory to be recorded twice if player fights with the same npc again before
       table.insert( listener.lastNpcs, destGuid );
@@ -181,7 +181,7 @@ function MemoryAddon_addEvents( core )
       for i, playerGuid in pairs( uniqueMembers ) do
 
         -- adds a party memory
-        MemoryCore:getRepository():store( 'players', { playerGuid }, 'party' );
+        listener:printAndSave( 'players', { playerGuid }, 'party' );
 
         -- will prevent the memory to be recorded twice if player has grouped with that member recently
         table.insert( listener.lastPlayers, playerGuid );
@@ -223,7 +223,7 @@ function MemoryAddon_addEvents( core )
       if not zoneName == listener.lastZone then
 
         -- stores a memory about the new zone player is visiting
-        MemoryCore:getRepository():store( "zones", { zoneName }, "visit" );
+        listener:printAndSave( "zones", { zoneName }, "visit" );
 
         -- will prevent the memory to be recorded twice in another event call
         listener.lastZone = zoneName;
@@ -243,7 +243,7 @@ function MemoryAddon_addEvents( core )
       if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then return listener:debugAndExit( "Player hasn't changed subzones" ); end
 
       -- stores a memory about the new sub zone player is visiting
-      MemoryCore:getRepository():store( "zones", { zoneName, "subzones", subZoneName }, "visit" );
+      listener:printAndSave( "zones", { zoneName, "subzones", subZoneName }, "visit" );
 
       -- will prevent the memory to be recorded twice in another event call
       table.insert( listener.lastSubZones, subZoneName );
@@ -278,7 +278,7 @@ function MemoryAddon_addEvents( core )
       if not itemLootInfo.valid then return listener:debugAndExit( "Invalid item" ); end
 
       -- stores a memory about looting the item
-      MemoryCore:getRepository():store( 'items', { itemLootInfo.name }, 'loot', itemLootInfo.quantity );
+      listener:printAndSave( 'items', { itemLootInfo.name }, 'loot', itemLootInfo.quantity );
     end
   );
   core:addEventListener( eventItemLoot );
