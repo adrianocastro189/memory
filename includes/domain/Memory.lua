@@ -114,6 +114,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the memory has a category.
+
+    @since 0.5.0-beta
+
+    @return bool
+    ]]
+    function instance:hasCategory()
+
+      return self:getCategory() ~= nil and self:getCategory() ~= '';
+    end
+
+
+    --[[
     Determines whether the player had already experienced this memory before.
 
     @since 0.5.0-beta
@@ -123,6 +136,32 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:hasFirst()
 
       return self:getFirst() ~= nil and self:getFirst() ~= -1;
+    end
+
+
+    --[[
+    Determines whether the memory has an interaction type.
+
+    @since 0.5.0-beta
+
+    @return bool
+    ]]
+    function instance:hasInteractionType()
+
+      return self:getInteractionType() ~= nil and self:getInteractionType() ~= '';
+    end
+
+
+    --[[
+    Determines whether the memory has a path
+
+    @since 0.5.0-beta
+
+    @return bool
+    ]]
+    function instance:hasPath()
+
+      return self:getPath() ~= nil and #self:getPath() > 0;
     end
 
 
