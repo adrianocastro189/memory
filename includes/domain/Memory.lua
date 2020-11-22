@@ -27,6 +27,9 @@ function MemoryAddon_addMemoryPrototype( repository )
     local instance = {};
 
     setmetatable( instance, MemoryAddon_Memory );
+    instance.first = -1;
+    instance.last  = -1;
+    instance.x     =  0;
 
     return instance;
   end
