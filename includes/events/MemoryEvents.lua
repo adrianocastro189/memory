@@ -119,7 +119,7 @@ function MemoryAddon_addEvents( core )
   ]]
   local eventNpcFight = MemoryEvent:new(
     "EventNpcFight",
-    { 'COMBAT_LOG_EVENT', 'ZONE_CHANGED' },
+    { 'COMBAT_LOG_EVENT', 'COMBAT_LOG_EVENT_UNFILTERED', 'ZONE_CHANGED' },
     function( listener, event, params )
 
       if 'ZONE_CHANGED' == event and not InCombatLockdown() then
@@ -136,9 +136,10 @@ function MemoryAddon_addEvents( core )
 
       -- gets player guid to be used on the next conditionals
       local playerGuid = UnitGUID( 'player' );
+      local playerName = UnitName( 'player' );
 
       -- exit condition if player is not the owner of the attack
-      if not playerGuid == sourceGuid then return listener:debugAndExit( "Player didn't attack" ); end
+      if playerName ~= sourceName then return listener:debugAndExit( "Player didn't attack" ); end
 
       -- exit condition if player was attacked
       if playerGuid == destGuid then return listener:debugAndExit( "Player was attacked" ); end
