@@ -241,7 +241,7 @@ function MemoryRepository:new( player, realm )
     -- sanity check
     if memory == nil or not memory:isValid() then
 
-      MemoryCore:debug( 'Attempt to save an invalid memory' );
+      MemoryCore:debug( 'Attempt to save an invalid memory', true );
 
       return;
     end
