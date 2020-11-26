@@ -155,6 +155,41 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
+  Gets a player's memory.
+
+  This method has a collateral effect of preparing the database to a memory store
+  by calling check. So, don't use it to test whether the database has a given memory.
+  This get call must be used to retrieve valid memories or to save a valid memory.
+
+  @since 0.5.0-beta
+
+  @param string category
+  @param string[] path
+  @param string interactionType
+  ]]
+  function instance:get( category, path, interactionType )
+
+    -- creates the memory instance
+    local memoryInstance = self
+      :newMemory()
+      :setCategory( category )
+      :setPath( path )
+      :setInteractionType( interactionType );
+
+    -- may return a memory already saved or prepare the database for a new one
+    local savedMemory = self:check( category, path, interactionType );
+
+    -- populates the memory with saved or new values
+    memoryInstance
+      :setFirst( savedMemory['first'] )
+      :setLast( savedMemory['last'] )
+      :setX( savedMemory['x'] );
+
+    return memoryInstance;
+  end
+
+
+  --[[
   Stores a player's memory.
 
   @since 0.2.0-alpha
@@ -206,7 +241,7 @@ function MemoryRepository:new( player, realm )
     -- sanity check
     if memory == nil or not memory:isValid() then
 
-      MemoryCore:debug( 'Attempt to save an invalid memory' );
+      MemoryCore:debug( 'Attempt to save an invalid memory', true );
 
       return;
     end
