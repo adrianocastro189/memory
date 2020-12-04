@@ -3,7 +3,7 @@ The date helper prototype.
 
 Provides helper methods to work with dates.
 
-@since 0.6.0-alpha
+@since 0.6.0-beta
 ]]
 MemoryAddon_DateHelper = {};
 MemoryAddon_DateHelper.__index = MemoryAddon_DateHelper;
@@ -11,7 +11,7 @@ MemoryAddon_DateHelper.__index = MemoryAddon_DateHelper;
 --[[
 Constructs a new instance of an date helper.
 
-@since 0.6.0-alpha
+@since 0.6.0-beta
 
 @return MemoryAddon_DateHelper
 ]]
