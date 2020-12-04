@@ -34,8 +34,14 @@ function MemoryAddon_DateHelper:new()
     -- explodes the date
     local year, month, day = strsplit( '-', date );
 
+    -- sanity check
+    if nil == year or nil == month or nil == day then
 
-    return month .. ' ' .. day .. ', ' .. year;
+      return 'Invalid date';
+    end
+
+    return self:getMonthName( month ) .. ' ' .. tonumber( day ) .. ', ' .. year;
+  end
   end
 
 
