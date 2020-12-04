@@ -21,6 +21,23 @@ function MemoryAddon_DateHelper:new()
   setmetatable( instance, MemoryAddon_DateHelper );
 
 
+  --[[
+  Gets a readable date with the format "Month day, year".
+
+  @since 0.6.0-beta
+
+  @param string date a string date with format %y-%m-%d
+  ]]
+  function instance:getFormattedDate( date )
+
+    -- explodes the date
+    local year, month, day = strsplit( '-', date );
+
+
+    return month .. ' ' .. day .. ', ' .. year;
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_DateHelper = nil;
 
