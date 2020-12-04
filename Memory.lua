@@ -108,7 +108,7 @@ local function MemoryAddon_initializeCore()
   --[[
   Gets the unique date helper instance.
 
-  @since 0.6.0-alpha
+  @since 0.6.0-beta
 
   @return MemoryAddon_DateHelper
   ]]
