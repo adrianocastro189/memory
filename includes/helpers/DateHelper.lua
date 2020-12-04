@@ -27,6 +27,7 @@ function MemoryAddon_DateHelper:new()
   @since 0.6.0-beta
 
   @param string date a string date with format %y-%m-%d
+  @return string
   ]]
   function instance:getFormattedDate( date )
 
