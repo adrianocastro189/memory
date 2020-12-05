@@ -179,7 +179,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:hasFirst()
 
-      return self:getFirst() ~= nil and self:getFirst() ~= -1;
+      return nil ~= self.first and -1 ~= self:getFirst();
     end
 
 
