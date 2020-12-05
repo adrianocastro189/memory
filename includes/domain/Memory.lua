@@ -53,7 +53,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @return string a memory string
+    @return MemoryAddon_MemoryString
     ]]
     function instance:getFirst()
 
@@ -79,7 +79,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @return string a memory string
+    @return MemoryAddon_MemoryString
     ]]
     function instance:getLast()
 
@@ -185,7 +185,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:maybePrint()
 
-      if self:hasFirst() and math.random() <= 0.1 then
+      if math.random() <= 0.1 then
 
         self:print();
       end
@@ -200,7 +200,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:print()
 
       -- TODO: Replace this for a better formatted string on future epics {AC 2020-11-22}
-      local tempMemoryString = 'First[' .. self:getFirst() .. '], Last[' .. self:getLast() .. '], x[' .. self:getX() .. ']';
+      local tempMemoryString = 'First[' .. self:getFirst():toString() .. '], Last[' .. self:getLast():toString() .. '], x[' .. self:getX() .. ']';
             tempMemoryString = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", tempMemoryString );
 
       MemoryCore:print( tempMemoryString );
@@ -241,7 +241,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @param string first a memory string
+    @param MemoryAddon_MemoryString a memory string instance
     @return self MemoryAddon_Memory
     ]]
     function instance:setFirst( first )
@@ -273,7 +273,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @param string last a memory string
+    @param MemoryAddon_MemoryString a memory string instance
     @return self MemoryAddon_Memory
     ]]
     function instance:setLast( last )

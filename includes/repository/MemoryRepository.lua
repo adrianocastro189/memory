@@ -155,8 +155,8 @@ function MemoryRepository:new( player, realm )
 
     -- populates the memory with saved or new values
     memoryInstance
-      :setFirst( savedMemory['first'] )
-      :setLast( savedMemory['last'] )
+      :setFirst( self:newMemoryString( savedMemory['first'] ) )
+      :setLast( self:newMemoryString( savedMemory['last'] ) )
       :setX( savedMemory['x'] );
 
     return memoryInstance;
