@@ -257,6 +257,27 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
+    Gets a present tense sentence about how many times the player had experienced this memory.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getPresentCount( memory, --[[optional]] x )
+
+      if nil == memory or 0 == memory:getX() then
+
+        return "I don't remember how many times I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+      end
+
+      -- may change x value with the optional param
+      x = memory:getX() + ( x or 0 );
+
+      return 'This is the ' .. x .. MemoryCore:getStringHelper():getOrdinalSuffix( x ) .. ' time I ' .. self:getPresentActionSentence() .. self:getPresentActionSentenceConnector( 'view' ) .. self:getSubject();
+    end
+
+
+    --[[
     Gets the memory subject that can be a zone, npc, player, etc.
 
     @since 0.6.0-beta
