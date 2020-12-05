@@ -22,6 +22,34 @@ function MemoryAddon_DateHelper:new()
 
 
   --[[
+  Gets the difference of two dates in days.
+
+  This method won't return negative values but the absolute difference.
+
+  @since 0.6.0-beta
+
+  @param string dateFrom
+  @param string dateTo
+  @return int
+  ]]
+  function instance:getDaysDiff( dateFrom, dateTo )
+
+    -- gets the time representation for each date
+    dateFrom = self:toTime( dateFrom );
+    dateTo   = self:toTime( dateTo );
+
+    -- sanity checks
+    if nil == dateFrom or nil == dateTo then
+
+      return 'Invalid date(s)';
+    end
+
+    -- returns the absolute difference between them
+    return math.abs( difftime( dateTo, dateFrom ) / ( 24 * 60 * 60 ) );
+  end
+
+
+  --[[
   Gets a readable date with the format "Month day, year".
 
   @since 0.6.0-beta
