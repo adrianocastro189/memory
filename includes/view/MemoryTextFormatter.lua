@@ -143,7 +143,12 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @return string
     ]]
-    function instance:getPastActionSentenceConnector()
+    function instance:getPastActionSentenceConnector( context )
+
+      if 'view' == context then
+
+        return ' ' .. self.pastActionSentenceConnector .. ' ';
+      end
 
       return self.pastActionSentenceConnector or instance.UNDEFINED_PROPERTY;
     end
