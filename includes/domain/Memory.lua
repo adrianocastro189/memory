@@ -27,6 +27,10 @@ function MemoryAddon_addMemoryPrototype( repository )
     local instance = {};
 
     setmetatable( instance, MemoryAddon_Memory );
+
+    -- placeholder for some getters when properties are null
+    instance.DATA_PLACEHOLDER = 'undefined';
+
     instance.category        = '';
     instance.first           = -1;
     instance.interactionType = '';
@@ -62,6 +66,26 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets a formatted date for the first time this memory was experienced.
+
+    This methods gets information from the memory string.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getFirstFormattedDate()
+
+      if not self:hasFirst() then
+
+        return self.DATA_PLACEHOLDER;
+      end
+
+      return MemoryCore:getDateHelper():getFormattedDate( self:getFirst():getDate() );
+    end
+
+
+    --[[
     Gets the memory interaction type.
 
     @since 0.5.0-beta
@@ -84,6 +108,26 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:getLast()
 
       return self.last;
+    end
+
+
+    --[[
+    Gets a formatted date for the last time this memory was experienced.
+
+    This methods gets information from the memory string.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getLastFormattedDate()
+
+      if not self:hasLast() then
+
+        return self.DATA_PLACEHOLDER;
+      end
+
+      return MemoryCore:getDateHelper():getFormattedDate( self:getLast():getDate() );
     end
 
 
@@ -135,7 +179,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:hasFirst()
 
-      return self:getFirst() ~= nil and self:getFirst() ~= -1;
+      return nil ~= self.first and -1 ~= self:getFirst();
     end
 
 
@@ -149,6 +193,19 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:hasInteractionType()
 
       return self:getInteractionType() ~= nil and self:getInteractionType() ~= '';
+    end
+
+
+    --[[
+    Determines whether the player had already experienced this memory before.
+
+    @since 0.6.0-beta
+
+    @return bool
+    ]]
+    function instance:hasLast()
+
+      return nil ~= self.last and -1 ~= self:getLast();
     end
 
 
