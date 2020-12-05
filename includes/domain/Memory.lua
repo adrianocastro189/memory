@@ -53,6 +53,24 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets how many days have passed since the first occurrence of this memory.
+
+    @since 0.6.0-beta
+
+    @return int -1 if this memory has no first defined
+    ]]
+    function instance:getDaysSinceFirstDay()
+
+      if not self:hasFirst() then
+
+        return -1;
+      end
+
+      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), date( '%y-%m-%d' ) );
+    end
+
+
+    --[[
     Gets the first time player had this memory.
 
     @since 0.5.0-beta
