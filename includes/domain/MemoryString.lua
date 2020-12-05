@@ -28,6 +28,12 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
     setmetatable( instance, MemoryAddon_MemoryString );
 
+    -- default separator between data values in a memory string
+    instance.DATA_SEPARATOR = '|';
+
+    -- default value to be used if any information in the memory string is missing
+    instance.DATA_DEFAULT_CHAR = '-';
+
     return instance;
   end
 
