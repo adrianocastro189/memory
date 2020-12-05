@@ -28,6 +28,9 @@ local function MemoryAddon_initializeCore()
   -- the CompatibilityHelper instance
   MemoryCore.compatibilityHelper = nil;
 
+  -- the DateHelper instance
+  MemoryCore.dateHelper = nil;
+
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
 
@@ -103,6 +106,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique date helper instance.
+
+  @since 0.6.0-beta
+
+  @return MemoryAddon_DateHelper
+  ]]
+  function MemoryCore:getDateHelper()
+
+    return self.dateHelper;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
@@ -138,6 +154,7 @@ local function MemoryAddon_initializeCore()
 
     self.arrayHelper         = MemoryAddon_ArrayHelper:new();
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
+    self.dateHelper          = MemoryAddon_DateHelper:new();
     self.repository          = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
   end
 
