@@ -200,7 +200,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:print()
 
       -- TODO: Replace this for a better formatted string on future epics {AC 2020-11-22}
-      local tempMemoryString = 'First[' .. self:getFirst() .. '], Last[' .. self:getLast() .. '], x[' .. self:getX() .. ']';
+      local tempMemoryString = 'First[' .. self:getFirst():toString() .. '], Last[' .. self:getLast():toString() .. '], x[' .. self:getX() .. ']';
             tempMemoryString = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", tempMemoryString );
 
       MemoryCore:print( tempMemoryString );
