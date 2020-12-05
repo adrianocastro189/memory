@@ -126,7 +126,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     @since 0.6.0-beta
 
     @param string date
-    @return string
+    @return self MemoryAddon_MemoryString
     ]]
     function instance:setDate( date )
 
@@ -142,7 +142,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     @since 0.6.0-beta
 
     @param string playerLevel
-    @return string
+    @return self MemoryAddon_MemoryString
     ]]
     function instance:setPlayerLevel( playerLevel )
 
@@ -158,7 +158,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     @since 0.6.0-beta
 
     @param string subZone
-    @return string
+    @return self MemoryAddon_MemoryString
     ]]
     function instance:setSubZone( subZone )
 
@@ -174,7 +174,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     @since 0.6.0-beta
 
     @param string zone
-    @return string
+    @return self MemoryAddon_MemoryString
     ]]
     function instance:setZone( zone )
 
