@@ -157,6 +157,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the player had already experienced this memory before.
+
+    @since 0.6.0-beta
+
+    @return bool
+    ]]
+    function instance:hasLast()
+
+      return nil ~= self.last and -1 ~= self:getLast();
+    end
+
+
+    --[[
     Determines whether the memory has a path
 
     @since 0.5.0-beta
