@@ -36,6 +36,12 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     instance.UNDEFINED_PROPERTY           = '(undefined property)';
     instance.UNDEFINED_MESSAGE_TYPE       = '(undefined message type)';
 
+    instance.actionSubject                  = instance.UNDEFINED_PROPERTY;
+    instance.pastActionSentence             = instance.UNDEFINED_PROPERTY;
+    instance.pastActionSentenceConnector    = instance.UNDEFINED_PROPERTY;
+    instance.presentActionSentence          = instance.UNDEFINED_PROPERTY;
+    instance.presentActionSentenceConnector = instance.UNDEFINED_PROPERTY;
+
     return instance;
   end
 
