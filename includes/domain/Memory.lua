@@ -330,4 +330,8 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     return MemoryAddon_Memory:new();
   end
+
+
+  -- prevents this method to be called again
+  MemoryAddon_addMemoryPrototype = nil;
 end

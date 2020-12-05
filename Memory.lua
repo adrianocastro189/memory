@@ -218,6 +218,9 @@ local function MemoryAddon_initializeCore()
   -- adds the memory prototype to the repository
   MemoryAddon_addMemoryPrototype( MemoryCore.repository );
 
+  -- adds the memory prototype to the repository
+  MemoryAddon_addMemoryStringPrototype( MemoryCore.repository );
+
   -- adds the player prototype to core
   MemoryAddon_addPlayerPrototype( MemoryCore );
 
