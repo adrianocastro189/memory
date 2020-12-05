@@ -8,6 +8,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 * Dev - Add a date helper instance to core
 * Dev - Add the `MemoryString` prototype
 * Dev - Add the first `Memory` utility methods to access `MemoryString` data
+* Dev - Add the `MemoryTextFormatter` prototype
 
 ### 2020.11.25 - version 0.5.0-beta
 * Feature - Saved memories have a 10% chance to be printed to the chat frame
