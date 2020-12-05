@@ -73,6 +73,30 @@ function MemoryAddon_DateHelper:new()
   end
 
 
+  --[[
+  Gets a time representation from World of Warcraft from a date string.
+
+  @since 0.6.0-beta
+
+  @param string date a string date with format %y-%m-%d
+  @return time|nil
+  ]]
+  function instance:toTime( date )
+
+    -- explodes the date
+    local year, month, day = strsplit( '-', date );
+
+    -- sanity check
+    if nil == year or nil == month or nil == day then
+
+      return nil;
+    end
+
+    -- returns the World of Warcraft time representation
+    return time( { day = tonumber( day ), month = tonumber( month ), year = tonumber( year ) } );
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_DateHelper = nil;
 
