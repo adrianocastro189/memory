@@ -21,3 +21,5 @@ includes\helpers\DateHelper.lua
 includes\helpers\CompatibilityHelper.lua
 
 includes\repository\MemoryRepository.lua
+
+includes\view\MemoryTextFormatter.lua
