@@ -27,6 +27,10 @@ function MemoryAddon_addMemoryPrototype( repository )
     local instance = {};
 
     setmetatable( instance, MemoryAddon_Memory );
+
+    -- placeholder for some getters when properties are null
+    instance.DATA_PLACEHOLDER = 'undefined';
+
     instance.category        = '';
     instance.first           = -1;
     instance.interactionType = '';
