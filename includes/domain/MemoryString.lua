@@ -48,6 +48,35 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Crafts a memory string used to store important data to a player memory.
+
+    @since 0.6.0-beta
+
+    @return self MemoryAddon_MemoryString
+    ]]
+    function instance:build()
+
+      -- gets the memory string data values
+      local date        = date( '%y-%m-%d' );
+      local playerLevel = UnitLevel( 'player' );
+      local zone        = GetZoneText();
+      local subZone     = GetSubZoneText();
+
+      -- replaces nil values with a slash
+      if date        == nil                      then date        = self.DATA_DEFAULT_CHAR; end
+      if playerLevel == nil or playerLevel == 0  then playerLevel = self.DATA_DEFAULT_CHAR; end
+      if zone        == nil or zone        == '' then zone        = self.DATA_DEFAULT_CHAR; end
+      if subZone     == nil or subZone     == '' then subZone     = self.DATA_DEFAULT_CHAR; end
+
+      return self
+        :setDate( date )
+        :setPlayerLevel( playerLevel )
+        :setZone( zone )
+        :setSubZone( subZone );
+    end
+
+
+    --[[
     Gets the date when the memory string was collected.
 
     @since 0.6.0-beta
