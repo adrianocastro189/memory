@@ -34,6 +34,18 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     -- default value to be used if any information in the memory string is missing
     instance.DATA_DEFAULT_CHAR = '-';
 
+    -- the zone where the memory string was collected
+    instance.zone = instance.DATA_DEFAULT_CHAR;
+
+    -- the subzone where the memory string was collected
+    instance.subZone = instance.DATA_DEFAULT_CHAR;
+
+    -- the date when the memory string was collected
+    instance.date = instance.DATA_DEFAULT_CHAR;
+
+    -- the player's level when the memory string was collected
+    instance.playerLevel = instance.DATA_DEFAULT_CHAR;
+
     return instance;
   end
 
