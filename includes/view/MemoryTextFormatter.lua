@@ -124,6 +124,27 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
+    Gets a sentence defined by type.
+
+    @since 0.6.0-beta
+
+    @param MemoryAddon_Memory memory
+    @param int type
+    @param int x may increase or decrease the x value for MESSAGE_TYPE_COUNT (optional)
+    ]]
+    function instance:getChatMessage( memory, type, --[[optional]] x )
+
+      if self.MESSAGE_TYPE_FIRST_WITH_DATE == type then return self:getFirstWithDate( memory ); end
+      if self.MESSAGE_TYPE_FIRST_WITH_DAYS == type then return self:getFirstWithDays( memory ); end
+      if self.MESSAGE_TYPE_LAST_WITH_DATE  == type then return self:getLastWithDate( memory ); end
+      if self.MESSAGE_TYPE_LAST_WITH_DAYS  == type then return self:getLastWithDays( memory ); end
+      if self.MESSAGE_TYPE_COUNT           == type then return self:getPresentCount( memory, x ); end
+
+      return self.UNDEFINED_MESSAGE_TYPE;
+    end
+
+
+    --[[
     Builds and return a sentence about the first experience of the player with a memory.
 
     @since 0.6.0-beta
