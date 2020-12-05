@@ -138,7 +138,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
       end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getActionSubject() .. ' was on ' .. memory:getFormattedDate();
+      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getActionSubject() .. ' was on ' .. memory:getFirstFormattedDate();
     end
 
 
