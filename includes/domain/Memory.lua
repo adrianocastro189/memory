@@ -53,7 +53,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @return string a memory string
+    @return MemoryAddon_MemoryString
     ]]
     function instance:getFirst()
 
@@ -79,7 +79,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @return string a memory string
+    @return MemoryAddon_MemoryString
     ]]
     function instance:getLast()
 
@@ -241,7 +241,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @param string first a memory string
+    @param MemoryAddon_MemoryString a memory string instance
     @return self MemoryAddon_Memory
     ]]
     function instance:setFirst( first )
@@ -273,7 +273,7 @@ function MemoryAddon_addMemoryPrototype( repository )
 
     @since 0.5.0-beta
 
-    @param string last a memory string
+    @param MemoryAddon_MemoryString a memory string instance
     @return self MemoryAddon_Memory
     ]]
     function instance:setLast( last )
