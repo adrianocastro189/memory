@@ -221,6 +221,9 @@ local function MemoryAddon_initializeCore()
   -- adds the memory prototype to the repository
   MemoryAddon_addMemoryStringPrototype( MemoryCore.repository );
 
+  -- adds the memory text formatter prototype to core
+  MemoryAddon_addMemoryTextFormatterPrototype( MemoryCore );
+
   -- adds the player prototype to core
   MemoryAddon_addPlayerPrototype( MemoryCore );
 
