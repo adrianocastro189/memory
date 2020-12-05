@@ -99,6 +99,70 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     end
 
 
+    --[[
+    Sets the date when the memory string was collected.
+
+    @since 0.6.0-beta
+
+    @param string date
+    @return string
+    ]]
+    function instance:setDate( date )
+
+      self.date = date;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the player's level when the memory string was collected.
+
+    @since 0.6.0-beta
+
+    @param string playerLevel
+    @return string
+    ]]
+    function instance:setPlayerLevel( playerLevel )
+
+      self.playerLevel = playerLevel;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the subzone where the memory string was collected.
+
+    @since 0.6.0-beta
+
+    @param string subZone
+    @return string
+    ]]
+    function instance:setSubZone( subZone )
+
+      self.subZone = subZone;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the zone where the memory string was collected.
+
+    @since 0.6.0-beta
+
+    @param string zone
+    @return string
+    ]]
+    function instance:setZone( zone )
+
+      self.zone = zone;
+
+      return self;
+    end
+
+
     return instance;
   end
 
