@@ -20,9 +20,10 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
   @since 0.6.0-beta
 
+  @param string memoryString will parse the memory string instead of building a new one (optional)
   @return MemoryAddon_MemoryString
   ]]
-  function MemoryAddon_MemoryString:new()
+  function MemoryAddon_MemoryString:new( --[[optional]] memoryString )
 
     local instance = {};
 
@@ -226,6 +227,9 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     end
 
 
+    -- builds or parses a memory string
+    if nil ~= memoryString then instance:parse( memoryString ); else instance:build(); end
+
     return instance;
   end
 
@@ -235,11 +239,12 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
   @since 0.6.0-beta
 
+  @param string memoryString will parse the memory string instead of building a new one (optional)
   @return MemoryAddon_MemoryString
   ]]
-  function repository:newMemoryString()
+  function repository:newMemoryString( --[[optional]] memoryString )
 
-    return MemoryAddon_MemoryString:new();
+    return MemoryAddon_MemoryString:new( memoryString );
   end
 
 
