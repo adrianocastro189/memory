@@ -124,6 +124,25 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
+    Builds and return a sentence about the first experience of the player with a memory.
+
+    @since 0.6.0-beta
+
+    @param MemoryAddon_Memory memory
+    @return string
+    ]]
+    function instance:getFirstWithDate( memory )
+
+      if nil == memory or ( not memory:hasFirst() ) then
+
+        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+      end
+
+      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getActionSubject() .. ' was on ' .. memory:getFormattedDate();
+    end
+
+
+    --[[
     Gets the memory past action sentence that can be visited, talked, etc.
 
     @since 0.6.0-beta
