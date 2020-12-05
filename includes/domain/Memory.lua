@@ -112,6 +112,26 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets a formatted date for the last time this memory was experienced.
+
+    This methods gets information from the memory string.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getLastFormattedDate()
+
+      if not self:hasLast() then
+
+        return self.DATA_PLACEHOLDER;
+      end
+
+      return MemoryCore:getDateHelper():getFormattedDate( self:getLast():getDate() );
+    end
+
+
+    --[[
     Gets the memory path.
 
     @since 0.5.0-beta
