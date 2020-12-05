@@ -28,6 +28,14 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     setmetatable( instance, MemoryAddon_MemorTextFormatter );
 
+    instance.MESSAGE_TYPE_FIRST_WITH_DATE = 1;
+    instance.MESSAGE_TYPE_FIRST_WITH_DAYS = 2;
+    instance.MESSAGE_TYPE_LAST_WITH_DATE  = 3;
+    instance.MESSAGE_TYPE_LAST_WITH_DAYS  = 4;
+    instance.MESSAGE_TYPE_COUNT           = 5;
+    instance.UNDEFINED_PROPERTY           = '(undefined property)';
+    instance.UNDEFINED_MESSAGE_TYPE       = '(undefined message type)';
+
     return instance;
   end
 
