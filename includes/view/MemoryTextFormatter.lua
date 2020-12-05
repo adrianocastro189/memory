@@ -42,6 +42,71 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     instance.presentActionSentenceConnector = instance.UNDEFINED_PROPERTY;
     instance.subject                        = instance.UNDEFINED_PROPERTY;
 
+
+    --[[
+    Gets the memory past action sentence that can be visited, talked, etc.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getPastActionSentence()
+
+      return self.pastActionSentence or instance.UNDEFINED_PROPERTY;
+    end
+
+
+    --[[
+    Gets the memory past action sentence connector that can be with, to, etc.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getPastActionSentenceConnector()
+
+      return self.pastActionSentenceConnector or instance.UNDEFINED_PROPERTY;
+    end
+
+
+    --[[
+    Gets the memory present action sentence that can be visit, talk, etc.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getPresentActionSentence()
+
+      return self.presentActionSentence or instance.UNDEFINED_PROPERTY;
+    end
+
+
+    --[[
+    Gets the memory present action sentence connector that can be with, to, etc.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getPresentActionSentenceConnector()
+
+      return self.presentActionSentenceConnector or instance.UNDEFINED_PROPERTY;
+    end
+
+
+    --[[
+    Gets the memory subject that can be a zone, npc, player, etc.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getSubject()
+
+      return self.subject or instance.UNDEFINED_PROPERTY;
+    end
+
     return instance;
   end
 
