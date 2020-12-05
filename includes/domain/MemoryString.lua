@@ -100,6 +100,27 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Parses a memory string to populate this instance properties.
+
+    @since 0.6.0-beta
+
+    @param string memoryString
+    @return self MemoryAddon_MemoryString
+    ]]
+    function instance:parse( memoryString )
+
+      -- explodes the memory string
+      local date, playerLevel, zone, subZone = strsplit( self.DATA_SEPARATOR, memoryString );
+
+      return self
+        :setDate( date )
+        :setPlayerLevel( playerLevel )
+        :setZone( zone )
+        :setSubZone( subZone );
+    end
+
+
+    --[[
     Sets the date when the memory string was collected.
 
     @since 0.6.0-beta
