@@ -163,6 +163,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     end
 
 
+    --[[
+    Gets a string representation of the memory string.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:toString()
+
+      return self:getDate() .. '|' .. self:getPlayerLevel() .. '|' .. self:getZone() .. '|' .. self:getSubZone();
+    end
+
+
     return instance;
   end
 
