@@ -129,32 +129,6 @@ function MemoryRepository:new( player, realm )
 
 
   --[[
-  Crafts a memory string used to store important data to a player memory.
-
-  @since 0.2.0-alpha
-
-  @return string
-  ]]
-  function instance:craftMemoryString()
-
-    -- gets the memory string data values
-    local currentDate = date( "%y-%m-%d" );
-    local playerLevel = UnitLevel( "player" );
-    local zoneName    = GetZoneText();
-    local subZoneName = GetSubZoneText();
-
-    -- replaces nil values with a slash
-    if currentDate == nil then currentDate = '-' end
-    if playerLevel == nil or playerLevel == 0  then playerLevel = '-' end
-    if zoneName    == nil or zoneName    == "" then zoneName    = '-' end
-    if subZoneName == nil or subZoneName == "" then subZoneName = '-' end
-
-    -- crafts and returns the memory string
-    return currentDate .. "|" .. playerLevel .. "|" .. zoneName .. "|" .. subZoneName;
-  end
-
-
-  --[[
   Gets a player's memory.
 
   This method has a collateral effect of preparing the database to a memory store
@@ -208,7 +182,7 @@ function MemoryRepository:new( player, realm )
     local memoryPath = self:check( category, path, interactionType );
 
     -- gets the memory string to store the player's memory
-    local memoryString = self:craftMemoryString();
+    local memoryString = self:newMemoryString():toString();
 
     -- stores the first time player experienced this memory
     if memoryPath["first"] == -1 then memoryPath["first"] = memoryString; end
