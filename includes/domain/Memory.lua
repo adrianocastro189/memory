@@ -66,6 +66,26 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets a formatted date for the first time this memory was experienced.
+
+    This methods gets information from the memory string.
+
+    @since 0.6.0-beta
+
+    @return string
+    ]]
+    function instance:getFirstFormattedDate()
+
+      if not self:hasFirst() then
+
+        return self.DATA_PLACEHOLDER;
+      end
+
+      return MemoryCore:getDateHelper():getFormattedDate( self:getFirst():getDate() );
+    end
+
+
+    --[[
     Gets the memory interaction type.
 
     @since 0.5.0-beta
