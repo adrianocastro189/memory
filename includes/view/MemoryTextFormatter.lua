@@ -311,6 +311,28 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     end
 
 
+    function instance:getRandomChatMessage( memory, --[[optional]] x )
+
+      local messageTypes = {
+        self.MESSAGE_TYPE_FIRST_WITH_DATE,
+        self.MESSAGE_TYPE_FIRST_WITH_DAYS,
+        self.MESSAGE_TYPE_LAST_WITH_DATE,
+        self.MESSAGE_TYPE_LAST_WITH_DAYS,
+        self.MESSAGE_TYPE_COUNT
+      }
+
+      local randomType = math.ceil( math.random() * #messageTypes );
+
+      if 0 == randomType then
+
+        MemoryCore:debug( 'Unexpected random number' );
+        return self.UNDEFINED_MESSAGE_TYPE;
+      end
+
+      return self:getChatMessage( memory, randomType, x );
+    end
+
+
     --[[
     Gets the memory subject that can be a zone, npc, player, etc.
 
