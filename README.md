@@ -6,6 +6,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 
 ### 2020.nn.nn - version 0.6.0-beta
 * Dev - Add a date helper instance to core
+* Dev - Add a string helper instance to core
 * Dev - Add the `MemoryString` prototype
 * Dev - Add the first `Memory` utility methods to access `MemoryString` data
 * Dev - Add the `MemoryTextFormatter` prototype

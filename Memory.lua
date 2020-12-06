@@ -37,6 +37,9 @@ local function MemoryAddon_initializeCore()
   -- the unique repository instance
   MemoryCore.repository = nil;
 
+  -- the StringHelper instance
+  MemoryCore.stringHelper = nil;
+
 
   --[[
   Attaches an event listener to the core.
@@ -132,6 +135,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique string helper instance.
+
+  @since 0.6.0-beta
+
+  @return MemoryAddon_StringHelper
+  ]]
+  function MemoryCore:getStringHelper()
+
+    return self.stringHelper;
+  end
+
+
+  --[[
   Highlights a string using the addon highlight color.
 
   @since 0.1.0-alpha
@@ -156,6 +172,7 @@ local function MemoryAddon_initializeCore()
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.repository          = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
+    self.stringHelper        = MemoryAddon_StringHelper:new();
   end
 
 
