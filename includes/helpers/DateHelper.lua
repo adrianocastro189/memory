@@ -68,7 +68,7 @@ function MemoryAddon_DateHelper:new()
     -- sanity check
     if nil == year or nil == month or nil == day then
 
-      return 'Invalid date';
+      return '(invalid date = ' .. date .. ')';
     end
 
     return self:getMonthName( month ) .. ' ' .. tonumber( day ) .. ', ' .. year;
