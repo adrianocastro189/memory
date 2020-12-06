@@ -182,7 +182,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       local was  = '';
 
       -- generates a was fragment that makes sense
-      if 0 == days then was = 'today'; else was = days .. ' ago'; end
+      if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
       return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was ' .. was;
     end
