@@ -3,7 +3,7 @@ The string helper prototype.
 
 Provides helper methods to work with strings.
 
-@since 0.6.0-alpha
+@since 0.6.0-beta
 ]]
 MemoryAddon_StringHelper = {};
 MemoryAddon_StringHelper.__index = MemoryAddon_StringHelper;
@@ -11,7 +11,7 @@ MemoryAddon_StringHelper.__index = MemoryAddon_StringHelper;
 --[[
 Constructs a new instance of a string helper.
 
-@since 0.6.0-alpha
+@since 0.6.0-beta
 
 @return MemoryAddon_StringHelper
 ]]
@@ -26,7 +26,7 @@ function MemoryAddon_StringHelper:new()
 
   For 1, this method will return st, for 2, nd, and so on.
 
-  @since 0.6.0-alpha
+  @since 0.6.0-beta
 
   @param number
   @return string
