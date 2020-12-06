@@ -62,6 +62,9 @@ function MemoryAddon_DateHelper:new()
     -- explodes the date
     local year, month, day = strsplit( '-', date );
 
+    -- fixes a two digit year
+    if 2 == #year then year = '20' .. year; end
+
     -- sanity check
     if nil == year or nil == month or nil == day then
 
@@ -113,6 +116,9 @@ function MemoryAddon_DateHelper:new()
 
     -- explodes the date
     local year, month, day = strsplit( '-', date );
+
+    -- fixes a two digit year
+    if 2 == #year then year = '20' .. year; end
 
     -- sanity check
     if nil == year or nil == month or nil == day then
