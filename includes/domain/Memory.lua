@@ -112,7 +112,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:getFirstFormattedDate()
 
-      if not self:hasFirst() then
+      if ( not self:hasFirst() ) or ( not self:getFirst():hasDate() ) then
 
         return self.DATA_PLACEHOLDER;
       end
@@ -215,7 +215,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:hasFirst()
 
-      return nil ~= self.first and -1 ~= self:getFirst();
+      return nil ~= self.first and -1 ~= self:getFirst() and self:getFirst():hasDate();
     end
 
 
