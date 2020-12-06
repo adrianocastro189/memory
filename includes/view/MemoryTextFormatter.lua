@@ -178,7 +178,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
       end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getActionSubject() .. ' was ' .. memory:getDaysSinceFirstDay() .. 'ago';
+      local days = memory:getDaysSinceLastDay();
+      local was  = '';
+
+      -- generates a was fragment that makes sense
+      if 0 == days then was = 'today'; else was = days .. ' ago'; end
+
+      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was ' .. was;
     end
 
 
@@ -216,7 +222,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
       end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getActionSubject() .. ' was ' .. memory:getDaysSinceLastDay() .. 'ago';
+      local days = memory:getDaysSinceLastDay();
+      local was  = '';
+
+      -- generates a was fragment that makes sense
+      if 0 == days then was = 'today'; else was = days .. ' ago'; end
+
+      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was ' .. was;
     end
 
 
