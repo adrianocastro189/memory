@@ -134,10 +134,10 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     ]]
     function instance:getChatMessage( memory, type, --[[optional]] x )
 
-      if self.MESSAGE_TYPE_FIRST_WITH_DATE == type then return self:getFirstWithDate( memory ); end
-      if self.MESSAGE_TYPE_FIRST_WITH_DAYS == type then return self:getFirstWithDays( memory ); end
-      if self.MESSAGE_TYPE_LAST_WITH_DATE  == type then return self:getLastWithDate( memory ); end
-      if self.MESSAGE_TYPE_LAST_WITH_DAYS  == type then return self:getLastWithDays( memory ); end
+      if self.MESSAGE_TYPE_FIRST_WITH_DATE == type then return self:getFirstWithDate( memory );   end
+      if self.MESSAGE_TYPE_FIRST_WITH_DAYS == type then return self:getFirstWithDays( memory );   end
+      if self.MESSAGE_TYPE_LAST_WITH_DATE  == type then return self:getLastWithDate( memory );    end
+      if self.MESSAGE_TYPE_LAST_WITH_DAYS  == type then return self:getLastWithDays( memory );    end
       if self.MESSAGE_TYPE_COUNT           == type then return self:getPresentCount( memory, x ); end
 
       return self.UNDEFINED_MESSAGE_TYPE;
