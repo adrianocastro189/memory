@@ -294,6 +294,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @since 0.6.0-beta
 
+    @param MemoryAddon_Memory memory
     @return string
     ]]
     function instance:getPresentCount( memory, --[[optional]] x )
