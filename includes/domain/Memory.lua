@@ -274,13 +274,14 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     May print the memory in the chat frame based on a random chance.
 
+    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
     ]]
-    function instance:maybePrint()
+    function instance:maybePrint( textFormatter )
 
       if math.random() <= 0.1 then
 
-        self:print();
+        self:print( textFormatter );
       end
     end
 
@@ -288,15 +289,18 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     Prints the memory in the chat frame.
 
+    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
     ]]
-    function instance:print()
+    function instance:print( textFormatter )
 
-      -- TODO: Replace this for a better formatted string on future epics {AC 2020-11-22}
-      local tempMemoryString = 'First[' .. self:getFirst():toString() .. '], Last[' .. self:getLast():toString() .. '], x[' .. self:getX() .. ']';
-            tempMemoryString = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", tempMemoryString );
+      -- TODO: improve the way x = 1 is passed as a parameter {AC 2020-12-05}
+      local sentence = textFormatter:getRandomChatMessage( self, 1 );
 
-      MemoryCore:print( tempMemoryString );
+      -- wrap the sentence in a colored chat message
+      sentence = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", sentence );
+
+      MemoryCore:print( sentence );
     end
 
 
