@@ -29,6 +29,20 @@ function MemoryAddon_LoggerHelper:new()
   -- current log level
   instance.logLevel = instance.LEVEL_DEBUG;
 
+
+  --[[
+  Prints a debug message.
+
+  @since 1.0.0
+
+  @param string message the message to log
+  ]]
+  function instance:debug( message )
+
+    self:log( message, self.LEVEL_DEBUG );
+  end
+
+
   --[[
   Prints a log message if the log level is greater than the current log level set.
 
