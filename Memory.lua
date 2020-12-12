@@ -34,6 +34,9 @@ local function MemoryAddon_initializeCore()
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
 
+  -- the unique logger instance
+  MemoryCore.logger = nil;
+
   -- the unique repository instance
   MemoryCore.repository = nil;
 
@@ -122,6 +125,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique logger helper instance.
+
+  @since 1.0.0
+
+  @return MemoryAddon_DateHelper
+  ]]
+  function MemoryCore:getLogger()
+
+    return self.logger;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
@@ -171,6 +187,7 @@ local function MemoryAddon_initializeCore()
     self.arrayHelper         = MemoryAddon_ArrayHelper:new();
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
     self.dateHelper          = MemoryAddon_DateHelper:new();
+    self.logger              = MemoryAddon_LoggerHelper:new();
     self.repository          = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
     self.stringHelper        = MemoryAddon_StringHelper:new();
   end
