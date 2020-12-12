@@ -44,6 +44,19 @@ function MemoryAddon_LoggerHelper:new()
 
 
   --[[
+  Prints an error message.
+
+  @since 1.0.0
+
+  @param string message the message to log
+  ]]
+  function instance:error( message )
+
+    self:log( message, self.LEVEL_ERROR );
+  end
+
+
+  --[[
   Prints an info message.
 
   @since 1.0.0
