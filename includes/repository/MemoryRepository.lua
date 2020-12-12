@@ -194,7 +194,7 @@ function MemoryRepository:new( player, realm )
     memoryPath["x"] = memoryPath["x"] + x;
 
     -- just a debug message to... help us debug!
-    MemoryCore:debug( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interactionType .. ' memory stored for ' .. category, true );
+    MemoryCore:getLogger():info( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interactionType .. ' memory stored for ' .. category );
   end
 
 
@@ -215,7 +215,7 @@ function MemoryRepository:new( player, realm )
     -- sanity check
     if memory == nil or not memory:isValid() then
 
-      MemoryCore:debug( 'Attempt to save an invalid memory', true );
+      MemoryCore:getLogger():warn( 'Attempt to save an invalid memory' );
 
       return;
     end

@@ -27,7 +27,7 @@ function MemoryAddon_LoggerHelper:new()
   instance.LEVEL_OFF   = 40;
 
   -- current log level
-  instance.logLevel = instance.LEVEL_DEBUG;
+  instance.logLevel = instance.LEVEL_WARN;
 
 
   --[[

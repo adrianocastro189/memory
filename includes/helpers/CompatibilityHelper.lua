@@ -159,7 +159,7 @@ function MemoryAddon_CompatibilityHelper:new()
 
     else
 
-      MemoryCore:debug( 'Invalid loot item msg' );
+      MemoryCore:getLogger():debug( 'Invalid loot item msg' );
 
       item.valid = false;
     end

@@ -16,9 +16,6 @@ local function MemoryAddon_initializeCore()
   -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = '1.0.0';
 
-  -- determines whether the addon is in debug mode or not
-  MemoryCore.DEBUG = false;
-
   -- the pattern used to wrap strings in the addon highlight color
   MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
 
@@ -62,25 +59,6 @@ local function MemoryAddon_initializeCore()
 
       -- adds the event to the memory frame
       MemoryEventFrame:RegisterEvent( event );
-    end
-  end
-
-
-  --[[
-  Prints a debug message if the debug mode is on.
-
-  @since 0.4.0-alpha
-
-  @param string message the message to log
-  @param bool force (optional) will bypass self.DEBUG if true
-  ]]
-  function MemoryCore:debug( message, --[[optional]] force )
-
-    if self.DEBUG or force then
-
-      local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
-
-      self:print( message, prefix );
     end
   end
 
@@ -268,7 +246,7 @@ local function MemoryAddon_initializeCore()
   MemoryCore:getRepository():store( "misc", {}, "login" );
 
   -- prints a debug message confirming the end of the initialization
-  MemoryCore:debug( "MemoryCore initialized" );
+  MemoryCore:getLogger():debug( 'MemoryCore initialized' );
 end
 
 -- the main event frame used to trigger all the Memory listeners
