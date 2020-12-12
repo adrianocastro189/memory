@@ -241,7 +241,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:hasLast()
 
-      return nil ~= self.last and -1 ~= self:getLast();
+      return nil ~= self.last and -1 ~= self:getLast() and self:getLast():hasDate();
     end
 
 
