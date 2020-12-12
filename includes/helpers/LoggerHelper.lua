@@ -44,6 +44,19 @@ function MemoryAddon_LoggerHelper:new()
 
 
   --[[
+  Prints an info message.
+
+  @since 1.0.0
+
+  @param string message the message to log
+  ]]
+  function instance:info( message )
+
+    self:log( message, self.LEVEL_INFO );
+  end
+
+
+  --[[
   Prints a log message if the log level is greater than the current log level set.
 
   @since 1.0.0
