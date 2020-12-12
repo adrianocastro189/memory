@@ -28,6 +28,19 @@ function MemoryEvent:new( name, events, action )
 
 
   --[[
+  Builds a new memory text formatter to print a friendly memory message.
+
+  @since 0.6.0-beta
+
+  @return MemoryAddon_MemorTextFormatter
+  ]]
+  function instance:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter();
+  end
+
+
+  --[[
   Prints a debug message for the specific event.
 
   @since 0.4.0-alpha
@@ -94,8 +107,11 @@ function MemoryEvent:new( name, events, action )
     -- gets the memory from repository (may be already saved or a new kind of memory)
     local memory = MemoryCore:getRepository():get( category, path, interactionType );
 
+    -- gets the text formatter
+    local textFormatter = self:buildMemoryTextFormatter();
+
     -- may print it
-    memory:maybePrint();
+    memory:maybePrint( textFormatter );
 
     -- prevents x to duplicate on save()
     memory:setX( x );

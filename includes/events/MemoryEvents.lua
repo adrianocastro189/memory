@@ -50,6 +50,9 @@ function MemoryAddon_addEvents( core )
         -- when a player does business with an npc again before leaving the zone, we won't count that as another memory
         if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Recent business" ); end
 
+        -- sets the subject for memory text formatting
+        listener.subject = target:getName();
+
         -- stores the player memory about doing business with that npc
         listener:printAndSave( 'npcs', { target:getName() }, 'business' );
 
@@ -61,6 +64,15 @@ function MemoryAddon_addEvents( core )
   );
   eventNpcBusiness.doingBusiness = false;
   eventNpcBusiness.lastNpcs      = {};
+  function eventNpcBusiness:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'had done business' )
+      :setPastActionSentenceConnector( 'with' )
+      :setPresentActionSentence( 'do business' )
+      :setPresentActionSentenceConnector( 'with' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventNpcBusiness );
 
   --[[
@@ -100,6 +112,9 @@ function MemoryAddon_addEvents( core )
       -- when a player talks with an npc again before leaving the zone, we won't count that as another memory
       if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
 
+      -- sets the subject for memory text formatting
+      listener.subject = target:getName();
+
       -- stores the player memory about talking with that npc
       listener:printAndSave( "npcs", { target:getName() }, "talk" );
 
@@ -108,6 +123,15 @@ function MemoryAddon_addEvents( core )
     end
   );
   eventNpcTalk.lastNpcs = {};
+  function eventNpcTalk:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'spoke' )
+      :setPastActionSentenceConnector( 'with' )
+      :setPresentActionSentence( 'speak' )
+      :setPresentActionSentenceConnector( 'with' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventNpcTalk );
 
   --[[
@@ -153,6 +177,9 @@ function MemoryAddon_addEvents( core )
       -- sanity check
       if destName == nil or '' == destName then return listener:debugAndExit( 'destName is null or empty' ); end
 
+      -- sets the subject for memory text formatting
+      listener.subject = destName;
+
       -- stores a memory of fighting the npc
       listener:printAndSave( "npcs", { destName }, "fight" );
 
@@ -161,6 +188,15 @@ function MemoryAddon_addEvents( core )
     end
   );
   eventNpcFight.lastNpcs = {};
+  function eventNpcFight:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'had a fight' )
+      :setPastActionSentenceConnector( 'with' )
+      :setPresentActionSentence( 'have a fight' )
+      :setPresentActionSentenceConnector( 'with' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventNpcFight );
 
   --[[
@@ -181,6 +217,9 @@ function MemoryAddon_addEvents( core )
 
       for i, playerGuid in pairs( uniqueMembers ) do
 
+        -- sets the subject for memory text formatting
+        listener.subject = playerGuid;
+
         -- adds a party memory
         listener:printAndSave( 'players', { playerGuid }, 'party' );
 
@@ -190,6 +229,15 @@ function MemoryAddon_addEvents( core )
     end
   );
   eventPlayerParty.lastPlayers = {};
+  function eventPlayerParty:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'grouped' )
+      :setPastActionSentenceConnector( 'with' )
+      :setPresentActionSentence( 'group' )
+      :setPresentActionSentenceConnector( 'with' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventPlayerParty );
 
   --[[
@@ -223,6 +271,9 @@ function MemoryAddon_addEvents( core )
       -- we need to check if it had really changed zones
       if not zoneName == listener.lastZone then
 
+        -- sets the subject for memory text formatting
+        listener.subject = zoneName;
+
         -- stores a memory about the new zone player is visiting
         listener:printAndSave( "zones", { zoneName }, "visit" );
 
@@ -243,6 +294,9 @@ function MemoryAddon_addEvents( core )
       -- we need to check if it had really changed zones
       if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then return listener:debugAndExit( "Player hasn't changed subzones" ); end
 
+      -- sets the subject for memory text formatting
+      listener.subject = subZoneName;
+
       -- stores a memory about the new sub zone player is visiting
       listener:printAndSave( "zones", { zoneName, "subzones", subZoneName }, "visit" );
 
@@ -252,6 +306,15 @@ function MemoryAddon_addEvents( core )
   );
   eventZoneVisit.lastSubZones = {};
   eventZoneVisit.lastZone     = "";
+  function eventZoneVisit:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'visited' )
+      :setPastActionSentenceConnector( '' )
+      :setPresentActionSentence( 'visit' )
+      :setPresentActionSentenceConnector( '' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventZoneVisit );
 
   --[[
@@ -278,10 +341,22 @@ function MemoryAddon_addEvents( core )
       -- another sanity check
       if not itemLootInfo.valid then return listener:debugAndExit( "Invalid item" ); end
 
+      -- sets the subject for memory text formatting
+      listener.subject = itemLootInfo.name;
+
       -- stores a memory about looting the item
       listener:printAndSave( 'items', { itemLootInfo.name }, 'loot', itemLootInfo.quantity );
     end
   );
+  function eventItemLoot:buildMemoryTextFormatter()
+
+    return MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence( 'looted' )
+      :setPastActionSentenceConnector( 'an item called' )
+      :setPresentActionSentence( 'loot' )
+      :setPresentActionSentenceConnector( 'an item called' )
+      :setSubject( self.subject );
+  end
   core:addEventListener( eventItemLoot );
 
   core:debug( "Events added" );

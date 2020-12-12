@@ -130,6 +130,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Determines whether this memory string has a date or not.
+
+    @since 0.6.0-beta
+
+    @return bool
+    ]]
+    function instance:hasDate()
+
+      return nil ~= self.date and '-1' ~= self.date;
+    end
+
+
+    --[[
     Parses a memory string to populate this instance properties.
 
     @since 0.6.0-beta
