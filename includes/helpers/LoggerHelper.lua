@@ -29,6 +29,25 @@ function MemoryAddon_LoggerHelper:new()
   -- current log level
   instance.logLevel = instance.LEVEL_DEBUG;
 
+  --[[
+  Prints a log message if the log level is greater than the current log level set.
+
+  @since 1.0.0
+
+  @param string message the message to log
+  @param int level the min log level required to print the message
+  ]]
+  function instance:log( message, level )
+
+    if level >= self.logLevel then
+
+      local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
+
+      MemoryCore:print( message, prefix );
+    end
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_LoggerHelper = nil;
 
