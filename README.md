@@ -4,6 +4,8 @@ A World of Warcraft addon to register memories while players do stuff around the
 
 ## Changelog
 
+### 202n.nn.nn - version 1.0.0
+
 ### 2020.12.12 - version 0.6.0-beta
 * Feature - Friendly memory sentences
 * Dev - Add a date helper instance to core
