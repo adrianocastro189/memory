@@ -282,9 +282,15 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @since 0.6.0-beta
 
+    @param string context may wrap stuff around the returned string
     @return string
     ]]
-    function instance:getPresentActionSentenceConnector()
+    function instance:getPresentActionSentenceConnector( context )
+
+      if 'view' == context then
+
+        return ' ' .. self.presentActionSentenceConnector .. ' ';
+      end
 
       return self.presentActionSentenceConnector or instance.UNDEFINED_PROPERTY;
     end
