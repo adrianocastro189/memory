@@ -75,6 +75,19 @@ function MemoryAddon_LoggerHelper:new()
   end
 
 
+  --[[
+  Prints a warn message.
+
+  @since 1.0.0
+
+  @param string message the message to log
+  ]]
+  function instance:warn( message )
+
+    self:log( message, self.LEVEL_WARN );
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_LoggerHelper = nil;
 
