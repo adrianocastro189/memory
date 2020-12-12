@@ -157,9 +157,10 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       if nil == memory or ( not memory:hasFirst() ) then
 
         return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was on ' .. memory:getFirstFormattedDate();
+      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getFirstFormattedDate();
     end
 
 
@@ -175,16 +176,16 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasFirst() ) then
 
-        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      local days = memory:getDaysSinceLastDay();
+      local days = memory:getDaysSinceFirstDay();
       local was  = '';
 
       -- generates a was fragment that makes sense
       if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was ' .. was;
+      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
     end
 
 
@@ -200,10 +201,10 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasLast() ) then
 
-        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was on ' .. memory:getLastFormattedDate();
+      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getLastFormattedDate();
     end
 
 
@@ -219,16 +220,16 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasLast() ) then
 
-        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       local days = memory:getDaysSinceLastDay();
       local was  = '';
 
       -- generates a was fragment that makes sense
-      if 0 == days then was = 'today'; else was = days .. ' ago'; end
+      if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject() .. ' was ' .. was;
+      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
     end
 
 
@@ -250,6 +251,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @since 0.6.0-beta
 
+    @param string context may wrap stuff around the returned string
     @return string
     ]]
     function instance:getPastActionSentenceConnector( context )
@@ -301,13 +303,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or 0 == memory:getX() then
 
-        return "I don't remember how many times I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
+        return "I don't remember how many times I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       -- may change x value with the optional param
       x = memory:getX() + ( x or 0 );
 
-      return 'This is the ' .. x .. MemoryCore:getStringHelper():getOrdinalSuffix( x ) .. ' time I ' .. self:getPresentActionSentence() .. self:getPresentActionSentenceConnector( 'view' ) .. self:getSubject();
+      return 'This is the ' .. x .. MemoryCore:getStringHelper():getOrdinalSuffix( x ) .. ' time I ' .. self:getPresentActionSentence() .. self:getPresentActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
     end
 
 
@@ -338,11 +340,19 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @since 0.6.0-beta
 
+    @param string context may wrap stuff around the returned string
     @return string
     ]]
-    function instance:getSubject()
+    function instance:getSubject( context )
 
-      return self.subject or instance.UNDEFINED_PROPERTY;
+      local subject = self.subject or instance.UNDEFINED_PROPERTY;
+
+      if 'view' == context then
+
+        subject = MemoryCore:highlight( subject );
+      end
+
+      return subject;
     end
 
     return instance;
