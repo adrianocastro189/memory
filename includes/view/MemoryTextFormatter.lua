@@ -156,7 +156,6 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasFirst() ) then
 
-        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject();
         return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
