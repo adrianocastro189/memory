@@ -138,7 +138,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:hasDate()
 
-      return nil ~= self.date and self.DATA_DEFAULT_CHAR ~= self.date;
+      return nil ~= self.date and '-1' ~= self.date;
     end
 
 
