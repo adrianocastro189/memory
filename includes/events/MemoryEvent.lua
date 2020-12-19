@@ -49,7 +49,7 @@ function MemoryEvent:new( name, events, action )
   ]]
   function instance:debug( message )
 
-    MemoryCore:debug( "[" .. self.name .. "] " .. message );
+    MemoryCore:getLogger():debug( "[" .. self.name .. "] " .. message );
   end
 
 

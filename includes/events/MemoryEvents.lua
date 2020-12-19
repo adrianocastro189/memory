@@ -359,7 +359,7 @@ function MemoryAddon_addEvents( core )
   end
   core:addEventListener( eventItemLoot );
 
-  core:debug( "Events added" );
+  core:getLogger():debug( 'Events added' );
 
   -- prevents MemoryEvent from being exposed after all events are created
   MemoryEvent:destroyPrototype();

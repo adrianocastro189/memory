@@ -19,6 +19,7 @@ includes\events\MemoryEvents.lua
 includes\helpers\ArrayHelper.lua
 includes\helpers\DateHelper.lua
 includes\helpers\CompatibilityHelper.lua
+includes\helpers\LoggerHelper.lua
 includes\helpers\StringHelper.lua
 
 includes\repository\MemoryRepository.lua

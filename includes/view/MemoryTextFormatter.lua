@@ -332,7 +332,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if 0 == randomType then
 
-        MemoryCore:debug( 'Unexpected random number' );
+        MemoryCore:getLogger():warn( 'Unexpected random number' );
         return self.UNDEFINED_MESSAGE_TYPE;
       end
 
