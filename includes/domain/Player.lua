@@ -139,6 +139,19 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
   --[[
+  Gets the player by GUID.
+
+  @since 1.0.0
+
+  @return MemoryAddon_Player
+  ]]
+  function core:getPlayerByGuid( guid, --[[optional]] name )
+
+    return MemoryAddon_Player:new( guid or '', name or '' );
+  end
+
+
+  --[[
   Gets the player of the current player's target.
 
   @since 0.4.0-alpha

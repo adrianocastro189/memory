@@ -171,6 +171,18 @@ function MemoryAddon_addEvents( core )
       -- exit condition if subevent is not a known one
       if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
 
+      -- gets the player object
+      local player = MemoryCore:getPlayerByGuid( destGuid, destName );
+
+      -- sanity check
+      if not player:isNpc() then
+
+        -- TODO: Remove this log message once this rule is validated
+        MemoryCore:getLogger():warn( 'Target is not an NPC' );
+
+        return listener:debugAndExit( 'Target is not an NPC' );
+      end
+
       -- exit condition if player has already attacked this npc
       if MemoryCore:getArrayHelper():inArray( destGuid, listener.lastNpcs ) then return listener:debugAndExit( 'Already attacked' ); end
 
