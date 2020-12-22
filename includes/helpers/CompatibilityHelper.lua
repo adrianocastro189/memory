@@ -20,10 +20,10 @@ function MemoryAddon_CompatibilityHelper:new()
   local instance = {};
   setmetatable( instance, MemoryAddon_CompatibilityHelper );
 
-  -- pattern for a single "You receive loot: %s." chat msg loot
+  -- pattern for a single 'You receive loot: %s.' chat msg loot
   instance.PATTERN_LOOT_ITEM_SELF = LOOT_ITEM_SELF:gsub( '%%s', '(.+)' );
 
-  -- pattern for multiple "You receive loot: %sx%d." chat msg loot
+  -- pattern for multiple 'You receive loot: %sx%d.' chat msg loot
   instance.PATTERN_LOOT_ITEM_SELF_MULTIPLE = LOOT_ITEM_SELF_MULTIPLE:gsub( '%%s', '(.+)' ):gsub( '%%d', '(%%d+)' );
 
   --[[

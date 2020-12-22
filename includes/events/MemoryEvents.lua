@@ -13,42 +13,42 @@ function MemoryAddon_addEvents( core )
   @since 0.4.0-alpha
   ]]
   local eventNpcBusiness = MemoryEvent:new(
-    "EventNpcBusiness",
+    'EventNpcBusiness',
     { 'MERCHANT_CLOSED', 'MERCHANT_SHOW', 'PLAYER_MONEY', 'ZONE_CHANGED' },
     function( listener, event, params )
 
       if 'ZONE_CHANGED' == event then
 
         listener.lastNpcs = {};
-        return listener:debugAndExit( "Resetting last NPCs list" );
+        return listener:debugAndExit( 'Resetting last NPCs list' );
       end
 
       if 'MERCHANT_CLOSED' == event then
 
         listener.doingBusiness = false;
-        return listener:debugAndExit( "Merchant window closed" );
+        return listener:debugAndExit( 'Merchant window closed' );
       end
 
       if 'MERCHANT_SHOW' == event then
 
         listener.doingBusiness = true;
-        return listener:debugAndExit( "Merchant window opened" );
+        return listener:debugAndExit( 'Merchant window opened' );
       end
 
       -- sanity check
       if 'PLAYER_MONEY' == event then
 
         -- exit condition if player is not doing business
-        if not listener.doingBusiness then return listener:debugAndExit( "Player is not doing business" ); end
+        if not listener.doingBusiness then return listener:debugAndExit( 'Player is not doing business' ); end
 
         -- gets the player on target
         local target = MemoryCore:getPlayerOnTarget();
 
         -- sanity check
-        if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
+        if not target:isNpc() then return listener:debugAndExit( 'Target is not an NPC' ); end
 
         -- when a player does business with an npc again before leaving the zone, we won't count that as another memory
-        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Recent business" ); end
+        if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( 'Recent business' ); end
 
         -- sets the subject for memory text formatting
         listener.subject = target:getName();
@@ -81,21 +81,21 @@ function MemoryAddon_addEvents( core )
   @since 0.4.0-alpha
   ]]
   local eventNpcTalk = MemoryEvent:new(
-    "EventNpcTalk",
+    'EventNpcTalk',
     { 'GOSSIP_SHOW', 'MERCHANT_SHOW', 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING', 'ZONE_CHANGED' },
     function( listener, event, params )
 
-      if "ZONE_CHANGED" == event then
+      if 'ZONE_CHANGED' == event then
 
         listener.lastNpcs = {};
-        return listener:debugAndExit( "Resetting last NPCs list" );
+        return listener:debugAndExit( 'Resetting last NPCs list' );
       end
 
       -- gets the player on target
       local target = MemoryCore:getPlayerOnTarget();
 
       -- sanity check
-      if not target:isNpc() then return listener:debugAndExit( "Target is not an NPC" ); end
+      if not target:isNpc() then return listener:debugAndExit( 'Target is not an NPC' ); end
 
       -- sanity check for dialog frames and the target name
       if MemoryCore:getArrayHelper():inArray( event, { 'GOSSIP_SHOW' } ) and target:getName() ~= MemoryCore:getCompatibilityHelper():getDialogGossipTitle() then
@@ -110,13 +110,13 @@ function MemoryAddon_addEvents( core )
       end
 
       -- when a player talks with an npc again before leaving the zone, we won't count that as another memory
-      if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( "Spoke recently" ); end
+      if MemoryCore:getArrayHelper():inArray( target:getName(), listener.lastNpcs ) then return listener:debugAndExit( 'Spoke recently' ); end
 
       -- sets the subject for memory text formatting
       listener.subject = target:getName();
 
       -- stores the player memory about talking with that npc
-      listener:printAndSave( "npcs", { target:getName() }, "talk" );
+      listener:printAndSave( 'npcs', { target:getName() }, 'talk' );
 
       -- will prevent the memory to be recorded twice if player talks with the same npc again before leaving the zone
       table.insert( listener.lastNpcs, target:getName() );
@@ -142,14 +142,14 @@ function MemoryAddon_addEvents( core )
   @since 0.4.0-alpha
   ]]
   local eventNpcFight = MemoryEvent:new(
-    "EventNpcFight",
+    'EventNpcFight',
     { 'COMBAT_LOG_EVENT', 'COMBAT_LOG_EVENT_UNFILTERED', 'ZONE_CHANGED' },
     function( listener, event, params )
 
       if 'ZONE_CHANGED' == event and not InCombatLockdown() then
 
         listener.lastNpcs = {};
-        return listener:debugAndExit( "Clearing last npcs list" );
+        return listener:debugAndExit( 'Clearing last npcs list' );
       end
 
       -- gets the combat log current event info
@@ -163,10 +163,10 @@ function MemoryAddon_addEvents( core )
       local playerName = UnitName( 'player' );
 
       -- exit condition if player is not the owner of the attack
-      if playerName ~= sourceName then return listener:debugAndExit( "Player didn't attack" ); end
+      if playerName ~= sourceName then return listener:debugAndExit( 'Player didn\'t attack' ); end
 
       -- exit condition if player was attacked
-      if playerGuid == destGuid then return listener:debugAndExit( "Player was attacked" ); end
+      if playerGuid == destGuid then return listener:debugAndExit( 'Player was attacked' ); end
 
       -- exit condition if subevent is not a known one
       if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
@@ -193,7 +193,7 @@ function MemoryAddon_addEvents( core )
       listener.subject = destName;
 
       -- stores a memory of fighting the npc
-      listener:printAndSave( "npcs", { destName }, "fight" );
+      listener:printAndSave( 'npcs', { destName }, 'fight' );
 
       -- will prevent the memory to be recorded twice if player fights with the same npc again before
       table.insert( listener.lastNpcs, destGuid );
@@ -265,19 +265,19 @@ function MemoryAddon_addEvents( core )
   @since 0.4.0-alpha
   ]]
   local eventZoneVisit = MemoryEvent:new(
-    "EventZoneVisit",
-    { "PLAYER_STARTED_MOVING", "PLAYER_STOPPED_MOVING" },
+    'EventZoneVisit',
+    { 'PLAYER_STARTED_MOVING', 'PLAYER_STOPPED_MOVING' },
     function( listener, event, params )
 
       -- prevents the memory to be saved if player has no control of itself like
       -- flying or being controlled by cinematics, etc
-      if not HasFullControl() or UnitOnTaxi( "player" ) or MemoryCore:getCompatibilityHelper():isFlying() then return listener:debugAndExit( "No full control" ); end
+      if not HasFullControl() or UnitOnTaxi( 'player' ) or MemoryCore:getCompatibilityHelper():isFlying() then return listener:debugAndExit( 'No full control' ); end
 
       -- gets the zone name
       local zoneName = GetZoneText();
 
       -- sanity check
-      if "" == zoneName then return listener:debugAndExit( "Invalid zone name" ); end
+      if '' == zoneName then return listener:debugAndExit( 'Invalid zone name' ); end
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
@@ -287,7 +287,7 @@ function MemoryAddon_addEvents( core )
         listener.subject = zoneName;
 
         -- stores a memory about the new zone player is visiting
-        listener:printAndSave( "zones", { zoneName }, "visit" );
+        listener:printAndSave( 'zones', { zoneName }, 'visit' );
 
         -- will prevent the memory to be recorded twice in another event call
         listener.lastZone = zoneName;
@@ -300,24 +300,24 @@ function MemoryAddon_addEvents( core )
       local subZoneName = GetSubZoneText() or GetMinimapZoneText();
 
       -- sanity check
-      if "" == subZoneName then return listener:debugAndExit( "Invalid subzone name" ); end
+      if '' == subZoneName then return listener:debugAndExit( 'Invalid subzone name' ); end
 
       -- this event can be triggered whether the player is changing zones or not, so
       -- we need to check if it had really changed zones
-      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then return listener:debugAndExit( "Player hasn't changed subzones" ); end
+      if MemoryCore:getArrayHelper():inArray( subZoneName, listener.lastSubZones ) then return listener:debugAndExit( 'Player hasn\'t changed subzones' ); end
 
       -- sets the subject for memory text formatting
       listener.subject = subZoneName;
 
       -- stores a memory about the new sub zone player is visiting
-      listener:printAndSave( "zones", { zoneName, "subzones", subZoneName }, "visit" );
+      listener:printAndSave( 'zones', { zoneName, 'subzones', subZoneName }, 'visit' );
 
       -- will prevent the memory to be recorded twice in another event call
       table.insert( listener.lastSubZones, subZoneName );
     end
   );
   eventZoneVisit.lastSubZones = {};
-  eventZoneVisit.lastZone     = "";
+  eventZoneVisit.lastZone     = '';
   function eventZoneVisit:buildMemoryTextFormatter()
 
     return MemoryCore:newMemoryTextFormatter()
@@ -345,13 +345,13 @@ function MemoryAddon_addEvents( core )
       local playerGuid = params[12] or '';
 
       -- sanity check in case this is triggered by another player message
-      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( "Player didn't loot it" ); end
+      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( 'Player didn\'t loot it' ); end
 
       -- gets the item loot information
       local itemLootInfo = MemoryCore:getCompatibilityHelper():parseChatMsgLoot( lootString );
 
       -- another sanity check
-      if not itemLootInfo.valid then return listener:debugAndExit( "Invalid item" ); end
+      if not itemLootInfo.valid then return listener:debugAndExit( 'Invalid item' ); end
 
       -- sets the subject for memory text formatting
       listener.subject = itemLootInfo.name;

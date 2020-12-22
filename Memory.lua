@@ -11,13 +11,13 @@ local function MemoryAddon_initializeCore()
   MemoryCore = {};
 
   -- the addon name
-  MemoryCore.ADDON_NAME = "Memory";
+  MemoryCore.ADDON_NAME = 'Memory';
 
   -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = '1.0.0';
 
   -- the pattern used to wrap strings in the addon highlight color
-  MemoryCore.HIGHLIGHT_PATTERN = "\124cffffee77{0}\124r";
+  MemoryCore.HIGHLIGHT_PATTERN = '\124cffffee77{0}\124r';
 
   -- the ArrayHelper instance
   MemoryCore.arrayHelper = nil;
@@ -151,7 +151,7 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:highlight( value )
 
-    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, "{0}", value );
+    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, '{0}', value );
   end
 
 
@@ -166,7 +166,7 @@ local function MemoryAddon_initializeCore()
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.logger              = MemoryAddon_LoggerHelper:new();
-    self.repository          = MemoryRepository:new( UnitGUID( "player" ), GetRealmName() );
+    self.repository          = MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
     self.stringHelper        = MemoryAddon_StringHelper:new();
   end
 
@@ -182,9 +182,9 @@ local function MemoryAddon_initializeCore()
   function MemoryCore:print( value, --[[optional]] prefix )
 
     -- creates a default prefix if not informed
-    local prefix = prefix or MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. ">" );
+    local prefix = prefix or MemoryCore:highlight( '<' .. MemoryCore.ADDON_NAME .. '>' );
 
-    DEFAULT_CHAT_FRAME:AddMessage( prefix .. " " .. value );
+    DEFAULT_CHAT_FRAME:AddMessage( prefix .. ' ' .. value );
   end
 
 
@@ -204,7 +204,7 @@ local function MemoryAddon_initializeCore()
 
   @since 0.3.0-alpha
   ]]
-  MemoryEventFrame:SetScript( "OnEvent",
+  MemoryEventFrame:SetScript( 'OnEvent',
     function( self, event, ... )
 
       -- This weird code below was the only way I found to convert ... to an array
@@ -243,23 +243,23 @@ local function MemoryAddon_initializeCore()
   MemoryAddon_addEvents( MemoryCore );
 
   -- stores a symbolic memory (this is the first memory stored by the addon!)
-  MemoryCore:getRepository():store( "misc", {}, "login" );
+  MemoryCore:getRepository():store( 'misc', {}, 'login' );
 
   -- prints a debug message confirming the end of the initialization
   MemoryCore:getLogger():debug( 'MemoryCore initialized' );
 end
 
 -- the main event frame used to trigger all the Memory listeners
-MemoryEventFrame = CreateFrame( "Frame" );
+MemoryEventFrame = CreateFrame( 'Frame' );
 
 -- registers the PLAYER_LOGIN event
-MemoryEventFrame:RegisterEvent( "PLAYER_LOGIN" );
+MemoryEventFrame:RegisterEvent( 'PLAYER_LOGIN' );
 
 -- fires up the Memory addon when the player logs in
-MemoryEventFrame:SetScript( "OnEvent",
+MemoryEventFrame:SetScript( 'OnEvent',
   function( self, event, ... )
 
-    if event == "PLAYER_LOGIN" then
+    if event == 'PLAYER_LOGIN' then
 
       MemoryAddon_initializeCore();
     end

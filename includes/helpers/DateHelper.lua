@@ -50,7 +50,7 @@ function MemoryAddon_DateHelper:new()
 
 
   --[[
-  Gets a readable date with the format "Month day, year".
+  Gets a readable date with the format 'Month day, year'.
 
   @since 0.6.0-beta
 
