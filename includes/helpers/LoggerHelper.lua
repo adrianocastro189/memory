@@ -81,7 +81,7 @@ function MemoryAddon_LoggerHelper:new()
 
     if level >= self.logLevel then
 
-      local prefix = MemoryCore:highlight( "<" .. MemoryCore.ADDON_NAME .. " Debug" .. ">" );
+      local prefix = MemoryCore:highlight( '<' .. MemoryCore.ADDON_NAME .. ' Debug' .. '>' );
 
       MemoryCore:print( message, prefix );
     end

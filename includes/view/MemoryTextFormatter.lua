@@ -156,7 +156,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasFirst() ) then
 
-        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
+        return 'I don\'t remember the first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getFirstFormattedDate();
@@ -175,7 +175,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasFirst() ) then
 
-        return "I don't remember the first time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
+        return 'I don\'t remember the first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       local days = memory:getDaysSinceFirstDay();
@@ -200,7 +200,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasLast() ) then
 
-        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
+        return 'I don\'t remember the last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getLastFormattedDate();
@@ -219,7 +219,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or ( not memory:hasLast() ) then
 
-        return "I don't remember the last time I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
+        return 'I don\'t remember the last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       local days = memory:getDaysSinceLastDay();
@@ -308,7 +308,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if nil == memory or 0 == memory:getX() then
 
-        return "I don't remember how many times I " .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
+        return 'I don\'t remember how many times I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
       -- may change x value with the optional param

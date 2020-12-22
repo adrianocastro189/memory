@@ -298,7 +298,7 @@ function MemoryAddon_addMemoryPrototype( repository )
       local sentence = textFormatter:getRandomChatMessage( self, 1 );
 
       -- wrap the sentence in a colored chat message
-      sentence = string.gsub( '\124cff6ac4ff{0}\124r', "{0}", sentence );
+      sentence = string.gsub( '\124cff6ac4ff{0}\124r', '{0}', sentence );
 
       MemoryCore:print( sentence );
     end

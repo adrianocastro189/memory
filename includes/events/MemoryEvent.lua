@@ -49,7 +49,7 @@ function MemoryEvent:new( name, events, action )
   ]]
   function instance:debug( message )
 
-    MemoryCore:getLogger():debug( "[" .. self.name .. "] " .. message );
+    MemoryCore:getLogger():debug( '[' .. self.name .. '] ' .. message );
   end
 
 
@@ -122,7 +122,7 @@ function MemoryEvent:new( name, events, action )
 
 
   -- prints a debug message after initializing the event
-  instance:debug( "Event created" );
+  instance:debug( 'Event created' );
 
   return instance;
 end

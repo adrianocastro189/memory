@@ -62,13 +62,13 @@ function MemoryRepository:new( player, realm )
       memoryDataSetAux[ interactionType ] = {};
 
       -- initializes the first time player experienced this memory
-      memoryDataSetAux[ interactionType ]["first"] = -1;
+      memoryDataSetAux[ interactionType ]['first'] = -1;
 
       -- initializes the last time player experienced this memory
-      memoryDataSetAux[ interactionType ]["last"] = -1;
+      memoryDataSetAux[ interactionType ]['last'] = -1;
 
       -- initializes the number of times player experienced this memory
-      memoryDataSetAux[ interactionType ]["x"] = 0;
+      memoryDataSetAux[ interactionType ]['x'] = 0;
     end
 
     -- returns the current pointer to ease on the store method
@@ -94,19 +94,19 @@ function MemoryRepository:new( player, realm )
       MemoryDataSet[ self.realm ][ self.player ] = {};
 
       -- initializes the miscellaneous memories, mainly for admin purposes
-      MemoryDataSet[ self.realm ][ self.player ]["misc"] = {};
+      MemoryDataSet[ self.realm ][ self.player ]['misc'] = {};
 
       -- initializes the player memories about npcs
-      MemoryDataSet[ self.realm ][ self.player ]["npcs"] = {};
+      MemoryDataSet[ self.realm ][ self.player ]['npcs'] = {};
 
       -- initializes the player memories about other players
-      MemoryDataSet[ self.realm ][ self.player ]["players"] = {};
+      MemoryDataSet[ self.realm ][ self.player ]['players'] = {};
 
       -- initializes the player memories about zones
-      MemoryDataSet[ self.realm ][ self.player ]["zones"] = {};
+      MemoryDataSet[ self.realm ][ self.player ]['zones'] = {};
 
       -- initializes the player memories about items
-      MemoryDataSet[ self.realm ][ self.player ]["items"] = {};
+      MemoryDataSet[ self.realm ][ self.player ]['items'] = {};
     end
   end
 
@@ -185,13 +185,13 @@ function MemoryRepository:new( player, realm )
     local memoryString = self:newMemoryString():toString();
 
     -- stores the first time player experienced this memory
-    if memoryPath["first"] == -1 then memoryPath["first"] = memoryString; end
+    if memoryPath['first'] == -1 then memoryPath['first'] = memoryString; end
 
     -- stores the last time player experienced this memory
-    memoryPath["last"] = memoryString;
+    memoryPath['last'] = memoryString;
 
     -- increases the number of times player experienced this memory
-    memoryPath["x"] = memoryPath["x"] + x;
+    memoryPath['x'] = memoryPath['x'] + x;
 
     -- just a debug message to... help us debug!
     MemoryCore:getLogger():info( '|TInterface\\MoneyFrame\\UI-GoldIcon:0|t ' .. interactionType .. ' memory stored for ' .. category );
