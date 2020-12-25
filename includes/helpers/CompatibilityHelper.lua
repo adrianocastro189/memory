@@ -96,6 +96,35 @@ function MemoryAddon_CompatibilityHelper:new()
 
     return groupFullNames;
   end
+
+
+  --[[
+  Gets the unit's name with the realm.
+
+  This method is equivalent to UnitFullName and adds compatibility with Classic.
+
+  @since 1.0.0
+
+  @return string the unit's full name
+  ]]
+  function instance:getNameAndRealm( unit )
+
+    -- attempts to get the name and realm name
+    local name, realm = UnitName( unit );
+
+    -- sanity check
+    if nil == name then return nil; end
+
+    -- it means this method was called for a player in the same realm
+    if nil == realm then
+
+      realm = GetRealmName();
+
+      -- removes the spaces in the realm name like Blizzard does for UnitFullName
+      realm = string.gsub(realm, ' ', '');
+    end
+
+    return name .. '-' .. realm;
   end
 
 
