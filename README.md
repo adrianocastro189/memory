@@ -7,6 +7,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 ### 202n.nn.nn - version 1.0.0
 * Fix - Fix a bug when players were considered NPCs in the fight event
 * Dev - New logging/debug system
+* Dev - Players are now stored with their full names, not with their GUID anymore
 
 ### 2020.12.12 - version 0.6.0-beta
 * Feature - Friendly memory sentences
