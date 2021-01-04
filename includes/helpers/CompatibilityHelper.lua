@@ -59,40 +59,72 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
-  Gets all the member guids in a party or raid group.
+  Gets all the member full names in a party or raid group.
+
+  A full name is composed by the player's name, a dash and it's realm name without spaces.
 
   @since 0.4.0-alpha
 
-  @return array list of group member guids
+  @return array list of group member full names
   ]]
-  function instance:getGroupGuids()
+  function instance:getGroupFullNames()
 
     -- gets the number of group members
     local groupSize = GetNumGroupMembers();
 
     -- array to be returned
-    local groupGuids = {};
+    local groupFullNames = {};
 
     -- helper var to iterate over group members
     local counter = 1;
 
     -- pointer to the current member
-    local currentMemberGuid = nil;
+    local currentMemberFullName = nil;
 
     while counter <= groupSize do
 
       -- attempts to get a raid or party member
-      currentMemberGuid = UnitGUID( 'raid' .. counter ) or UnitGUID( 'party' .. counter );
+      currentMemberFullName = self:getNameAndRealm( 'raid' .. counter ) or self:getNameAndRealm( 'party' .. counter );
 
-      if nil ~= currentMemberGuid then
+      if nil ~= currentMemberFullName then
 
-        table.insert( groupGuids, currentMemberGuid );
+        table.insert( groupFullNames, currentMemberFullName );
       end
 
       counter = counter + 1;
     end
 
-    return groupGuids;
+    return groupFullNames;
+  end
+
+
+  --[[
+  Gets the unit's name with the realm.
+
+  This method is equivalent to UnitFullName and adds compatibility with Classic.
+
+  @since 1.0.0
+
+  @return string the unit's full name
+  ]]
+  function instance:getNameAndRealm( unit )
+
+    -- attempts to get the name and realm name
+    local name, realm = UnitName( unit );
+
+    -- sanity check
+    if nil == name then return nil; end
+
+    -- it means this method was called for a player in the same realm
+    if nil == realm then
+
+      realm = GetRealmName();
+
+      -- removes the spaces in the realm name like Blizzard does for UnitFullName
+      realm = string.gsub(realm, ' ', '');
+    end
+
+    return name .. '-' .. realm;
   end
 
 

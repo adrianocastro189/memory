@@ -221,22 +221,22 @@ function MemoryAddon_addEvents( core )
     { 'GROUP_ROSTER_UPDATE' },
     function( listener, event, params )
 
-      -- gets all member guids regardless of player is in a party or raid
-      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupGuids();
+      -- gets all member full names regardless of player is in a party or raid
+      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupFullNames();
 
       -- select group members that weren't added yet to the player's memory
       local uniqueMembers = MemoryCore:getArrayHelper():arrayDiff( groupMemberGuids, listener.lastPlayers );
 
-      for i, playerGuid in pairs( uniqueMembers ) do
+      for i, playerFullName in pairs( uniqueMembers ) do
 
         -- sets the subject for memory text formatting
-        listener.subject = playerGuid;
+        listener.subject = playerFullName;
 
         -- adds a party memory
-        listener:printAndSave( 'players', { playerGuid }, 'party' );
+        listener:printAndSave( 'players', { playerFullName }, 'party' );
 
         -- will prevent the memory to be recorded twice if player has grouped with that member recently
-        table.insert( listener.lastPlayers, playerGuid );
+        table.insert( listener.lastPlayers, playerFullName );
       end
     end
   );
