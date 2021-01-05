@@ -342,10 +342,11 @@ function MemoryAddon_addEvents( core )
     function( listener, event, params )
 
       local lootString = params[1];
-      local playerGuid = params[12] or '';
+      -- #12 for Retail and #5 for Classic
+      local playerIdentification = params[12] or ( params[5] or '' );
 
       -- sanity check in case this is triggered by another player message
-      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( 'Player didn\'t loot it' ); end
+      if UnitGUID( 'player' ) ~= playerIdentification and UnitName( 'player' ) ~= playerIdentification   then return listener:debugAndExit( 'Player didn\'t loot it' ); end
 
       -- gets the item loot information
       local itemLootInfo = MemoryCore:getCompatibilityHelper():parseChatMsgLoot( lootString );
