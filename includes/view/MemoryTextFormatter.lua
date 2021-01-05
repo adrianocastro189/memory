@@ -255,7 +255,10 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     ]]
     function instance:getPastActionSentenceConnector( context )
 
-      if 'view' == context and '' ~= self.pastActionSentenceConnector then
+      if 'view' == context then
+
+        -- may return a single space if there's no sentence connector
+        if '' == self.pastActionSentenceConnector then return ' '; end
 
         return ' ' .. self.pastActionSentenceConnector .. ' ';
       end
@@ -287,7 +290,10 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     ]]
     function instance:getPresentActionSentenceConnector( context )
 
-      if 'view' == context and '' ~= self.presentActionSentenceConnector then
+      if 'view' == context then
+
+        -- may return a single space if there's no sentence connector
+        if '' == self.presentActionSentenceConnector then return ' '; end
 
         return ' ' .. self.presentActionSentenceConnector .. ' ';
       end
