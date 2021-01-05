@@ -3,8 +3,8 @@ The event handler that captures players actions and stores memories from them.
 
 @since 0.3.0-alpha
 ]]
-MemoryEvent = {};
-MemoryEvent.__index = MemoryEvent;
+MemoryAddon_MemoryEvent = {};
+MemoryAddon_MemoryEvent.__index = MemoryAddon_MemoryEvent;
 
 --[[
 Constructs a new instance of a memory event.
@@ -18,10 +18,10 @@ Constructs a new instance of a memory event.
   @param string[] params
 }
 ]]
-function MemoryEvent:new( name, events, action )
+function MemoryAddon_MemoryEvent:new( name, events, action )
 
   local instance = {};
-  setmetatable( instance, MemoryEvent );
+  setmetatable( instance, MemoryAddon_MemoryEvent );
   instance.name   = name;
   instance.events = events;
   instance.action = action;
@@ -129,11 +129,11 @@ end
 
 
 --[[
-Destroys the MemoryEvent prototype to prevent it from being exposed after core's initialization.
+Destroys the MemoryAddon_MemoryEvent prototype to prevent it from being exposed after core's initialization.
 
 @since 0.4.0-alpha
 ]]
-function MemoryEvent:destroyPrototype()
+function MemoryAddon_MemoryEvent:destroyPrototype()
 
-  MemoryEvent = nil;
+  MemoryAddon_MemoryEvent = nil;
 end

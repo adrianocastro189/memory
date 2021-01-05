@@ -46,7 +46,7 @@ local function MemoryAddon_initializeCore()
 
   Listeners will be triggered by player actions in the game.
 
-  @param MemoryEvent listener
+  @param MemoryAddon_MemoryEvent listener
   ]]
   function MemoryCore:addEventListener( listener )
 
