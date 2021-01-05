@@ -255,7 +255,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     ]]
     function instance:getPastActionSentenceConnector( context )
 
-      if 'view' == context then
+      if 'view' == context and '' ~= self.pastActionSentenceConnector then
 
         return ' ' .. self.pastActionSentenceConnector .. ' ';
       end
@@ -287,7 +287,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     ]]
     function instance:getPresentActionSentenceConnector( context )
 
-      if 'view' == context then
+      if 'view' == context and '' ~= self.presentActionSentenceConnector then
 
         return ' ' .. self.presentActionSentenceConnector .. ' ';
       end
