@@ -66,7 +66,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return -1;
       end
 
-      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), date( '%y-%m-%d' ) );
+      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), MemoryCore:getDateHelper():getToday() );
     end
 
 
@@ -84,7 +84,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return -1;
       end
 
-      return MemoryCore:getDateHelper():getDaysDiff( self:getLast():getDate(), date( '%y-%m-%d' ) );
+      return MemoryCore:getDateHelper():getDaysDiff( self:getLast():getDate(), MemoryCore:getDateHelper():getToday() );
     end
 
 

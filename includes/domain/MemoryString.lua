@@ -58,7 +58,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:build()
 
       -- gets the memory string data values
-      local date        = date( '%y-%m-%d' );
+      local date        = MemoryCore:getDateHelper():getToday();
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();
