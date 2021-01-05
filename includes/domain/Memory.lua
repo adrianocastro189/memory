@@ -274,8 +274,9 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     May print the memory in the chat frame based on a random chance.
 
-    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
     ]]
     function instance:maybePrint( textFormatter )
 
@@ -289,8 +290,9 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     Prints the memory in the chat frame.
 
-    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
     ]]
     function instance:print( textFormatter )
 
