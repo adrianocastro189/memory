@@ -120,7 +120,7 @@ local function MemoryAddon_initializeCore()
 
   @since 0.2.0-alpha
 
-  @return MemoryRepository
+  @return MemoryAddon_MemoryRepository
   ]]
   function MemoryCore:getRepository()
 
@@ -166,7 +166,7 @@ local function MemoryAddon_initializeCore()
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.logger              = MemoryAddon_LoggerHelper:new();
-    self.repository          = MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
+    self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
     self.stringHelper        = MemoryAddon_StringHelper:new();
   end
 

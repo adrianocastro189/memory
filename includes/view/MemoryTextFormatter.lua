@@ -3,7 +3,7 @@ Adds the memory text formatter prototype and creation method to core.
 
 @since 0.6.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryTextFormatterPrototype( core )
 

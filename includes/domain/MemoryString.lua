@@ -3,7 +3,7 @@ Adds the memory string prototype and creation method to repository.
 
 @since 0.6.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryStringPrototype( repository )
 
