@@ -3,7 +3,7 @@ Adds the memory prototype and creation method to repository.
 
 @since 0.5.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryPrototype( repository )
 
@@ -306,7 +306,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     Saves this memory in the repository.
 
-    @see MemoryRepository:storeMemory()
+    @see MemoryAddon_MemoryRepository:storeMemory()
 
     @since 0.5.0-beta
     ]]
