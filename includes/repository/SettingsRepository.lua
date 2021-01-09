@@ -22,6 +22,22 @@ function MemoryAddon_SettingsRepository:new()
 
 
   --[[
+  Sets a setting value.
+
+  @since 1.0.0
+
+  @param string key setting's key
+  @param mixed value the value to be set
+  @return mixed
+  ]]
+  function instance:set( key, value )
+
+    MemoryAddon_Settings[ key ] = value;
+
+    return value;
+  end
+
+  --[[
   Gets or sets a setting value.
 
   @since 1.0.0
