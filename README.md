@@ -49,3 +49,9 @@ A World of Warcraft addon to register memories while players do stuff around the
 * Dev - Add the `.toc` file
 * Dev - Add the `MemoryCore` object
 * Dev - Print the addon number after initialization
+
+## Known issues
+
+* The following windows won't generate NPC memories on Retail
+    * Flight Master frame
+    * Transmog frame
