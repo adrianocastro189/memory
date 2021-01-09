@@ -207,6 +207,24 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets or sets a setting value.
+
+  @since 1.0.0
+
+  @param string key setting's key
+  @param mixed value the value to be set (optional)
+  @param bool override whether to replace the current value (optional)
+  @return mixed
+  ]]
+  function MemoryCore:setting( key, --[[optional]] default, --[[optional]] override )
+
+    if override then return self.settingsRepository:set( key, default ); end
+
+    return self.settingsRepository:get( key, default );
+  end
+
+
+  --[[
   Dispatch every registered events to the registered listeners.
 
   @since 0.3.0-alpha
