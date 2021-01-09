@@ -9,6 +9,8 @@
 
 Memory.lua
 
+includes\core\Settings.lua
+
 includes\domain\Memory.lua
 includes\domain\MemoryString.lua
 includes\domain\Player.lua
