@@ -8,6 +8,9 @@ local function MemoryAddon_initializeCore()
   -- initializes the memory data set that stores all the players memories
   if not MemoryAddon_DataSet then MemoryAddon_DataSet = {} end
 
+  -- initializes the settings saved variable that stores all the players settings
+  if not MemoryAddon_Settings then MemoryAddon_Settings = {} end
+
   MemoryCore = {};
 
   -- the addon name
