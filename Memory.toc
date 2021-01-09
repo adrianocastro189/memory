@@ -9,8 +9,6 @@
 
 Memory.lua
 
-includes\core\Settings.lua
-
 includes\domain\Memory.lua
 includes\domain\MemoryString.lua
 includes\domain\Player.lua
@@ -25,5 +23,6 @@ includes\helpers\LoggerHelper.lua
 includes\helpers\StringHelper.lua
 
 includes\repository\MemoryRepository.lua
+includes\repository\SettingsRepository.lua
 
 includes\view\MemoryTextFormatter.lua
