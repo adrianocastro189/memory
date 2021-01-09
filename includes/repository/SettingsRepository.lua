@@ -46,10 +46,10 @@ function MemoryAddon_SettingsRepository:new()
   @param string value the value to be set (optional)
   @return mixed
   ]]
-  function instance:value( key, --[[optional]] value )
+  function instance:get( key, --[[optional]] value )
 
     -- sets the setting if value is informed
-    if nil ~= value and nil == MemoryAddon_Settings[ key ] then MemoryAddon_Settings[ key ] = value; end
+    if nil ~= value and nil == MemoryAddon_Settings[ key ] then return self:set( key, value ); end
 
     return MemoryAddon_Settings[ key ];
   end
