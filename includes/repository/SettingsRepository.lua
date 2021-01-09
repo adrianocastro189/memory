@@ -22,29 +22,20 @@ function MemoryAddon_SettingsRepository:new()
 
 
   --[[
-  Inserts a setting value.
+  Gets or sets a setting value.
 
   @since 1.0.0
 
-  @param string key setting's key using the dot-notation
-  @param string value the value to be set
+  @param string key setting's key
+  @param string value the value to be set (optional)
+  @return mixed
   ]]
-  function instance:insert( key, value )
+  function instance:value( key, --[[optional]] value )
 
-    -- will allow the algorithm to access nested settings
-    settingsAux = MemoryAddon_Settings;
+    -- sets the setting if value is informed
+    if nil ~= value and nil == MemoryAddon_Settings[ key ] then MemoryAddon_Settings[ key ] = value; end
 
-    -- walks through the settings saved variable
-    for part in string.gmatch(key, '[^%.]+') do
-
-      -- creates a new setting path if it doesn't exist yet
-      if nil == settingsAux[ part ] then settingsAux[ part ] = {}; end
-
-      settingsAux = settingsAux[ part ];
-    end
-
-    -- inserts the value in the correct index
-    table.insert( settingsAux, value );
+    return MemoryAddon_Settings[ key ];
   end
 
 
