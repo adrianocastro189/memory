@@ -10,6 +10,7 @@ A World of Warcraft addon to register memories while players do stuff around the
 * Fix - Fix a bug on Classic that was preventing memories of looting items
 * Dev - New logging/debug system
 * Dev - Players are now stored with their full names, not with their GUID anymore
+* Dev - Rename `MemoryDataSet` to `MemoryAddon_DataSet` to avoid conflicting with other addons
 
 ### 2020.12.12 - version 0.6.0-beta
 * Feature - Friendly memory sentences

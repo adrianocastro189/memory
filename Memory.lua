@@ -6,7 +6,7 @@ Fires up the addon.
 local function MemoryAddon_initializeCore()
 
   -- initializes the memory data set that stores all the players memories
-  if not MemoryDataSet then MemoryDataSet = {} end
+  if not MemoryAddon_DataSet then MemoryAddon_DataSet = {} end
 
   MemoryCore = {};
 
