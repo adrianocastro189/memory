@@ -3,7 +3,7 @@ Adds the memory text formatter prototype and creation method to core.
 
 @since 0.6.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
@@ -131,6 +131,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     @param MemoryAddon_Memory memory
     @param int type
     @param int x may increase or decrease the x value for MESSAGE_TYPE_COUNT (optional)
+    @return string
     ]]
     function instance:getChatMessage( memory, type, --[[optional]] x )
 
@@ -257,6 +258,9 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if 'view' == context then
 
+        -- may return a single space if there's no sentence connector
+        if '' == self.pastActionSentenceConnector then return ' '; end
+
         return ' ' .. self.pastActionSentenceConnector .. ' ';
       end
 
@@ -289,6 +293,9 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       if 'view' == context then
 
+        -- may return a single space if there's no sentence connector
+        if '' == self.presentActionSentenceConnector then return ' '; end
+
         return ' ' .. self.presentActionSentenceConnector .. ' ';
       end
 
@@ -318,6 +325,15 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     end
 
 
+    --[[
+    Gets a random memory chat message.
+
+    @since 0.6.0-beta
+
+    @param MemoryAddon_Memory memory
+    @param int x may increase or decrease the x value for MESSAGE_TYPE_COUNT (optional)
+    @return string
+    ]]
     function instance:getRandomChatMessage( memory, --[[optional]] x )
 
       local messageTypes = {

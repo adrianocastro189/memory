@@ -5,8 +5,8 @@ Provides all read and write methods to manipulate the player memory.
 
 @since 0.2.0-alpha
 ]]
-MemoryRepository = {};
-MemoryRepository.__index = MemoryRepository;
+MemoryAddon_MemoryRepository = {};
+MemoryAddon_MemoryRepository.__index = MemoryAddon_MemoryRepository;
 
 --[[
 Constructs a new instance of a memory repository.
@@ -15,12 +15,12 @@ Constructs a new instance of a memory repository.
 
 @param string realm
 @param string player
-@return MemoryRepository
+@return MemoryAddon_MemoryRepository
 ]]
-function MemoryRepository:new( player, realm )
+function MemoryAddon_MemoryRepository:new( player, realm )
 
   local instance = {};
-  setmetatable( instance, MemoryRepository );
+  setmetatable( instance, MemoryAddon_MemoryRepository );
   instance.player = player;
   instance.realm = realm;
 
@@ -204,7 +204,7 @@ function MemoryRepository:new( player, realm )
   Note: although a memory instance has first, last and x properties, this method will
         make use of category, path, interactionType and x only due to how store works.
         That being said, you may want to change x to 1 or any other number in order to
-        avoid multiplying the current x if it's loaded by MemoryRepository:get().
+        avoid multiplying the current x if it's loaded by MemoryAddon_MemoryRepository:get().
 
   @since 0.5.0-beta
 
@@ -241,7 +241,7 @@ function MemoryRepository:new( player, realm )
   instance:checkMyself();
 
   -- destroys the prototype, so instance will be unique
-  MemoryRepository = nil;
+  MemoryAddon_MemoryRepository = nil;
 
   return instance;
 end

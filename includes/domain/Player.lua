@@ -123,7 +123,7 @@ function MemoryAddon_addPlayerPrototype( core )
 
         -- target is a human player
         self.type = self.TYPE_PLAYER;
-      elseif 'Creature' == type then
+      elseif MemoryCore:getArrayHelper():inArray( type, { 'Creature', 'Vehicle' } ) then
 
         -- target is a non-playable character
         self.type = self.TYPE_NPC;

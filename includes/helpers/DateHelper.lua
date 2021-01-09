@@ -105,6 +105,19 @@ function MemoryAddon_DateHelper:new()
 
 
   --[[
+  Gets the current date (with no time).
+
+  @since 1.0.0
+
+  @return string
+  ]]
+  function instance:getToday()
+
+    return date( '%y-%m-%d' );
+  end
+
+
+  --[[
   Gets a time representation from World of Warcraft from a date string.
 
   @since 0.6.0-beta

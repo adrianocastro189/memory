@@ -12,7 +12,7 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventNpcBusiness = MemoryEvent:new(
+  local eventNpcBusiness = MemoryAddon_MemoryEvent:new(
     'EventNpcBusiness',
     { 'MERCHANT_CLOSED', 'MERCHANT_SHOW', 'PLAYER_MONEY', 'ZONE_CHANGED' },
     function( listener, event, params )
@@ -80,7 +80,7 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventNpcTalk = MemoryEvent:new(
+  local eventNpcTalk = MemoryAddon_MemoryEvent:new(
     'EventNpcTalk',
     { 'GOSSIP_SHOW', 'MERCHANT_SHOW', 'QUEST_COMPLETE', 'QUEST_DETAIL', 'QUEST_GREETING', 'ZONE_CHANGED' },
     function( listener, event, params )
@@ -141,7 +141,7 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventNpcFight = MemoryEvent:new(
+  local eventNpcFight = MemoryAddon_MemoryEvent:new(
     'EventNpcFight',
     { 'COMBAT_LOG_EVENT', 'COMBAT_LOG_EVENT_UNFILTERED', 'ZONE_CHANGED' },
     function( listener, event, params )
@@ -216,7 +216,7 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventPlayerParty = MemoryEvent:new(
+  local eventPlayerParty = MemoryAddon_MemoryEvent:new(
     'EventPlayerParty',
     { 'GROUP_ROSTER_UPDATE' },
     function( listener, event, params )
@@ -264,7 +264,7 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventZoneVisit = MemoryEvent:new(
+  local eventZoneVisit = MemoryAddon_MemoryEvent:new(
     'EventZoneVisit',
     { 'PLAYER_STARTED_MOVING', 'PLAYER_STOPPED_MOVING' },
     function( listener, event, params )
@@ -336,16 +336,17 @@ function MemoryAddon_addEvents( core )
 
   @since 0.4.0-alpha
   ]]
-  local eventItemLoot = MemoryEvent:new(
+  local eventItemLoot = MemoryAddon_MemoryEvent:new(
     'EventItemLoot',
     { 'CHAT_MSG_LOOT' },
     function( listener, event, params )
 
       local lootString = params[1];
-      local playerGuid = params[12] or '';
+      -- #12 for Retail and #5 for Classic
+      local playerIdentification = params[12] or ( params[5] or '' );
 
       -- sanity check in case this is triggered by another player message
-      if UnitGUID( 'player' ) ~= playerGuid then return listener:debugAndExit( 'Player didn\'t loot it' ); end
+      if UnitGUID( 'player' ) ~= playerIdentification and UnitName( 'player' ) ~= playerIdentification   then return listener:debugAndExit( 'Player didn\'t loot it' ); end
 
       -- gets the item loot information
       local itemLootInfo = MemoryCore:getCompatibilityHelper():parseChatMsgLoot( lootString );
@@ -373,8 +374,8 @@ function MemoryAddon_addEvents( core )
 
   core:getLogger():debug( 'Events added' );
 
-  -- prevents MemoryEvent from being exposed after all events are created
-  MemoryEvent:destroyPrototype();
+  -- prevents MemoryAddon_MemoryEvent from being exposed after all events are created
+  MemoryAddon_MemoryEvent:destroyPrototype();
 
   -- prevents this method to be called again
   MemoryAddon_addEvents = nil;

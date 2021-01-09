@@ -3,7 +3,7 @@ Adds the memory string prototype and creation method to repository.
 
 @since 0.6.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryStringPrototype( repository )
 
@@ -58,7 +58,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:build()
 
       -- gets the memory string data values
-      local date        = date( '%y-%m-%d' );
+      local date        = MemoryCore:getDateHelper():getToday();
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();

@@ -3,7 +3,7 @@ Adds the memory prototype and creation method to repository.
 
 @since 0.5.0-beta
 
-@param MemoryRepository repository the memory repository instance
+@param MemoryAddon_MemoryRepository repository the memory repository instance
 ]]
 function MemoryAddon_addMemoryPrototype( repository )
 
@@ -66,7 +66,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return -1;
       end
 
-      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), date( '%y-%m-%d' ) );
+      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), MemoryCore:getDateHelper():getToday() );
     end
 
 
@@ -84,7 +84,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return -1;
       end
 
-      return MemoryCore:getDateHelper():getDaysDiff( self:getLast():getDate(), date( '%y-%m-%d' ) );
+      return MemoryCore:getDateHelper():getDaysDiff( self:getLast():getDate(), MemoryCore:getDateHelper():getToday() );
     end
 
 
@@ -274,8 +274,9 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     May print the memory in the chat frame based on a random chance.
 
-    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
     ]]
     function instance:maybePrint( textFormatter )
 
@@ -289,16 +290,14 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     Prints the memory in the chat frame.
 
-    @param textFormatter MemoryAddon_MemorTextFormatter
     @since 0.5.0-beta
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
     ]]
     function instance:print( textFormatter )
 
       -- TODO: improve the way x = 1 is passed as a parameter {AC 2020-12-05}
       local sentence = textFormatter:getRandomChatMessage( self, 1 );
-
-      -- wrap the sentence in a colored chat message
-      sentence = string.gsub( '\124cff6ac4ff{0}\124r', '{0}', sentence );
 
       MemoryCore:print( sentence );
     end
@@ -307,7 +306,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     --[[
     Saves this memory in the repository.
 
-    @see MemoryRepository:storeMemory()
+    @see MemoryAddon_MemoryRepository:storeMemory()
 
     @since 0.5.0-beta
     ]]
