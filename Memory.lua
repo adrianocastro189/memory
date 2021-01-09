@@ -37,6 +37,9 @@ local function MemoryAddon_initializeCore()
   -- the unique repository instance
   MemoryCore.repository = nil;
 
+  -- the unique settings repository instance
+  MemoryCore.settingsRepository = nil;
+
   -- the StringHelper instance
   MemoryCore.stringHelper = nil;
 
@@ -167,6 +170,7 @@ local function MemoryAddon_initializeCore()
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.logger              = MemoryAddon_LoggerHelper:new();
     self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
+    self.settingsRepository  = MemoryAddon_SettingsRepository:new();
     self.stringHelper        = MemoryAddon_StringHelper:new();
   end
 
