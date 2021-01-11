@@ -24,4 +24,17 @@ SlashCmdList['MEMORYADDON'] = function( arg )
   local argumentCommand = nil;
   local argumentKey     = nil;
   local argumentValue   = nil;
+
+  for argument in arg:gmatch( '%w+' ) do
+
+    -- parses each command part
+        if 1 == argumentIndex then argumentCommand = argument;
+    elseif 2 == argumentIndex then argumentKey     = argument;
+    elseif 3 == argumentIndex then argumentValue   = argument;
+    else                           argumentValue   = argumentValue .. ' ' .. argument;
+    end
+
+    -- increments the argument index
+    argumentIndex = argumentIndex + 1;
+  end
 end
