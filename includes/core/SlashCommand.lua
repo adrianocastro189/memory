@@ -17,4 +17,11 @@ SlashCmdList['MEMORYADDON'] = function( arg )
 
   -- sanity check
   if nil == arg then MemoryCore:print( 'Invalid command' ); end
+
+  -- helps parsing the slash command arguments
+  local argumentIndex = 1;
+
+  local argumentCommand = nil;
+  local argumentKey     = nil;
+  local argumentValue   = nil;
 end
