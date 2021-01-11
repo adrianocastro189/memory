@@ -6,5 +6,6 @@ The main slash command for the Memory Addon.
 SLASH_MEMORYADDON1 = '/memoryaddon'
 SlashCmdList['MEMORYADDON'] = function( arg )
 
-  MemoryCore:print( arg );
+  -- sanity check
+  if nil == arg then MemoryCore:print( 'Invalid command' );
 end
