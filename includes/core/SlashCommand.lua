@@ -37,4 +37,41 @@ SlashCmdList['MEMORYADDON'] = function( arg )
     -- increments the argument index
     argumentIndex = argumentIndex + 1;
   end
+
+  -- settings command
+  if 'set' == argumentCommand then
+
+    -- sanity check
+    if nil == argumentKey then MemoryCore:print( 'Invalid setting key for the set command' ); return; end
+
+    -- prints a setting value
+    if nil == argumentValue then
+
+      -- gets the setting
+      local setting = MemoryCore:setting( argumentKey );
+
+      if nil ~= setting then
+
+        MemoryCore:print(argumentKey .. '=' .. setting);
+      else
+
+        MemoryCore:print( 'No setting with key = ' .. argumentKey .. ' was found' );
+      end
+
+      -- returns after command execution
+      return;
+    end
+
+    -- sets the setting value
+    local setting = MemoryCore:setting( argumentKey, argumentValue, true );
+
+    -- confirmation to user
+    MemoryCore:print( argumentKey .. ' set to ' .. argumentValue );
+
+    -- returns after command execution
+    return;
+  end -- set
+
+  -- if got here, it's because no command was executed
+  MemoryCore:print( 'Invalid command: ' .. argumentCommand );
 end
