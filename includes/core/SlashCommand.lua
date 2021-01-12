@@ -16,7 +16,7 @@ SLASH_MEMORYADDON1 = '/memoryaddon'
 SlashCmdList['MEMORYADDON'] = function( arg )
 
   -- sanity check
-  if nil == arg then MemoryCore:print( 'Invalid command' ); end
+  if nil == arg then MemoryCore:print( 'Invalid command' ); return; end
 
   -- helps parsing the slash command arguments
   local argumentIndex = 1;
