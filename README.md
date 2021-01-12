@@ -2,6 +2,22 @@
 
 A World of Warcraft addon to register memories while players do stuff around the world.
 
+## Slash commands
+
+The following slash commands let you customize the addon experience.
+
+### Setting the memory print chance
+
+Every time a memory is stored, it has a chance to be printed to the chat window. In other words,
+this is the chance your character will remember something!
+
+The following command changes the print chance to 50% (`0.5`). Replace this number with
+any decimal between `0` - to turn off memory printing - and `1` (inclusive) to print every memory.
+
+```
+/memoryaddon set memory.printChance 0.5
+```
+
 ## Changelog
 
 ### 2021.nn.nn - version 1.0.0
