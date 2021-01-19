@@ -250,6 +250,10 @@ function MemoryAddon_addEvents( core )
       :setPresentActionSentenceConnector( 'with' )
       :setSubject( self.subject );
   end
+  function eventPlayerParty:haveGroupedToday( playerFullName )
+
+    return true;
+  end
   core:addEventListener( eventPlayerParty );
 
   --[[
