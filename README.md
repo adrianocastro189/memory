@@ -20,7 +20,7 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 
 ## Changelog
 
-### 2021.nn.nn - version 1.0.0
+### 2021.01.10 - version 1.0.0
 * Feature - Add a slash command to set the memory print chance
 * Tweak - `SPELL_AURA_APPLIED` and `SPELL_PERIODIC_DAMAGE` were added to count as fight events
 * Tweak - Only one party event per player per day is registered now
