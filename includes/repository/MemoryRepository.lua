@@ -42,7 +42,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   function instance:check( category, path, interactionType )
 
     -- creates a pointer to the current path in the memory array
-    local memoryDataSetAux = MemoryDataSet[ self.realm ][ self.player ][ category ];
+    local memoryDataSetAux = MemoryAddon_DataSet[ self.realm ][ self.player ][ category ];
 
     for i = 1, #path, 1 do
 
@@ -88,25 +88,25 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
     self:checkRealm();
 
-    if MemoryDataSet[ self.realm ][ self.player ] == nil then
+    if MemoryAddon_DataSet[ self.realm ][ self.player ] == nil then
 
       -- initializes the player memory
-      MemoryDataSet[ self.realm ][ self.player ] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ] = {};
 
       -- initializes the miscellaneous memories, mainly for admin purposes
-      MemoryDataSet[ self.realm ][ self.player ]['misc'] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ]['misc'] = {};
 
       -- initializes the player memories about npcs
-      MemoryDataSet[ self.realm ][ self.player ]['npcs'] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ]['npcs'] = {};
 
       -- initializes the player memories about other players
-      MemoryDataSet[ self.realm ][ self.player ]['players'] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ]['players'] = {};
 
       -- initializes the player memories about zones
-      MemoryDataSet[ self.realm ][ self.player ]['zones'] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ]['zones'] = {};
 
       -- initializes the player memories about items
-      MemoryDataSet[ self.realm ][ self.player ]['items'] = {};
+      MemoryAddon_DataSet[ self.realm ][ self.player ]['items'] = {};
     end
   end
 
@@ -121,9 +121,9 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   ]]
   function instance:checkRealm()
 
-    if MemoryDataSet[ self.realm ] == nil then
+    if MemoryAddon_DataSet[ self.realm ] == nil then
 
-      MemoryDataSet[ self.realm ] = {}
+      MemoryAddon_DataSet[ self.realm ] = {}
     end
   end
 
@@ -234,7 +234,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   ]]
   function instance:testConnection()
 
-    return MemoryDataSet ~= nil;
+    return MemoryAddon_DataSet ~= nil;
   end
 
   -- may initialize the player's memories

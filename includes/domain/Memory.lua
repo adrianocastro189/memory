@@ -280,7 +280,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:maybePrint( textFormatter )
 
-      if math.random() <= 0.1 then
+      if math.random() <= tonumber( MemoryCore:setting( 'memory.printChance', '0.2' ) ) then
 
         self:print( textFormatter );
       end

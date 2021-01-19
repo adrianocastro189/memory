@@ -6,7 +6,10 @@ Fires up the addon.
 local function MemoryAddon_initializeCore()
 
   -- initializes the memory data set that stores all the players memories
-  if not MemoryDataSet then MemoryDataSet = {} end
+  if not MemoryAddon_DataSet then MemoryAddon_DataSet = {} end
+
+  -- initializes the settings saved variable that stores all the players settings
+  if not MemoryAddon_Settings then MemoryAddon_Settings = {} end
 
   MemoryCore = {};
 
@@ -36,6 +39,9 @@ local function MemoryAddon_initializeCore()
 
   -- the unique repository instance
   MemoryCore.repository = nil;
+
+  -- the unique settings repository instance
+  MemoryCore.settingsRepository = nil;
 
   -- the StringHelper instance
   MemoryCore.stringHelper = nil;
@@ -167,6 +173,7 @@ local function MemoryAddon_initializeCore()
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.logger              = MemoryAddon_LoggerHelper:new();
     self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
+    self.settingsRepository  = MemoryAddon_SettingsRepository:new();
     self.stringHelper        = MemoryAddon_StringHelper:new();
   end
 
@@ -196,6 +203,24 @@ local function MemoryAddon_initializeCore()
   function MemoryCore:printVersion()
 
     MemoryCore:print( MemoryCore.ADDON_VERSION );
+  end
+
+
+  --[[
+  Gets or sets a setting value.
+
+  @since 1.0.0
+
+  @param string key setting's key
+  @param mixed value the value to be set (optional)
+  @param bool override whether to replace the current value (optional)
+  @return mixed
+  ]]
+  function MemoryCore:setting( key, --[[optional]] default, --[[optional]] override )
+
+    if override then return self.settingsRepository:set( key, default ); end
+
+    return self.settingsRepository:get( key, default );
   end
 
 

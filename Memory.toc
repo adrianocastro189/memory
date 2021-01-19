@@ -2,12 +2,14 @@
 ## Interface: 80300
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
-## SavedVariables: MemoryDataSet
+## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings
 ## Title: Memory |cffffee771.0.0|r
 ## Version: 1.0.0
 ## X-Curse-Project-ID: 413371
 
 Memory.lua
+
+includes\core\SlashCommand.lua
 
 includes\domain\Memory.lua
 includes\domain\MemoryString.lua
@@ -23,5 +25,6 @@ includes\helpers\LoggerHelper.lua
 includes\helpers\StringHelper.lua
 
 includes\repository\MemoryRepository.lua
+includes\repository\SettingsRepository.lua
 
 includes\view\MemoryTextFormatter.lua
