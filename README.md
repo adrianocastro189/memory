@@ -2,6 +2,14 @@
 
 A World of Warcraft addon to register memories while players do stuff around the world.
 
+## Installation
+
+No setup is required! **Just install the addon and play the game!** While you play, it will record memories about **players** you party with, **items** you look, **zones** and **subzones** you visit and **NPCs** you fight, talk, turn quests, buy, sell and repair.
+
+For each memory stored, it will have a small chance to print that memory in your chat frame, just like something you remember in real life!
+
+Feel free to increase the print chance rate using a slash command described below or just have fun with the game and let the addon decide when it's the best time to bring a memory to you!
+
 ## Slash commands
 
 The following slash commands let you customize the addon experience.
