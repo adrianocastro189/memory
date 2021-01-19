@@ -252,7 +252,11 @@ function MemoryAddon_addEvents( core )
   end
   function eventPlayerParty:haveGroupedToday( playerFullName )
 
-    return true;
+    -- attempts to get a party memory with the player
+    local memory = MemoryCore:getRepository():get( 'players', { playerFullName }, 'party' );
+
+    -- 0 means the player had already partied with the target player today
+    return 0 == memory:getDaysSinceLastDay();
   end
   core:addEventListener( eventPlayerParty );
 
