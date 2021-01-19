@@ -169,7 +169,7 @@ function MemoryAddon_addEvents( core )
       if playerGuid == destGuid then return listener:debugAndExit( 'Player was attacked' ); end
 
       -- exit condition if subevent is not a known one
-      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
+      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SPELL_AURA_APPLIED', 'SPELL_DAMAGE', 'SPELL_PERIODIC_DAMAGE', 'SWING_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
 
       -- gets the player object
       local player = MemoryCore:getPlayerByGuid( destGuid, destName );
