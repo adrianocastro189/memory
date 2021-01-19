@@ -22,6 +22,8 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 
 ### 2021.nn.nn - version 1.0.0
 * Feature - Add a slash command to set the memory print chance
+* Tweak - `SPELL_AURA_APPLIED` and `SPELL_PERIODIC_DAMAGE` were added to count as fight events
+* Tweak - Only one party event per player per day is registered now
 * Fix - Fix a bug when players were considered NPCs in the fight event
 * Fix - Fix memory sentences being generated with double spaces
 * Fix - Fix a bug on Classic that was preventing memories of looting items

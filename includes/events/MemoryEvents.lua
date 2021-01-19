@@ -169,7 +169,7 @@ function MemoryAddon_addEvents( core )
       if playerGuid == destGuid then return listener:debugAndExit( 'Player was attacked' ); end
 
       -- exit condition if subevent is not a known one
-      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SWING_DAMAGE', 'SPELL_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
+      if not MemoryCore:getArrayHelper():inArray( subEvent, { 'SPELL_AURA_APPLIED', 'SPELL_DAMAGE', 'SPELL_PERIODIC_DAMAGE', 'SWING_DAMAGE' } ) then return listener:debugAndExit( 'subEvent = ' .. subEvent ); end
 
       -- gets the player object
       local player = MemoryCore:getPlayerByGuid( destGuid, destName );
@@ -222,25 +222,25 @@ function MemoryAddon_addEvents( core )
     function( listener, event, params )
 
       -- gets all member full names regardless of player is in a party or raid
-      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupFullNames();
+      local groupMemberFullNames = MemoryCore:getCompatibilityHelper():getGroupFullNames();
 
-      -- select group members that weren't added yet to the player's memory
-      local uniqueMembers = MemoryCore:getArrayHelper():arrayDiff( groupMemberGuids, listener.lastPlayers );
+      for i, playerFullName in pairs( groupMemberFullNames ) do
 
-      for i, playerFullName in pairs( uniqueMembers ) do
+        if listener:haveGroupedToday( playerFullName ) then
 
-        -- sets the subject for memory text formatting
-        listener.subject = playerFullName;
+          -- bail if already had grouped today
+          listener:debugAndExit( 'Already grouped with ' .. playerFullName .. ' today' );
+        else
 
-        -- adds a party memory
-        listener:printAndSave( 'players', { playerFullName }, 'party' );
+          -- sets the subject for memory text formatting
+          listener.subject = playerFullName;
 
-        -- will prevent the memory to be recorded twice if player has grouped with that member recently
-        table.insert( listener.lastPlayers, playerFullName );
+          -- adds a party memory
+          listener:printAndSave( 'players', { playerFullName }, 'party' );
+        end
       end
     end
   );
-  eventPlayerParty.lastPlayers = {};
   function eventPlayerParty:buildMemoryTextFormatter()
 
     return MemoryCore:newMemoryTextFormatter()
@@ -249,6 +249,14 @@ function MemoryAddon_addEvents( core )
       :setPresentActionSentence( 'group' )
       :setPresentActionSentenceConnector( 'with' )
       :setSubject( self.subject );
+  end
+  function eventPlayerParty:haveGroupedToday( playerFullName )
+
+    -- attempts to get a party memory with the player
+    local memory = MemoryCore:getRepository():get( 'players', { playerFullName }, 'party' );
+
+    -- 0 means the player had already partied with the target player today
+    return 0 == memory:getDaysSinceLastDay();
   end
   core:addEventListener( eventPlayerParty );
 
