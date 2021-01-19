@@ -222,25 +222,25 @@ function MemoryAddon_addEvents( core )
     function( listener, event, params )
 
       -- gets all member full names regardless of player is in a party or raid
-      local groupMemberGuids = MemoryCore:getCompatibilityHelper():getGroupFullNames();
+      local groupMemberFullNames = MemoryCore:getCompatibilityHelper():getGroupFullNames();
 
-      -- select group members that weren't added yet to the player's memory
-      local uniqueMembers = MemoryCore:getArrayHelper():arrayDiff( groupMemberGuids, listener.lastPlayers );
+      for i, playerFullName in pairs( groupMemberFullNames ) do
 
-      for i, playerFullName in pairs( uniqueMembers ) do
+        if listener:haveGroupedToday( playerFullName ) then
 
-        -- sets the subject for memory text formatting
-        listener.subject = playerFullName;
+          -- bail if already had grouped today
+          listener:debugAndExit( 'Already grouped with ' .. playerFullName .. ' today' );
+        else
 
-        -- adds a party memory
-        listener:printAndSave( 'players', { playerFullName }, 'party' );
+          -- sets the subject for memory text formatting
+          listener.subject = playerFullName;
 
-        -- will prevent the memory to be recorded twice if player has grouped with that member recently
-        table.insert( listener.lastPlayers, playerFullName );
+          -- adds a party memory
+          listener:printAndSave( 'players', { playerFullName }, 'party' );
+        end
       end
     end
   );
-  eventPlayerParty.lastPlayers = {};
   function eventPlayerParty:buildMemoryTextFormatter()
 
     return MemoryCore:newMemoryTextFormatter()
