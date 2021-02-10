@@ -19,8 +19,8 @@ local function MemoryAddon_initializeCore()
   -- the addon version which is the same as the toc file
   MemoryCore.ADDON_VERSION = '1.1.0';
 
-  -- the pattern used to wrap strings in the addon highlight color
-  MemoryCore.HIGHLIGHT_PATTERN = '\124cffffee77{0}\124r';
+  -- the default hex color used highlight text
+  MemoryCore.HIGHLIGHT_COLOR = 'ffee77';
 
   -- the ArrayHelper instance
   MemoryCore.arrayHelper = nil;
@@ -153,11 +153,15 @@ local function MemoryAddon_initializeCore()
   @since 0.1.0-alpha
 
   @param string value
+  @param string hexColor accept any hexadecimal color to override the default highlight color (optional)
   @return string
   ]]
-  function MemoryCore:highlight( value )
+  function MemoryCore:highlight( value, --[[optional]] hexColor )
 
-    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, '{0}', value );
+    -- may use the default color if no hex color is informed
+    hexColor = hexColor or MemoryCore.HIGHLIGHT_COLOR;
+
+    return string.gsub( '\124cff' .. hexColor .. '{0}\124r', '{0}', value );
   end
 
 
