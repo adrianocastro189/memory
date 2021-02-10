@@ -153,9 +153,10 @@ local function MemoryAddon_initializeCore()
   @since 0.1.0-alpha
 
   @param string value
+  @param string hexColor accept any hexadecimal color to override the default highlight color (optional)
   @return string
   ]]
-  function MemoryCore:highlight( value )
+  function MemoryCore:highlight( value, --[[optional]] hexColor )
 
     return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, '{0}', value );
   end
