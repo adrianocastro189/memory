@@ -158,7 +158,10 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:highlight( value, --[[optional]] hexColor )
 
-    return string.gsub( MemoryCore.HIGHLIGHT_PATTERN, '{0}', value );
+    -- may use the default color if no hex color is informed
+    hexColor = hexColor or MemoryCore.HIGHLIGHT_COLOR;
+
+    return string.gsub( '\124cff' .. hexColor .. '{0}\124r', '{0}', value );
   end
 
 
