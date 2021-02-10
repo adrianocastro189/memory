@@ -63,7 +63,7 @@ function MemoryAddon_MemoryEvent:new( name, events, action )
   ]]
   function instance:debugAndExit( message )
 
-    self:debug( '\124cffff0000[E]\124r ' .. message );
+    self:debug( MemoryCore:highlight( '[E]', 'ff0000' ) .. ' ' .. message );
 
     return -1;
   end
