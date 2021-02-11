@@ -122,6 +122,24 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets the first moment if available.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getFirstMoment()
+
+      if not self:hasFirstMoment() then
+
+        return '';
+      end
+
+      return self:getFirst():getMoment();
+    end
+
+
+    --[[
     Gets the memory interaction type.
 
     @since 0.5.0-beta
