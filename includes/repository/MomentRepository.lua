@@ -50,6 +50,19 @@ function MemoryAddon_MomentRepository:new()
   end
 
 
+  --[[
+  Determines whether there's a current moment stored or not.
+
+  @since 1.1.0
+
+  @return bool
+  ]]
+  function instance:hasCurrentMoment()
+
+    return self:getCurrentMomentIndex() > 0;
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_MomentRepository = nil;
 
