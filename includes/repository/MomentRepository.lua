@@ -25,6 +25,26 @@ function MemoryAddon_MomentRepository:new()
 
 
   --[[
+  Adds a moment.
+
+  @since 1.1.0
+
+  @param string moment the moment to be stored
+  ]]
+  function instance:addMoment( moment )
+
+    -- gets the current moment list
+    local moments = self:getMoments();
+
+    -- adds the moment
+    table.insert( moments, moment );
+
+    -- stores the updated moments list
+    MemoryCore:setting( self.MOMENT_SETTINGS_NAME, moments, true );
+  end
+
+
+  --[[
   Gets the current moment index, i.e. the most recent one.
 
   @since 1.1.0
