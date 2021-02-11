@@ -62,18 +62,21 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
       -- gets the memory string data values
       local date        = MemoryCore:getDateHelper():getToday();
+      local moment      = nil; -- TODO: Replace with a getMoment() call once it's available {AC 2021-02-10}
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();
 
       -- replaces nil values with a slash
       if date        == nil                      then date        = self.DATA_DEFAULT_CHAR; end
+      if moment      == nil                      then moment      = self.DATA_DEFAULT_CHAR; end
       if playerLevel == nil or playerLevel == 0  then playerLevel = self.DATA_DEFAULT_CHAR; end
       if zone        == nil or zone        == '' then zone        = self.DATA_DEFAULT_CHAR; end
       if subZone     == nil or subZone     == '' then subZone     = self.DATA_DEFAULT_CHAR; end
 
       return self
         :setDate( date )
+        :setMoment( moment )
         :setPlayerLevel( playerLevel )
         :setZone( zone )
         :setSubZone( subZone );
