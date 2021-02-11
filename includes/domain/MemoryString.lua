@@ -38,6 +38,9 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     -- the date when the memory string was collected
     instance.date = instance.DATA_DEFAULT_CHAR;
 
+    -- the moment player was passing through when the memory string was collected
+    instance.moment = instance.DATA_DEFAULT_CHAR;
+
     -- the player's level when the memory string was collected
     instance.playerLevel = instance.DATA_DEFAULT_CHAR;
 
@@ -59,18 +62,21 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
       -- gets the memory string data values
       local date        = MemoryCore:getDateHelper():getToday();
+      local moment      = nil; -- TODO: Replace with a getMoment() call once it's available {AC 2021-02-10}
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();
 
       -- replaces nil values with a slash
       if date        == nil                      then date        = self.DATA_DEFAULT_CHAR; end
+      if moment      == nil                      then moment      = self.DATA_DEFAULT_CHAR; end
       if playerLevel == nil or playerLevel == 0  then playerLevel = self.DATA_DEFAULT_CHAR; end
       if zone        == nil or zone        == '' then zone        = self.DATA_DEFAULT_CHAR; end
       if subZone     == nil or subZone     == '' then subZone     = self.DATA_DEFAULT_CHAR; end
 
       return self
         :setDate( date )
+        :setMoment( moment )
         :setPlayerLevel( playerLevel )
         :setZone( zone )
         :setSubZone( subZone );
@@ -87,6 +93,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:getDate()
 
       return self.date;
+    end
+
+
+    --[[
+    Gets the moment when the memory string was collected.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getMoment()
+
+      return self.moment;
     end
 
 
@@ -143,6 +162,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Determines whether this memory string has a moment or not.
+
+    @since 1.1.0
+
+    @return bool
+    ]]
+    function instance:hasMoment()
+
+      return nil ~= self.moment and tonumber( self.moment ) > 0;
+    end
+
+
+    --[[
     Parses a memory string to populate this instance properties.
 
     @since 0.6.0-beta
@@ -153,10 +185,14 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:parse( memoryString )
 
       -- explodes the memory string
-      local date, playerLevel, zone, subZone = strsplit( self.DATA_SEPARATOR, memoryString );
+      local date, playerLevel, zone, subZone, moment = strsplit( self.DATA_SEPARATOR, memoryString );
+
+      -- compatibility with older versions of the addon when moment wasn't a thing
+      if moment == nil then moment = self.DATA_DEFAULT_CHAR; end
 
       return self
         :setDate( date )
+        :setMoment( moment )
         :setPlayerLevel( playerLevel )
         :setZone( zone )
         :setSubZone( subZone );
@@ -174,6 +210,22 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:setDate( date )
 
       self.date = date;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the moment when the memory string was collected.
+
+    @since 1.1.0
+
+    @param string moment
+    @return self MemoryAddon_MemoryString
+    ]]
+    function instance:setMoment( moment )
+
+      self.moment = moment;
 
       return self;
     end
@@ -236,7 +288,11 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:toString()
 
-      return self:getDate() .. '|' .. self:getPlayerLevel() .. '|' .. self:getZone() .. '|' .. self:getSubZone();
+      return self:getDate() ..
+        '|' .. self:getPlayerLevel() ..
+        '|' .. self:getZone() ..
+        '|' .. self:getSubZone() ..
+        '|' .. self:getMoment();
     end
 
 
