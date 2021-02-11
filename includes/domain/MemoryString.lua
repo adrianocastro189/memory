@@ -162,6 +162,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Determines whether this memory string has a moment or not.
+
+    @since 1.1.0
+
+    @return bool
+    ]]
+    function instance:hasMoment()
+
+      return nil ~= self.moment and tonumber( self.moment ) > 0;
+    end
+
+
+    --[[
     Parses a memory string to populate this instance properties.
 
     @since 0.6.0-beta
