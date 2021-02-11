@@ -284,7 +284,11 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:toString()
 
-      return self:getDate() .. '|' .. self:getPlayerLevel() .. '|' .. self:getZone() .. '|' .. self:getSubZone();
+      return self:getDate() ..
+        '|' .. self:getPlayerLevel() ..
+        '|' .. self:getZone() ..
+        '|' .. self:getSubZone() ..
+        '|' .. self:getMoment();
     end
 
 
