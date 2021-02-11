@@ -259,6 +259,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the last memory has a moment.
+
+    @since 1.0.0
+
+    @return bool
+    ]]
+    function instance:hasLastMoment()
+
+      return self:hasLast() and self:getLast():hasMoment();
+    end
+
+
+    --[[
     Determines whether the memory has a path
 
     @since 0.5.0-beta
