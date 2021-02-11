@@ -37,6 +37,9 @@ local function MemoryAddon_initializeCore()
   -- the unique logger instance
   MemoryCore.logger = nil;
 
+  -- the unique moment repository instance
+  MemoryCore.momentRepository = nil;
+
   -- the unique repository instance
   MemoryCore.repository = nil;
 
@@ -122,6 +125,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique moment repository instance.
+
+  @since 1.1.0
+
+  @return MemoryAddon_MomentRepository
+  ]]
+  function MemoryCore:getMomentRepository()
+
+    return self.momentRepository;
+  end
+
+
+  --[[
   Gets the unique repository instance.
 
   @since 0.2.0-alpha
@@ -176,6 +192,7 @@ local function MemoryAddon_initializeCore()
     self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
     self.dateHelper          = MemoryAddon_DateHelper:new();
     self.logger              = MemoryAddon_LoggerHelper:new();
+    self.momentRepository    = MemoryAddon_MomentRepository:new();
     self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
     self.settingsRepository  = MemoryAddon_SettingsRepository:new();
     self.stringHelper        = MemoryAddon_StringHelper:new();

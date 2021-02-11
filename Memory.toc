@@ -25,6 +25,7 @@ includes\helpers\LoggerHelper.lua
 includes\helpers\StringHelper.lua
 
 includes\repository\MemoryRepository.lua
+includes\repository\MomentRepository.lua
 includes\repository\SettingsRepository.lua
 
 includes\view\MemoryTextFormatter.lua
