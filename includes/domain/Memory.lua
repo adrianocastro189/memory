@@ -122,6 +122,24 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets the first moment if available.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getFirstMoment()
+
+      if not self:hasFirstMoment() then
+
+        return '';
+      end
+
+      return self:getFirst():getMoment();
+    end
+
+
+    --[[
     Gets the memory interaction type.
 
     @since 0.5.0-beta
@@ -164,6 +182,24 @@ function MemoryAddon_addMemoryPrototype( repository )
       end
 
       return MemoryCore:getDateHelper():getFormattedDate( self:getLast():getDate() );
+    end
+
+
+    --[[
+    Gets the last moment if available.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getLastMoment()
+
+      if not self:hasLastMoment() then
+
+        return '';
+      end
+
+      return self:getLast():getMoment();
     end
 
 
@@ -220,6 +256,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the first memory has a moment.
+
+    @since 1.0.0
+
+    @return bool
+    ]]
+    function instance:hasFirstMoment()
+
+      return self:hasFirst() and self:getFirst():hasMoment();
+    end
+
+
+    --[[
     Determines whether the memory has an interaction type.
 
     @since 0.5.0-beta
@@ -242,6 +291,19 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:hasLast()
 
       return nil ~= self.last and -1 ~= self:getLast() and self:getLast():hasDate();
+    end
+
+
+    --[[
+    Determines whether the last memory has a moment.
+
+    @since 1.0.0
+
+    @return bool
+    ]]
+    function instance:hasLastMoment()
+
+      return self:hasLast() and self:getLast():hasMoment();
     end
 
 
