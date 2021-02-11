@@ -20,6 +20,9 @@ function MemoryAddon_MomentRepository:new()
   local instance = {};
   setmetatable( instance, MemoryAddon_MomentRepository );
 
+  -- the name of the moments saved in the settings array
+  instance.MOMENT_SETTINGS_NAME = 'moments';
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_MomentRepository = nil;
 
