@@ -220,6 +220,19 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Determines whether the first memory has a moment.
+
+    @since 1.0.0
+
+    @return bool
+    ]]
+    function instance:hasFirstMoment()
+
+      return self:hasFirst() and self:getFirst():hasMoment();
+    end
+
+
+    --[[
     Determines whether the memory has an interaction type.
 
     @since 0.5.0-beta
