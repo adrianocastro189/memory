@@ -185,10 +185,14 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:parse( memoryString )
 
       -- explodes the memory string
-      local date, playerLevel, zone, subZone = strsplit( self.DATA_SEPARATOR, memoryString );
+      local date, playerLevel, zone, subZone, moment = strsplit( self.DATA_SEPARATOR, memoryString );
+
+      -- compatibility with older versions of the addon when moment wasn't a thing
+      if moment == nil then moment = self.DATA_DEFAULT_CHAR; end
 
       return self
         :setDate( date )
+        :setMoment( moment )
         :setPlayerLevel( playerLevel )
         :setZone( zone )
         :setSubZone( subZone );
