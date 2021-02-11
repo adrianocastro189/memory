@@ -186,6 +186,24 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets the last moment if available.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getLastMoment()
+
+      if not self:hasLastMoment() then
+
+        return '';
+      end
+
+      return self:getLast():getMoment();
+    end
+
+
+    --[[
     Gets the memory path.
 
     @since 0.5.0-beta
