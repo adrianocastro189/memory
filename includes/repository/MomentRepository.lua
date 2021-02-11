@@ -38,11 +38,25 @@ function MemoryAddon_MomentRepository:new()
 
 
   --[[
+  Gets a moment by its index.
+
+  @since 1.1.0
+
+  @param int index the moment index
+  @return string|nil the moment
+  ]]
+  function instance:getMoment( index )
+
+    return self:getMoments()[ index ];
+  end
+
+
+  --[[
   Gets all the stored moments.
 
   @since 1.1.0
 
-  @return string[] memories
+  @return string[] moments
   ]]
   function instance:getMoments()
 
