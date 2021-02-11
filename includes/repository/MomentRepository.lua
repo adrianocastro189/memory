@@ -25,6 +25,19 @@ function MemoryAddon_MomentRepository:new()
 
 
   --[[
+  Gets the current moment index, i.e. the most recent one.
+
+  @since 1.1.0
+
+  @return int
+  ]]
+  function instance:getCurrentMomentIndex()
+
+    return #self:getMoments();
+  end
+
+
+  --[[
   Gets all the stored moments.
 
   @since 1.1.0
