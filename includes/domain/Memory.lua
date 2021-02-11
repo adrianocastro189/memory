@@ -135,7 +135,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return '';
       end
 
-      return self:getFirst():getMoment();
+      return self:getFirst():getMoment( 'view' );
     end
 
 
@@ -199,7 +199,7 @@ function MemoryAddon_addMemoryPrototype( repository )
         return '';
       end
 
-      return self:getLast():getMoment();
+      return self:getLast():getMoment( 'view' );
     end
 
 

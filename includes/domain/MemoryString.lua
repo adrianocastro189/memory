@@ -101,9 +101,15 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
     @since 1.1.0
 
+    @param string context will determine the returned moment of this method (index or description)
     @return string
     ]]
-    function instance:getMoment()
+    function instance:getMoment( context )
+
+      if 'view' == context then
+
+        return MemoryCore:getMomentRepository():getMoment( self.moment );
+      end
 
       return self.moment;
     end
