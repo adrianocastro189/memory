@@ -62,7 +62,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
       -- gets the memory string data values
       local date        = MemoryCore:getDateHelper():getToday();
-      local moment      = nil; -- TODO: Replace with a getMoment() call once it's available {AC 2021-02-10}
+      local moment      = MemoryCore:getMomentRepository():getCurrentMomentIndex();
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();
