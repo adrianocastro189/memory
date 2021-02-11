@@ -177,9 +177,6 @@ function MemoryAddon_addEvents( core )
       -- sanity check
       if not player:isNpc() then
 
-        -- TODO: Remove this log message once this rule is validated
-        MemoryCore:getLogger():warn( 'Target is not an NPC' );
-
         return listener:debugAndExit( 'Target is not an NPC' );
       end
 
