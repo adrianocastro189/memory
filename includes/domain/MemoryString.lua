@@ -38,6 +38,9 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     -- the date when the memory string was collected
     instance.date = instance.DATA_DEFAULT_CHAR;
 
+    -- the moment player was passing through when the memory string was collected
+    instance.moment = instance.DATA_DEFAULT_CHAR;
+
     -- the player's level when the memory string was collected
     instance.playerLevel = instance.DATA_DEFAULT_CHAR;
 
@@ -87,6 +90,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:getDate()
 
       return self.date;
+    end
+
+
+    --[[
+    Gets the moment when the memory string was collected.
+
+    @since 1.1.0
+
+    @return string
+    ]]
+    function instance:getMoment()
+
+      return self.moment;
     end
 
 
@@ -174,6 +190,22 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     function instance:setDate( date )
 
       self.date = date;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the moment when the memory string was collected.
+
+    @since 1.1.0
+
+    @param string moment
+    @return self MemoryAddon_MemoryString
+    ]]
+    function instance:setMoment( moment )
+
+      self.moment = moment;
 
       return self;
     end
