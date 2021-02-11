@@ -23,6 +23,20 @@ function MemoryAddon_MomentRepository:new()
   -- the name of the moments saved in the settings array
   instance.MOMENT_SETTINGS_NAME = 'moments';
 
+
+  --[[
+  Gets all the stored moments.
+
+  @since 1.1.0
+
+  @return string[] memories
+  ]]
+  function instance:getMoments()
+
+    return MemoryCore:setting( self.MOMENT_SETTINGS_NAME, {} );
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_MomentRepository = nil;
 
