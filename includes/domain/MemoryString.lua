@@ -106,9 +106,9 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:getMoment( context )
 
-      if 'view' == context then
+      if 'view' == context and self:hasMoment() then
 
-        return MemoryCore:getMomentRepository():getMoment( self.moment );
+        return MemoryCore:getMomentRepository():getMoment( tonumber( self.moment ) );
       end
 
       return self.moment;
