@@ -160,7 +160,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return 'I don\'t remember the first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getFirstFormattedDate();
+      return 'The first time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was on '
+        .. memory:getFirstFormattedDate()
+        .. self:maybeAppendMoment( memory:getFirst() );
     end
 
 
@@ -185,7 +191,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       -- generates a was fragment that makes sense
       if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
+      return 'The first time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was '
+        .. was
+        .. self:maybeAppendMoment( memory:getFirst() );
     end
 
 
@@ -204,7 +216,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return 'I don\'t remember the last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getLastFormattedDate();
+      return 'The last time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was on '
+        .. memory:getLastFormattedDate()
+        .. self:maybeAppendMoment( memory:getLast() );
     end
 
 
@@ -229,7 +247,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       -- generates a was fragment that makes sense
       if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
+      return 'The last time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was '
+        .. was
+        .. self:maybeAppendMoment( memory:getLast() );
     end
 
 
@@ -375,6 +399,34 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       return subject;
     end
+
+
+    --[[
+    May return a moment to be appended to the memory.
+
+    @since 1.1.0
+
+    @param MemoryAddon_MemoryString memoryString
+    @return string
+    ]]
+    function instance:maybeAppendMoment( memoryString )
+
+      -- sanity check
+      if not memoryString:hasMoment() then return ''; end
+
+      -- gets the current moment
+      local currentMoment = MemoryCore:getMomentRepository():getCurrentMomentIndex();
+
+      -- we don't want to show the moment if it's the current moment
+      if currentMoment == memoryString:getMoment() then return ''; end
+
+      -- gets the moment description
+      local moment = memoryString:getMoment( 'view' );
+
+      -- returns the highlighted memory moment
+      return MemoryCore:highlight( ' ~' .. moment .. '~', '097394' );
+    end
+
 
     return instance;
   end
