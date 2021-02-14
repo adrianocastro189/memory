@@ -140,6 +140,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   @param string category
   @param string[] path
   @param string interactionType
+  @return MemoryAddon_Memory memory
   ]]
   function instance:get( category, path, interactionType )
 
