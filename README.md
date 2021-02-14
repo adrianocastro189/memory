@@ -14,6 +14,18 @@ Feel free to increase the print chance rate using a slash command described belo
 
 The following slash commands let you customize the addon experience.
 
+### Associating memories with moments
+
+**Moments** can be anything happening while you play. They can refer to a moment in real life you're having while you play or even related to your current gameplay story. The current moment will be shared accross all your characters in this first version of this feature. In other words, you can't set a current moment for each character (yet).
+
+Example: Let's say you're moving to another city in real life and you want to associate all of your player memories with this moment, then all you have to do is:
+
+```
+/memoryaddon add moment playing in a motel while my apartment is ready for us to move
+```
+
+That way, after you add another moment, all the memories collected in the last moments will be appended to the chat frame like: _The first time I looted a Linen Cloth was 41 days ago \~playing in a motel while my apartment is ready for us to move\~_.
+
 ### Setting the memory print chance
 
 Every time a memory is stored, it has a chance to be printed to the chat window. In other words,
