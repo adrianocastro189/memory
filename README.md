@@ -41,6 +41,7 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 ## Changelog
 
 ### yyyy.mm.dd - version 1.1.0
+* Feature - Add the concept of moments to be associated with memories
 * Tweak - The _Invalid loot item msg_ is now a debug message instead of a warning
 
 ### 2021.01.10 - version 1.0.0
