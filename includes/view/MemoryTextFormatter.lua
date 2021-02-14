@@ -346,7 +346,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       local moment = memoryString:getMoment( 'view' );
 
       -- returns the highlighted memory moment
-      return MemoryCore:highlight( ' ~' .. moment .. '~', '097394' );
+      return MemoryCore:highlight( ' ~' .. moment .. '~', '34c0eb' );
     end
 
 
