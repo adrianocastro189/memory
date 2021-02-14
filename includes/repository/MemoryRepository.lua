@@ -31,7 +31,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   A full memory path is where all the player memories about a thing are stored.
 
   If this is the first time of a player in a realm, the full memory path will be
-  created with the interaction type.
+  created with the interaction type. Use MemoryAddon_MemoryRepository:exist if you
+  intend to do a check with no collateral effects.
 
   @since 0.2.0-alpha
 
