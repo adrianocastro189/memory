@@ -44,86 +44,6 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
-    Sets the memory past action sentence that can be visited, talked, etc.
-
-    @since 0.6.0-beta
-
-    @param string pastActionSentence
-    @return MemoryAddon_MemorTextFormatter
-    ]]
-    function instance:setPastActionSentence( pastActionSentence )
-
-      self.pastActionSentence = pastActionSentence or instance.UNDEFINED_PROPERTY;
-
-      return self;
-    end
-
-
-    --[[
-    Sets the memory past action sentence connector that can be with, to, etc.
-
-    @since 0.6.0-beta
-
-    @param string pastActionSentenceConnector
-    @return MemoryAddon_MemorTextFormatter
-    ]]
-    function instance:setPastActionSentenceConnector( pastActionSentenceConnector )
-
-      self.pastActionSentenceConnector = pastActionSentenceConnector or instance.UNDEFINED_PROPERTY;
-
-      return self;
-    end
-
-
-    --[[
-    Sets the memory present action sentence that can be visit, talk, etc.
-
-    @since 0.6.0-beta
-
-    @param string presentActionSentence
-    @return MemoryAddon_MemorTextFormatter
-    ]]
-    function instance:setPresentActionSentence( presentActionSentence )
-
-      self.presentActionSentence = presentActionSentence or instance.UNDEFINED_PROPERTY;
-
-      return self;
-    end
-
-
-    --[[
-    Sets the memory present action sentence connector that can be with, to, etc.
-
-    @since 0.6.0-beta
-
-    @param string presentActionSentenceConnector
-    @return MemoryAddon_MemorTextFormatter
-    ]]
-    function instance:setPresentActionSentenceConnector( presentActionSentenceConnector )
-
-      self.presentActionSentenceConnector = presentActionSentenceConnector or instance.UNDEFINED_PROPERTY;
-
-      return self;
-    end
-
-
-    --[[
-    Sets the memory subject that can be a zone, npc, player, etc.
-
-    @since 0.6.0-beta
-
-    @param string subject
-    @return MemoryAddon_MemorTextFormatter
-    ]]
-    function instance:setSubject( subject )
-
-      self.subject = subject or instance.UNDEFINED_PROPERTY;
-
-      return self;
-    end
-
-
-    --[[
     Gets a sentence defined by type.
 
     @since 0.6.0-beta
@@ -160,7 +80,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return 'I don\'t remember the first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getFirstFormattedDate();
+      return 'The first time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was on '
+        .. memory:getFirstFormattedDate()
+        .. self:maybeAppendMoment( memory:getFirst() );
     end
 
 
@@ -185,7 +111,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       -- generates a was fragment that makes sense
       if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The first time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
+      return 'The first time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was '
+        .. was
+        .. self:maybeAppendMoment( memory:getFirst() );
     end
 
 
@@ -204,7 +136,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         return 'I don\'t remember the last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was on ' .. memory:getLastFormattedDate();
+      return 'The last time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was on '
+        .. memory:getLastFormattedDate()
+        .. self:maybeAppendMoment( memory:getLast() );
     end
 
 
@@ -229,7 +167,13 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       -- generates a was fragment that makes sense
       if 0 == days then was = 'today'; else was = days .. ' day(s) ago'; end
 
-      return 'The last time I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' ) .. ' was ' .. was;
+      return 'The last time I '
+        .. self:getPastActionSentence()
+        .. self:getPastActionSentenceConnector( 'view' )
+        .. self:getSubject( 'view' )
+        .. ' was '
+        .. was
+        .. self:maybeAppendMoment( memory:getLast() );
     end
 
 
@@ -375,6 +319,114 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
       return subject;
     end
+
+
+    --[[
+    May return a moment to be appended to the memory.
+
+    @since 1.1.0
+
+    @param MemoryAddon_MemoryString memoryString
+    @return string
+    ]]
+    function instance:maybeAppendMoment( memoryString )
+
+      -- sanity check
+      if not memoryString:hasMoment() then return ''; end
+
+      -- gets the current moment
+      local currentMoment = MemoryCore:getMomentRepository():getCurrentMomentIndex();
+
+      -- we don't want to show the moment if it's the current moment
+      if ( tonumber( currentMoment ) or 0 ) == ( tonumber( memoryString:getMoment() ) or 0 ) then return ''; end
+
+      -- gets the moment description
+      local moment = memoryString:getMoment( 'view' );
+
+      -- returns the highlighted memory moment
+      return MemoryCore:highlight( ' ~' .. moment .. '~', '34c0eb' );
+    end
+
+
+    --[[
+    Sets the memory past action sentence that can be visited, talked, etc.
+
+    @since 0.6.0-beta
+
+    @param string pastActionSentence
+    @return MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:setPastActionSentence( pastActionSentence )
+
+      self.pastActionSentence = pastActionSentence or instance.UNDEFINED_PROPERTY;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the memory past action sentence connector that can be with, to, etc.
+
+    @since 0.6.0-beta
+
+    @param string pastActionSentenceConnector
+    @return MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:setPastActionSentenceConnector( pastActionSentenceConnector )
+
+      self.pastActionSentenceConnector = pastActionSentenceConnector or instance.UNDEFINED_PROPERTY;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the memory present action sentence that can be visit, talk, etc.
+
+    @since 0.6.0-beta
+
+    @param string presentActionSentence
+    @return MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:setPresentActionSentence( presentActionSentence )
+
+      self.presentActionSentence = presentActionSentence or instance.UNDEFINED_PROPERTY;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the memory present action sentence connector that can be with, to, etc.
+
+    @since 0.6.0-beta
+
+    @param string presentActionSentenceConnector
+    @return MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:setPresentActionSentenceConnector( presentActionSentenceConnector )
+
+      self.presentActionSentenceConnector = presentActionSentenceConnector or instance.UNDEFINED_PROPERTY;
+
+      return self;
+    end
+
+
+    --[[
+    Sets the memory subject that can be a zone, npc, player, etc.
+
+    @since 0.6.0-beta
+
+    @param string subject
+    @return MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:setSubject( subject )
+
+      self.subject = subject or instance.UNDEFINED_PROPERTY;
+
+      return self;
+    end
+
 
     return instance;
   end

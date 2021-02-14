@@ -62,7 +62,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
       -- gets the memory string data values
       local date        = MemoryCore:getDateHelper():getToday();
-      local moment      = nil; -- TODO: Replace with a getMoment() call once it's available {AC 2021-02-10}
+      local moment      = MemoryCore:getMomentRepository():getCurrentMomentIndex();
       local playerLevel = UnitLevel( 'player' );
       local zone        = GetZoneText();
       local subZone     = GetSubZoneText();
@@ -101,9 +101,15 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
     @since 1.1.0
 
+    @param string context will determine the returned moment of this method (index or description)
     @return string
     ]]
-    function instance:getMoment()
+    function instance:getMoment( context )
+
+      if 'view' == context and self:hasMoment() then
+
+        return MemoryCore:getMomentRepository():getMoment( tonumber( self.moment ) );
+      end
 
       return self.moment;
     end
@@ -170,7 +176,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:hasMoment()
 
-      return nil ~= self.moment and tonumber( self.moment ) > 0;
+      return nil ~= self.moment and ( tonumber( self.moment ) or 0 ) > 0;
     end
 
 
