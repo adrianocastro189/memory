@@ -207,6 +207,49 @@ function MemoryAddon_MemoryRepository:new( player, realm )
     -- if the execution hits this line it means the full memory path exists
     return memoryDataSetAux;
   end
+
+
+  --[[
+  Lists memories from a given category and path.
+
+  TODO: Fix this method to work with nested paths (zones, subzones) {AC 2021-02-14}
+
+  @since 1.1.0
+
+  @param string category
+  @param string[] path
+  @return MemoryAddon_Memory[] memories
+  ]]
+  function instance:listMemories( category, path )
+
+    -- tries to get the memory path
+    local memoryPath = self:exist( category, path );
+
+    -- list of memories to be returned
+    local memories = {};
+
+    -- if no memory path can be established
+    if not memoryPath then return memories; end
+
+    -- iterates over all the interaction types under the path
+    for interactionType, values in pairs( memoryPath ) do
+
+      -- creates the memory instance
+      table.insert( memories, self
+        :newMemory()
+        :setCategory( category )
+        :setPath( path )
+        :setInteractionType( interactionType )
+        :setFirst( self:newMemoryString( values['first'] ) )
+        :setLast( self:newMemoryString( values['last'] ) )
+        :setX( values['x'] )
+      );
+    end
+
+    return memories;
+  end
+
+
   --[[
   Stores a player's memory.
 
