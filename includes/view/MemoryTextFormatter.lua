@@ -340,7 +340,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       local currentMoment = MemoryCore:getMomentRepository():getCurrentMomentIndex();
 
       -- we don't want to show the moment if it's the current moment
-      if currentMoment == memoryString:getMoment() then return ''; end
+      if ( tonumber( currentMoment ) or 0 ) == ( tonumber( memoryString:getMoment() ) or 0 ) then return ''; end
 
       -- gets the moment description
       local moment = memoryString:getMoment( 'view' );

@@ -176,7 +176,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     ]]
     function instance:hasMoment()
 
-      return nil ~= self.moment and tonumber( self.moment ) > 0;
+      return nil ~= self.moment and ( tonumber( self.moment ) or 0 ) > 0;
     end
 
 
