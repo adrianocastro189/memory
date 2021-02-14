@@ -1,8 +1,6 @@
 --[[
 Adds the memory text formatter prototype and creation method to core.
 
-TODO: Sort the set and get methods in this prototype {AC 2021-02-11}
-
 @since 0.6.0-beta
 
 @param MemoryAddon_MemoryRepository repository the memory repository instance
