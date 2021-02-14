@@ -166,6 +166,48 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
 
   --[[
+  Determines wheter a full memory path exists.
+
+  This method should be called instead of MemoryAddon_MemoryRepository::check()
+  to prevent the path from being created.
+
+  @since 1.1.0
+
+  @param string category
+  @param string[] path
+  @param string interactionType
+  @return bool|array the memory path
+  ]]
+  function instance:exist( category, --[[optional]] path, --[[optional]] interactionType )
+
+    -- creates a pointer to the current path in the memory array
+    local memoryDataSetAux = MemoryAddon_DataSet[ self.realm ][ self.player ][ category ];
+
+    -- category check
+    if nil == memoryDataSetAux then return false; end
+
+    if nil ~= path then
+
+      for i = 1, #path, 1 do
+
+        -- path check
+        if memoryDataSetAux[ path[ i ] ] == nil then return false; end
+
+        -- sets the current path index in the pointer
+        memoryDataSetAux = memoryDataSetAux[ path[ i ] ];
+      end
+    end
+
+    if nil ~= interactionType then
+
+      -- interaction check
+      if memoryDataSetAux[ interactionType ] == nil then return false; end
+    end
+
+    -- if the execution hits this line it means the full memory path exists
+    return memoryDataSetAux;
+  end
+  --[[
   Stores a player's memory.
 
   @since 0.2.0-alpha
