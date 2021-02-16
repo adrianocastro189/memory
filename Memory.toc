@@ -10,6 +10,7 @@
 Memory.lua
 
 includes\core\SlashCommand.lua
+includes\core\TooltipController.lua
 
 includes\domain\Memory.lua
 includes\domain\MemoryString.lua
