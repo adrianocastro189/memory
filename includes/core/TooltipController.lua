@@ -38,6 +38,13 @@ function MemoryAddon_TooltipController:new()
 
   end
 
+
+  -- hooks the item tooltip script to call the handler method
+  GameTooltip:HookScript( 'OnTooltipSetItem', instance.handleTooltipItem );
+
+  -- hooks the unit tooltip script to call the handler method
+  GameTooltip:HookScript( 'OnTooltipSetUnit', instance.handleTooltipUnit );
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_TooltipController = nil;
 
