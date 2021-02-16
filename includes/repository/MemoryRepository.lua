@@ -166,7 +166,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
 
   --[[
-  Determines wheter a full memory path exists.
+  Determines whether a full memory path exists.
 
   This method should be called instead of MemoryAddon_MemoryRepository::check()
   to prevent the path from being created.
