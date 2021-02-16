@@ -18,6 +18,33 @@ function MemoryAddon_TooltipController:new()
   local instance = {};
   setmetatable( instance, MemoryAddon_TooltipController );
 
+
+  --[[
+  Intercepts the item tooltip.
+
+  @since 1.1.0
+  ]]
+  function instance:handleTooltipItem()
+
+  end
+
+
+  --[[
+  Intercepts the unit tooltip.
+
+  @since 1.1.0
+  ]]
+  function instance:handleTooltipUnit()
+
+  end
+
+
+  -- hooks the item tooltip script to call the handler method
+  GameTooltip:HookScript( 'OnTooltipSetItem', instance.handleTooltipItem );
+
+  -- hooks the unit tooltip script to call the handler method
+  GameTooltip:HookScript( 'OnTooltipSetUnit', instance.handleTooltipUnit );
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_TooltipController = nil;
 
