@@ -49,6 +49,9 @@ local function MemoryAddon_initializeCore()
   -- the StringHelper instance
   MemoryCore.stringHelper = nil;
 
+  -- the tooltip controller
+  MemoryCore.tooltipController = nil;
+
 
   --[[
   Attaches an event listener to the core.
@@ -164,6 +167,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique tooltip controller instance.
+
+  @since 1.1.0
+
+  @return MemoryAddon_TooltipController
+  ]]
+  function MemoryCore:getTooltipController()
+
+    return self.tooltipController;
+  end
+
+
+  --[[
   Highlights a string using the addon highlight color.
 
   @since 0.1.0-alpha
@@ -196,6 +212,7 @@ local function MemoryAddon_initializeCore()
     self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
     self.settingsRepository  = MemoryAddon_SettingsRepository:new();
     self.stringHelper        = MemoryAddon_StringHelper:new();
+    self.tooltipController   = MemoryAddon_TooltipController:new();
   end
 
 
