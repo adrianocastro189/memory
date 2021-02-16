@@ -18,6 +18,26 @@ function MemoryAddon_TooltipController:new()
   local instance = {};
   setmetatable( instance, MemoryAddon_TooltipController );
 
+
+  --[[
+  Intercepts the item tooltip.
+
+  @since 1.1.0
+  ]]
+  function instance:handleTooltipItem()
+
+  end
+
+
+  --[[
+  Intercepts the unit tooltip.
+
+  @since 1.1.0
+  ]]
+  function instance:handleTooltipUnit()
+
+  end
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_TooltipController = nil;
 
