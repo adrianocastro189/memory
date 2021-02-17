@@ -19,6 +19,46 @@ function MemoryAddon_TooltipController:new()
   setmetatable( instance, MemoryAddon_TooltipController );
 
 
+
+
+  --[[
+  Adds a two column line to the memory tooltip.
+
+  @since 1.1.0
+
+  @param string header
+  @param string content
+  ]]
+  function instance:addDoubleLine( header, content )
+
+    GameTooltip:AddDoubleLine( header, content );
+  end
+
+
+  --[[
+  Adds a header to the memory tooltip.
+
+  @since 1.1.0
+
+  @param string header
+  ]]
+  function instance:addHeader( header )
+
+    GameTooltip:AddLine( header );
+  end
+
+
+  --[[
+  Adds the main memory header to the tooltip.
+
+  @since 1.1.0
+  ]]
+  function instance:addMemoryHeader()
+
+    GameTooltip:AddLine( MemoryCore:highlight( '<' .. MemoryCore.ADDON_NAME .. '>' ) );
+  end
+
+
   --[[
   Intercepts the item tooltip.
 
@@ -36,6 +76,7 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:handleTooltipUnit()
 
+    MemoryCore:getTooltipController():addMemoriesToTooltipUnit();
   end
 
 
