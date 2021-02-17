@@ -23,9 +23,10 @@ function MemoryAddon_addPlayerPrototype( core )
 
   @param string guid player's unique ID
   @param string name player's name
+  @param string realm player's realm
   @return MemoryAddon_Player
   ]]
-  function MemoryAddon_Player:new( guid, name )
+  function MemoryAddon_Player:new( guid, name, realm )
 
     local instance = {};
 
@@ -36,9 +37,10 @@ function MemoryAddon_addPlayerPrototype( core )
     instance.TYPE_PLAYER = 'player';
 
     setmetatable( instance, MemoryAddon_Player );
-    instance.guid = guid;
-    instance.name = name;
-    instance.type = nil;
+    instance.guid  = guid;
+    instance.name  = name;
+    instance.realm = realm;
+    instance.type  = nil;
 
 
     --[[
@@ -64,6 +66,19 @@ function MemoryAddon_addPlayerPrototype( core )
     function instance:getName()
 
       return self.name;
+    end
+
+
+    --[[
+    Gets the player realm.
+
+    @since 1.1.0
+
+    @return string player's realm
+    ]]
+    function instance:getRealm()
+
+      return self.realm;
     end
 
 
@@ -143,11 +158,14 @@ function MemoryAddon_addPlayerPrototype( core )
 
   @since 1.0.0
 
+  @param string guid player's unique ID (optional)
+  @param string name player's name (optional)
+  @param string realm player's realm (optional)
   @return MemoryAddon_Player
   ]]
-  function core:getPlayerByGuid( guid, --[[optional]] name )
+  function core:getPlayerByGuid( guid, --[[optional]] name, --[[optional]] realm )
 
-    return MemoryAddon_Player:new( guid or '', name or '' );
+    return MemoryAddon_Player:new( guid or '', name or '', realm or '' );
   end
 
 
@@ -156,13 +174,15 @@ function MemoryAddon_addPlayerPrototype( core )
 
   @since 1.1.0
 
+  @param string unit unit to be queried
   @return MemoryAddon_Player
   ]]
   function core:getPlayerByUnit( unit )
 
     return MemoryAddon_Player:new(
       UnitGUID( unit ) or '', -- gets the unit guid or use an empty string instead of nil
-      UnitName( unit ) or ''  -- gets the unit name or use an empty string instead of nil
+      UnitName( unit ) or '', -- gets the unit name or use an empty string instead of nil
+                          ''
     );
   end
 
