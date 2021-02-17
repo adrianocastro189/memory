@@ -152,6 +152,22 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
   --[[
+  Gets the player by its unit.
+
+  @since 1.1.0
+
+  @return MemoryAddon_Player
+  ]]
+  function core:getPlayerByUnit( unit )
+
+    return MemoryAddon_Player:new(
+      UnitGUID( unit ) or '', -- gets the unit guid or use an empty string instead of nil
+      UnitName( unit ) or ''  -- gets the unit name or use an empty string instead of nil
+    );
+  end
+
+
+  --[[
   Gets the player of the current player's target.
 
   @since 0.4.0-alpha
