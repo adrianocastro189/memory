@@ -142,6 +142,28 @@ function MemoryAddon_CompatibilityHelper:new()
 
 
   --[[
+  Gets the unit's realm.
+
+  @since 1.1.0
+
+  @return string the unit's realm
+  ]]
+  function instance:getRealm( unit )
+
+    -- attempts to get the name and realm name
+    local name, realm = UnitName( unit );
+
+    -- it means this method was called for a player in the same realm
+    if nil == realm then
+
+      realm = GetRealmName();
+    end
+
+    return realm;
+  end
+
+
+  --[[
   Checks whether the player is flying.
 
   For Classic it will always return false.
