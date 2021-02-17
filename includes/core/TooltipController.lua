@@ -19,6 +19,35 @@ function MemoryAddon_TooltipController:new()
   setmetatable( instance, MemoryAddon_TooltipController );
 
 
+  function instance:addMemoriesToTooltipUnit()
+
+    local category = nil;
+
+    -- gets the player on the mouse
+    local player = MemoryCore:getPlayerByUnit( 'mouseover' );
+
+    -- determines the category
+    if player:isNpc() then category = 'npcs'; elseif player:isPlayer() then category = 'players'; end
+
+    -- sanity check
+    if nil == category then MemoryCore:getLogger():warn( 'Unit tooltip for an unrecognized unit type' ); return; end
+
+    -- gets all the memories for the player/npc
+    local memories = MemoryCore:getRepository():listMemories( category, { player:getFullName() } );
+
+    -- sanity check
+    if 0 == #memories then MemoryCore:getLogger():debug( 'No memories found for ' .. player:getFullName() ); return; end
+
+    self:addMemoryHeader();
+
+    for i, j in ipairs( memories ) do
+
+      self:addHeader( memories[i]:getInteractionType() );
+      self:addDoubleLine( 'First', memories[i]:getFirstFormattedDate() );
+      self:addDoubleLine( 'Times', memories[i]:getX() );
+      self:addDoubleLine( 'Last', memories[i]:getLastFormattedDate() );
+    end
+  end
 
 
   --[[
