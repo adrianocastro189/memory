@@ -44,6 +44,27 @@ function MemoryAddon_addPlayerPrototype( core )
 
 
     --[[
+    Gets the player full name.
+
+    @since 1.1.0
+
+    @return string fullName player's full name
+    ]]
+    function instance:getFullName()
+
+      -- Only players have full names
+      if not self:isPlayer() then return self:getName(); end
+
+      local realm = self:getRealm();
+
+      -- removes the spaces in the realm name like Blizzard does for UnitFullName
+      if '' ~= realm then realm = '-' .. string.gsub(realm, ' ', ''); end
+
+      return self:getName() .. realm;
+    end
+
+
+    --[[
     Gets the player GUID.
 
     @since 0.4.0-alpha
