@@ -182,7 +182,7 @@ function MemoryAddon_addPlayerPrototype( core )
     return MemoryAddon_Player:new(
       UnitGUID( unit ) or '', -- gets the unit guid or use an empty string instead of nil
       UnitName( unit ) or '', -- gets the unit name or use an empty string instead of nil
-                          ''
+      MemoryCore:getCompatibilityHelper():getRealm( unit ) or '' -- gets the unit realm or use an empty string instead of nil
     );
   end
 
