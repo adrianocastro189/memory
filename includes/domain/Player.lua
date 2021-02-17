@@ -23,9 +23,10 @@ function MemoryAddon_addPlayerPrototype( core )
 
   @param string guid player's unique ID
   @param string name player's name
+  @param string realm player's realm
   @return MemoryAddon_Player
   ]]
-  function MemoryAddon_Player:new( guid, name )
+  function MemoryAddon_Player:new( guid, name, realm )
 
     local instance = {};
 
@@ -36,9 +37,31 @@ function MemoryAddon_addPlayerPrototype( core )
     instance.TYPE_PLAYER = 'player';
 
     setmetatable( instance, MemoryAddon_Player );
-    instance.guid = guid;
-    instance.name = name;
-    instance.type = nil;
+    instance.guid  = guid;
+    instance.name  = name;
+    instance.realm = realm;
+    instance.type  = nil;
+
+
+    --[[
+    Gets the player full name.
+
+    @since 1.1.0
+
+    @return string fullName player's full name
+    ]]
+    function instance:getFullName()
+
+      -- Only players have full names
+      if not self:isPlayer() then return self:getName(); end
+
+      local realm = self:getRealm();
+
+      -- removes the spaces in the realm name like Blizzard does for UnitFullName
+      if '' ~= realm then realm = '-' .. string.gsub(realm, ' ', ''); end
+
+      return self:getName() .. realm;
+    end
 
 
     --[[
@@ -64,6 +87,19 @@ function MemoryAddon_addPlayerPrototype( core )
     function instance:getName()
 
       return self.name;
+    end
+
+
+    --[[
+    Gets the player realm.
+
+    @since 1.1.0
+
+    @return string player's realm
+    ]]
+    function instance:getRealm()
+
+      return self.realm;
     end
 
 
@@ -143,26 +179,31 @@ function MemoryAddon_addPlayerPrototype( core )
 
   @since 1.0.0
 
+  @param string guid player's unique ID (optional)
+  @param string name player's name (optional)
+  @param string realm player's realm (optional)
   @return MemoryAddon_Player
   ]]
-  function core:getPlayerByGuid( guid, --[[optional]] name )
+  function core:getPlayerByGuid( guid, --[[optional]] name, --[[optional]] realm )
 
-    return MemoryAddon_Player:new( guid or '', name or '' );
+    return MemoryAddon_Player:new( guid or '', name or '', realm or '' );
   end
 
 
   --[[
-  Gets the player of the current player's target.
+  Gets the player by its unit.
 
-  @since 0.4.0-alpha
+  @since 1.1.0
 
+  @param string unit unit to be queried
   @return MemoryAddon_Player
   ]]
-  function core:getPlayerOnTarget()
+  function core:getPlayerByUnit( unit )
 
     return MemoryAddon_Player:new(
-      UnitGUID( 'target' ) or '', -- gets the target unit ID or use an empty string instead of nil
-      UnitName( 'target' ) or ''  -- gets the target unit name or use an empty string instead of nil
+      UnitGUID( unit ) or '', -- gets the unit guid or use an empty string instead of nil
+      UnitName( unit ) or '', -- gets the unit name or use an empty string instead of nil
+      MemoryCore:getCompatibilityHelper():getRealm( unit ) or '' -- gets the unit realm or use an empty string instead of nil
     );
   end
 
