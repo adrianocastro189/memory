@@ -76,15 +76,15 @@ function MemoryAddon_TooltipController:new()
 
 
   --[[
-  Adds a header to the memory tooltip.
+  Adds an interation header to the memory tooltip.
 
   @since 1.1.0
 
   @param string header
   ]]
-  function instance:addHeader( header )
+  function instance:addInteractionHeader( header, times )
 
-    GameTooltip:AddLine( header );
+    GameTooltip:AddDoubleLine( header, 'x' .. times );
   end
 
 
