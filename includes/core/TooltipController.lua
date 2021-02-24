@@ -19,6 +19,11 @@ function MemoryAddon_TooltipController:new()
   setmetatable( instance, MemoryAddon_TooltipController );
 
 
+  --[[
+  Adds memories to the unit tooltips.
+
+  @since 1.1.0
+  ]]
   function instance:addMemoriesToTooltipUnit()
 
     local category = nil;
