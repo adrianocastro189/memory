@@ -43,6 +43,7 @@ function MemoryAddon_TooltipController:new()
     -- sanity check
     if 0 == #memories then MemoryCore:getLogger():debug( 'No memories found for ' .. player:getFullName() ); return; end
 
+    -- adds the memory addon tooltip header
     self:addMemoryHeader();
 
     for i, j in ipairs( memories ) do
