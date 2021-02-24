@@ -46,12 +46,17 @@ function MemoryAddon_TooltipController:new()
     -- adds the memory addon tooltip header
     self:addMemoryHeader();
 
+    -- just a pointer to the next interation
+    local interactionType = nil;
+
     for i, j in ipairs( memories ) do
 
-      self:addHeader( memories[i]:getInteractionType() );
-      self:addDoubleLine( 'First', memories[i]:getFirstFormattedDate() );
-      self:addDoubleLine( 'Times', memories[i]:getX() );
-      self:addDoubleLine( 'Last', memories[i]:getLastFormattedDate() );
+      -- gets the interaction type or a nil replacement
+      interactionType = memories[i]:getInteractionType() or '-';
+
+      self:addInteractionHeader( MemoryCore:getStringHelper():uppercaseFirst( interactionType ), memories[i]:getX() );
+      self:addDoubleLine( '    First', memories[i]:getFirstFormattedDate() );
+      self:addDoubleLine( '    Last', memories[i]:getLastFormattedDate() );
     end
   end
 
