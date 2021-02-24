@@ -34,8 +34,8 @@ function MemoryAddon_TooltipController:new()
     -- determines the category
     if player:isNpc() then category = 'npcs'; elseif player:isPlayer() then category = 'players'; end
 
-    -- sanity check
-    if nil == category then MemoryCore:getLogger():warn( 'Unit tooltip for an unrecognized unit type' ); return; end
+    -- sanity check (pets and vehicles may also trigger this method)
+    if nil == category then MemoryCore:getLogger():debug( 'Unit tooltip for an unrecognized unit type' ); return; end
 
     -- gets all the memories for the player/npc
     local memories = MemoryCore:getRepository():listMemories( category, { player:getFullName() } );
