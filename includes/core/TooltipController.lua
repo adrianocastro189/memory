@@ -95,6 +95,7 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:addMemoryHeader()
 
+    GameTooltip:AddLine( ' ' );
     GameTooltip:AddLine( MemoryCore:highlight( '<' .. MemoryCore.ADDON_NAME .. '>' ) );
   end
 
