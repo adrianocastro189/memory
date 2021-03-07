@@ -104,9 +104,12 @@ function MemoryAddon_TooltipController:new()
   Intercepts the item tooltip.
 
   @since 1.1.0
-  ]]
-  function instance:handleTooltipItem()
 
+  @param string itemName
+  ]]
+  function instance:handleTooltipItem( itemName )
+
+    instance:addMemoriesToTooltipItem( itemName )
   end
 
 
