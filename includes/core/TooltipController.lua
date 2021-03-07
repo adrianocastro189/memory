@@ -122,7 +122,13 @@ function MemoryAddon_TooltipController:new()
 
 
   -- hooks the item tooltip script to call the handler method
-  GameTooltip:HookScript( 'OnTooltipSetItem', instance.handleTooltipItem );
+  GameTooltip:HookScript( 'OnTooltipSetItem', function( tooltip )
+
+      local itemName = tooltip:GetItem();
+
+      instance:handleTooltipItem( itemName );
+    end
+  );
 
   -- hooks the unit tooltip script to call the handler method
   GameTooltip:HookScript( 'OnTooltipSetUnit', instance.handleTooltipUnit );
