@@ -44,6 +44,23 @@ function MemoryAddon_StringHelper:new()
   end
 
 
+  --[[
+  Makes a string's first character uppercase.
+
+  @since 1.1.0
+
+  @param value the input string
+  @return string the input string with its first character uppercase
+  ]]
+  function instance:uppercaseFirst( value )
+
+    -- sanity check
+    if nil == value or '' == value then return nil; end
+
+    return ( value:gsub( '^%l', value.upper ) );
+  end
+
+
   -- destroys the prototype, so instance will be unique
   MemoryAddon_StringHelper = nil;
 

@@ -70,7 +70,29 @@ SlashCmdList['MEMORYADDON'] = function( arg )
 
     -- returns after command execution
     return;
-  end -- set
+  elseif 'add' == argumentCommand then
+
+    -- sanity check
+    if nil == argumentKey then MemoryCore:print( 'Invalid key for the add command' ); return; end
+
+    -- prints a setting value
+    if nil == argumentValue then MemoryCore:print( 'Invalid value for the add command' ); return; end
+
+    if 'moment' == argumentKey then
+
+      -- adds a moment
+      MemoryCore:getMomentRepository():addMoment( argumentValue );
+
+      -- confirmation to user
+      MemoryCore:print( 'Current moment updated' );
+    else
+
+      MemoryCore:print( 'Invalid key (' .. argumentKey .. ') for the add command' );
+    end
+
+    -- returns after command execution
+    return;
+  end -- add
 
   -- if got here, it's because no command was executed
   MemoryCore:print( 'Invalid command: ' .. argumentCommand );

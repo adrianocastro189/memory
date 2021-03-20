@@ -31,7 +31,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   A full memory path is where all the player memories about a thing are stored.
 
   If this is the first time of a player in a realm, the full memory path will be
-  created with the interaction type.
+  created with the interaction type. Use MemoryAddon_MemoryRepository:exist if you
+  intend to do a check with no collateral effects.
 
   @since 0.2.0-alpha
 
@@ -140,6 +141,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   @param string category
   @param string[] path
   @param string interactionType
+  @return MemoryAddon_Memory memory
   ]]
   function instance:get( category, path, interactionType )
 
@@ -160,6 +162,91 @@ function MemoryAddon_MemoryRepository:new( player, realm )
       :setX( savedMemory['x'] );
 
     return memoryInstance;
+  end
+
+
+  --[[
+  Determines whether a full memory path exists.
+
+  This method should be called instead of MemoryAddon_MemoryRepository::check()
+  to prevent the path from being created.
+
+  @since 1.1.0
+
+  @param string category
+  @param string[] path
+  @param string interactionType
+  @return bool|array the memory path
+  ]]
+  function instance:exist( category, --[[optional]] path, --[[optional]] interactionType )
+
+    -- creates a pointer to the current path in the memory array
+    local memoryDataSetAux = MemoryAddon_DataSet[ self.realm ][ self.player ][ category ];
+
+    -- category check
+    if nil == memoryDataSetAux then return false; end
+
+    if nil ~= path then
+
+      for i = 1, #path, 1 do
+
+        -- path check
+        if memoryDataSetAux[ path[ i ] ] == nil then return false; end
+
+        -- sets the current path index in the pointer
+        memoryDataSetAux = memoryDataSetAux[ path[ i ] ];
+      end
+    end
+
+    if nil ~= interactionType then
+
+      -- interaction check
+      if memoryDataSetAux[ interactionType ] == nil then return false; end
+    end
+
+    -- if the execution hits this line it means the full memory path exists
+    return memoryDataSetAux;
+  end
+
+
+  --[[
+  Lists memories from a given category and path.
+
+  TODO: Fix this method to work with nested paths (zones, subzones) {AC 2021-02-14}
+
+  @since 1.1.0
+
+  @param string category
+  @param string[] path
+  @return MemoryAddon_Memory[] memories
+  ]]
+  function instance:listMemories( category, path )
+
+    -- tries to get the memory path
+    local memoryPath = self:exist( category, path );
+
+    -- list of memories to be returned
+    local memories = {};
+
+    -- if no memory path can be established
+    if not memoryPath then return memories; end
+
+    -- iterates over all the interaction types under the path
+    for interactionType, values in pairs( memoryPath ) do
+
+      -- creates the memory instance
+      table.insert( memories, self
+        :newMemory()
+        :setCategory( category )
+        :setPath( path )
+        :setInteractionType( interactionType )
+        :setFirst( self:newMemoryString( values['first'] ) )
+        :setLast( self:newMemoryString( values['last'] ) )
+        :setX( values['x'] )
+      );
+    end
+
+    return memories;
   end
 
 

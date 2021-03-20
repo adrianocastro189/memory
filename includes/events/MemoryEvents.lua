@@ -42,7 +42,7 @@ function MemoryAddon_addEvents( core )
         if not listener.doingBusiness then return listener:debugAndExit( 'Player is not doing business' ); end
 
         -- gets the player on target
-        local target = MemoryCore:getPlayerOnTarget();
+        local target = MemoryCore:getPlayerByUnit( 'target' );
 
         -- sanity check
         if not target:isNpc() then return listener:debugAndExit( 'Target is not an NPC' ); end
@@ -92,7 +92,7 @@ function MemoryAddon_addEvents( core )
       end
 
       -- gets the player on target
-      local target = MemoryCore:getPlayerOnTarget();
+      local target = MemoryCore:getPlayerByUnit( 'target' );
 
       -- sanity check
       if not target:isNpc() then return listener:debugAndExit( 'Target is not an NPC' ); end
@@ -176,9 +176,6 @@ function MemoryAddon_addEvents( core )
 
       -- sanity check
       if not player:isNpc() then
-
-        -- TODO: Remove this log message once this rule is validated
-        MemoryCore:getLogger():warn( 'Target is not an NPC' );
 
         return listener:debugAndExit( 'Target is not an NPC' );
       end
