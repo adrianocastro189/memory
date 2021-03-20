@@ -57,6 +57,9 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:addMemoriesToTooltipItem( itemName )
 
+    -- sanity check
+    if nil == itemName or '' == itemName then return; end
+
     -- gets all the memories for the item
     local memories = MemoryCore:getRepository():listMemories( 'items', { itemName } );
 
