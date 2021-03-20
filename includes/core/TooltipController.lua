@@ -20,6 +20,55 @@ function MemoryAddon_TooltipController:new()
 
 
   --[[
+  Adds memories to a tooltip.
+
+  @since 1.1.0
+
+  @param MemoryAddon_Memory[] memory list
+  ]]
+  function instance:addMemoriesToTooltip( memories )
+
+    -- adds the memory addon tooltip header
+    self:addMemoryHeader();
+
+    -- just a pointer to the next interation
+    local interactionType = nil;
+
+    for i, j in ipairs( memories ) do
+
+      -- gets the interaction type or a nil replacement
+      interactionType = memories[i]:getInteractionType() or '-';
+
+      self:addInteractionHeader( MemoryCore:getStringHelper():uppercaseFirst( interactionType ), memories[i]:getX() );
+      self:addDoubleLine( '    First', memories[i]:getFirstFormattedDate() );
+      self:addDoubleLine( '    Last', memories[i]:getLastFormattedDate() );
+    end
+  end
+
+
+  --[[
+  Adds memories to the item tooltips.
+
+  TODO: Add a cache to MemoryCore:getRepository():listMemories as this method is called multiple times as long as the mouse is over an item {AC 2021-02-06}
+
+  @since 1.1.0
+
+  @param string itemName
+  ]]
+  function instance:addMemoriesToTooltipItem( itemName )
+
+    -- gets all the memories for the item
+    local memories = MemoryCore:getRepository():listMemories( 'items', { itemName } );
+
+    -- sanity check
+    if 0 == #memories then MemoryCore:getLogger():debug( 'No memories found for ' .. itemName ); return; end
+
+    -- adds the memories to the current tooltip
+    self:addMemoriesToTooltip( memories );
+  end
+
+
+  --[[
   Adds memories to the unit tooltips.
 
   @since 1.1.0
@@ -43,21 +92,8 @@ function MemoryAddon_TooltipController:new()
     -- sanity check
     if 0 == #memories then MemoryCore:getLogger():debug( 'No memories found for ' .. player:getFullName() ); return; end
 
-    -- adds the memory addon tooltip header
-    self:addMemoryHeader();
-
-    -- just a pointer to the next interation
-    local interactionType = nil;
-
-    for i, j in ipairs( memories ) do
-
-      -- gets the interaction type or a nil replacement
-      interactionType = memories[i]:getInteractionType() or '-';
-
-      self:addInteractionHeader( MemoryCore:getStringHelper():uppercaseFirst( interactionType ), memories[i]:getX() );
-      self:addDoubleLine( '    First', memories[i]:getFirstFormattedDate() );
-      self:addDoubleLine( '    Last', memories[i]:getLastFormattedDate() );
-    end
+    -- adds the memories to the current tooltip
+    self:addMemoriesToTooltip( memories );
   end
 
 
@@ -104,9 +140,12 @@ function MemoryAddon_TooltipController:new()
   Intercepts the item tooltip.
 
   @since 1.1.0
-  ]]
-  function instance:handleTooltipItem()
 
+  @param string itemName
+  ]]
+  function instance:handleTooltipItem( itemName )
+
+    instance:addMemoriesToTooltipItem( itemName )
   end
 
 
@@ -122,7 +161,13 @@ function MemoryAddon_TooltipController:new()
 
 
   -- hooks the item tooltip script to call the handler method
-  GameTooltip:HookScript( 'OnTooltipSetItem', instance.handleTooltipItem );
+  GameTooltip:HookScript( 'OnTooltipSetItem', function( tooltip )
+
+      local itemName = tooltip:GetItem();
+
+      instance:handleTooltipItem( itemName );
+    end
+  );
 
   -- hooks the unit tooltip script to call the handler method
   GameTooltip:HookScript( 'OnTooltipSetUnit', instance.handleTooltipUnit );
