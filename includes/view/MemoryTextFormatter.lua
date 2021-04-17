@@ -322,6 +322,24 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
+    May return a location to be appended to the memory sentence.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:maybeAppendLocation( interactionType, memoryString )
+
+      local location = memoryString:getLocation();
+
+      -- sanity check
+      if nil == location or '' == location or 'visit' == interactionType then return ''; end
+
+      return ' at ' .. MemoryCore:highlight( location );
+    end
+
+
+    --[[
     May return a moment to be appended to the memory.
 
     @since 1.1.0
