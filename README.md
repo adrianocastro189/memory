@@ -40,6 +40,8 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 
 ## Changelog
 
+### yyyy.mm.dd - version 1.1.1
+
 ### 2021.03.20 - version 1.1.0
 * Feature - Memories can be associated with **moments**
 * Feature - Memories now are also shown in NPC, player and item tooltips
