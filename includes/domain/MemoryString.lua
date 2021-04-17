@@ -181,6 +181,17 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Determines whether this memory string has a subzone or not.
+
+    @since 1.1.1
+
+    @return bool
+    ]]
+    function instance:hasSubZone()
+
+      return nil ~= self.subZone and self.DATA_DEFAULT_CHAR ~= self.subZone;
+    end
+    --[[
     Parses a memory string to populate this instance properties.
 
     @since 0.6.0-beta
