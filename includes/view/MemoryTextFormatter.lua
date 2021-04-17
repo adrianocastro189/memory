@@ -86,6 +86,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was on '
         .. memory:getFirstFormattedDate()
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -117,6 +118,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was '
         .. was
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -142,6 +144,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was on '
         .. memory:getLastFormattedDate()
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
@@ -173,6 +176,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was '
         .. was
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
