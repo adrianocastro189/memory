@@ -204,6 +204,35 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
       return nil ~= self.zone and self.DATA_DEFAULT_CHAR ~= self.zone;
     end
+
+
+    --[[
+    Gets a location string based on the zone and the subzone this memory string
+    was recorded on.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:getLocation()
+
+      local hasZone    = self:hasZone();
+      local hasSubZone = self:hasSubZone() and self:getZone() ~= self:getSubZone();
+
+      -- has zone and subzone and they're different
+      if hasZone and hasSubZone then return self:getSubZone() .. ', ' .. self:getZone(); end
+
+      -- has only zone
+      if hasZone then return self:getZone(); end
+
+      -- has only subzone
+      if hasSubZone then return self:getSubZone(); end
+
+      -- has no zone and no subzone
+      return '';
+    end
+
+
     --[[
     Parses a memory string to populate this instance properties.
 
