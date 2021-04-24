@@ -41,7 +41,7 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 ## Changelog
 
 ### yyyy.mm.dd - version 1.1.1
-* Tweak - Memories printed to chat now may also show the location you were on when you got it
+* Tweak - Memories printed to chat now may also show the location and level you were on when you got it
 
 ### 2021.03.20 - version 1.1.0
 * Feature - Memories can be associated with **moments**
