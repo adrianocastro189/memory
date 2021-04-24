@@ -326,6 +326,25 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
 
     --[[
+    May return a level string to be appended to the memory sentence.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:maybeAppendLevel( memoryString )
+
+      -- sanity check
+      if not memoryString:hasLevel() then return ''; end
+
+      -- we don't want to show the level if the player is at the same level
+      if tonumber( UnitLevel( 'player' ) ) == tonumber( memoryString:getPlayerLevel() ) then return ''; end
+
+      return ' when my level was ' .. MemoryCore:highlight( memoryString:getPlayerLevel() );
+    end
+
+
+    --[[
     May return a location to be appended to the memory sentence.
 
     @since 1.1.1
