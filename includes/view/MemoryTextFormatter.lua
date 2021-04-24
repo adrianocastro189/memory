@@ -87,6 +87,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. ' was on '
         .. memory:getFirstFormattedDate()
         .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
+        .. self:maybeAppendLevel( memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -119,6 +120,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. ' was '
         .. was
         .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
+        .. self:maybeAppendLevel( memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -145,6 +147,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. ' was on '
         .. memory:getLastFormattedDate()
         .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
+        .. self:maybeAppendLevel( memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
@@ -177,6 +180,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. ' was '
         .. was
         .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
+        .. self:maybeAppendLevel( memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
