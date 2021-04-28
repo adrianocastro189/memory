@@ -168,6 +168,19 @@ function MemoryAddon_addMemoryStringPrototype( repository )
 
 
     --[[
+    Determines whether this memory string has a level or not.
+
+    @since 1.1.1
+
+    @return bool
+    ]]
+    function instance:hasLevel()
+
+      return nil ~= self.playerLevel and self.DATA_DEFAULT_CHAR ~= self.playerLevel;
+    end
+
+
+    --[[
     Determines whether this memory string has a moment or not.
 
     @since 1.1.0
