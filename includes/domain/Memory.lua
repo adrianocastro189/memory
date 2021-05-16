@@ -122,6 +122,24 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Gets the level the player was when collected the first memory.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:getFirstPlayerLevel()
+
+      if ( not self:hasFirst() ) or ( not self:getFirst():hasLevel() ) then
+
+        return '';
+      end
+
+      return self:getFirst():getPlayerLevel();
+    end
+
+
+    --[[
     Gets the memory interaction type.
 
     @since 0.5.0-beta
@@ -164,6 +182,24 @@ function MemoryAddon_addMemoryPrototype( repository )
       end
 
       return MemoryCore:getDateHelper():getFormattedDate( self:getLast():getDate() );
+    end
+
+
+    --[[
+    Gets the level the player was when collected the last memory.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:getLastPlayerLevel()
+
+      if ( not self:hasLast() ) or ( not self:getLast():hasLevel() ) then
+
+        return '';
+      end
+
+      return self:getLast():getPlayerLevel();
     end
 
 
