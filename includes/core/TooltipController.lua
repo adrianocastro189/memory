@@ -40,8 +40,8 @@ function MemoryAddon_TooltipController:new()
       interactionType = memories[i]:getInteractionType() or '-';
 
       self:addInteractionHeader( MemoryCore:getStringHelper():uppercaseFirst( interactionType ), memories[i]:getX() );
-      self:addDoubleLine( '    First', memories[i]:getFirstFormattedDate() );
-      self:addDoubleLine( '    Last', memories[i]:getLastFormattedDate() );
+      self:addDoubleLine( '    First', self:buildMemoryText( memories[i]:getFirstFormattedDate(), memories[i]:getFirstPlayerLevel() ) );
+      self:addDoubleLine( '    Last' , self:buildMemoryText( memories[i]:getLastFormattedDate(), memories[i]:getLastPlayerLevel() ) );
     end
   end
 
@@ -136,6 +136,26 @@ function MemoryAddon_TooltipController:new()
 
     GameTooltip:AddLine( ' ' );
     GameTooltip:AddLine( MemoryCore:highlight( '<' .. MemoryCore.ADDON_NAME .. '>' ) );
+  end
+
+
+  --[[
+  Builds the memory text to be added to the tooltp.
+
+  @since 1.1.1
+
+  @return string
+  ]]
+  function instance:buildMemoryText( formattedDate, playerLevel )
+
+    local memoryValue = formattedDate;
+
+    if '' ~= playerLevel then
+
+      memoryValue = memoryValue .. ' [' .. playerLevel .. ']';
+    end
+
+    return memoryValue;
   end
 
 

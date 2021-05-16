@@ -86,6 +86,8 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was on '
         .. memory:getFirstFormattedDate()
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
+        .. self:maybeAppendLevel( memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -117,6 +119,8 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was '
         .. was
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getFirst() )
+        .. self:maybeAppendLevel( memory:getFirst() )
         .. self:maybeAppendMoment( memory:getFirst() );
     end
 
@@ -142,6 +146,8 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was on '
         .. memory:getLastFormattedDate()
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
+        .. self:maybeAppendLevel( memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
@@ -173,6 +179,8 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
         .. self:getSubject( 'view' )
         .. ' was '
         .. was
+        .. self:maybeAppendLocation( memory:getInteractionType(), memory:getLast() )
+        .. self:maybeAppendLevel( memory:getLast() )
         .. self:maybeAppendMoment( memory:getLast() );
     end
 
@@ -318,6 +326,43 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
       end
 
       return subject;
+    end
+
+
+    --[[
+    May return a level string to be appended to the memory sentence.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:maybeAppendLevel( memoryString )
+
+      -- sanity check
+      if not memoryString:hasLevel() then return ''; end
+
+      -- we don't want to show the level if the player is at the same level
+      if tonumber( UnitLevel( 'player' ) ) == tonumber( memoryString:getPlayerLevel() ) then return ''; end
+
+      return ' when my level was ' .. MemoryCore:highlight( memoryString:getPlayerLevel() );
+    end
+
+
+    --[[
+    May return a location to be appended to the memory sentence.
+
+    @since 1.1.1
+
+    @return string
+    ]]
+    function instance:maybeAppendLocation( interactionType, memoryString )
+
+      local location = memoryString:getLocation();
+
+      -- sanity check
+      if nil == location or '' == location or 'visit' == interactionType then return ''; end
+
+      return ' at ' .. MemoryCore:highlight( location );
     end
 
 
