@@ -28,7 +28,10 @@ function MemoryAddon_ScreenshotController:new()
   ]]
   function instance:takeScreenshot()
 
-    Screenshot();
+    if nil ~= Screenshot then
+
+      Screenshot();
+    end
   end
 
 
