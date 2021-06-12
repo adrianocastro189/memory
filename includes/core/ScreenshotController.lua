@@ -28,6 +28,7 @@ function MemoryAddon_ScreenshotController:new()
   ]]
   function instance:takeScreenshot()
 
+    Screenshot();
   end
 
 
