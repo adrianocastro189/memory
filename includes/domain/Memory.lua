@@ -378,6 +378,26 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    Takes a screenshot to store a visual memory.
+
+    @since 1.2.0
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:takeScreenshot( textFormatter )
+
+      -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
+      local sentence = textFormatter:getPresentCount( self, 1 );
+
+      -- sanity check
+      if nil == sentence then return; end
+
+      MemoryCore:getScreenshotHelper():prepareScreenshot( sentence );
+      MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotHelper.takeScreenshot );
+    end
+
+
+    --[[
     Saves this memory in the repository.
 
     @see MemoryAddon_MemoryRepository:storeMemory()
