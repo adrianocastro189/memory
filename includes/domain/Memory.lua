@@ -358,6 +358,10 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:maybeTakeScreenshot( textFormatter )
 
+      if math.random() <= tonumber( MemoryCore:setting( 'memory.screenshotChance', '0.8' ) ) then
+
+        self:takeScreenshot( textFormatter );
+      end
     end
 
 
