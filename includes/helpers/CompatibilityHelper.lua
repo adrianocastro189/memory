@@ -26,6 +26,10 @@ function MemoryAddon_CompatibilityHelper:new()
   -- pattern for multiple 'You receive loot: %sx%d.' chat msg loot
   instance.PATTERN_LOOT_ITEM_SELF_MULTIPLE = LOOT_ITEM_SELF_MULTIPLE:gsub( '%%s', '(.+)' ):gsub( '%%d', '(%%d+)' );
 
+  -- used for the wait method
+  instance.waitTable = {};
+  instance.waitFrame = nil;
+
   --[[
   Gets the dialog gossip title, which will be the npc name for almost all cases.
 
@@ -201,6 +205,53 @@ function MemoryAddon_CompatibilityHelper:new()
     end
 
     return item;
+  end
+
+
+  --[[
+  Executes a function after waiting for a number of seconds.
+
+  @see https://wowwiki-archive.fandom.com/wiki/USERAPI_wait
+
+  @since 1.2.0
+
+  @param int delay the number of seconds to wait
+  @param function func the function to call
+  @param mixed[] ... the arguments to pass to the function
+  ]]
+  function instance:wait( delay, func, ... )
+
+    -- sanity check
+    if ( type( delay ) ~= 'number' or type( func ) ~= 'function' ) then return false; end
+
+    if( self.waitFrame == nil ) then
+
+      self.waitFrame = CreateFrame( 'Frame', 'WaitFrame', UIParent );
+      self.waitFrame:SetScript( 'onUpdate', function ( self, elapse )
+
+        local count = #instance.waitTable;
+        local i = 1;
+        while( i <= count ) do
+
+          local waitRecord = tremove( instance.waitTable, i );
+          local d = tremove( waitRecord, 1 );
+          local f = tremove( waitRecord, 1 );
+          local p = tremove( waitRecord, 1 );
+          if( d > elapse ) then
+
+            tinsert( instance.waitTable, i, { d - elapse, f, p } );
+            i = i + 1;
+          else
+            count = count - 1;
+            f( unpack( p ) );
+          end
+        end
+      end);
+    end
+
+    tinsert( self.waitTable, { delay, func, {...} } );
+
+    return true;
   end
 
 

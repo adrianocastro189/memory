@@ -41,6 +41,7 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 ## Changelog
 
 ### yyyy.mm.dd - version 1.2.0
+* Dev - Add a helper method to allow waiting to execute a function to mimic functions like PHP's `sleep`
 
 ### 2021.05.16 - version 1.1.1
 * Tweak - Memories printed to chat now may also show the location and level you were on when you got it
