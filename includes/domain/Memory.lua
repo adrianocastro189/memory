@@ -350,6 +350,18 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    May take a screenshot to store a visual memory.
+
+    @since 1.2.0
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:maybeTakeScreenshot( textFormatter )
+
+    end
+
+
+    --[[
     Prints the memory in the chat frame.
 
     @since 0.5.0-beta
