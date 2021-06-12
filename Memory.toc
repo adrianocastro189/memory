@@ -9,6 +9,7 @@
 
 Memory.lua
 
+includes\core\ScreenshotController.lua
 includes\core\SlashCommand.lua
 includes\core\TooltipController.lua
 
