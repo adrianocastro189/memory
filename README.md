@@ -40,6 +40,8 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 
 ## Changelog
 
+### yyyy.mm.dd - version 1.2.0
+
 ### 2021.05.16 - version 1.1.1
 * Tweak - Memories printed to chat now may also show the location and level you were on when you got it
 * Tweak - Tooltips now show the player level for their first and last memories
