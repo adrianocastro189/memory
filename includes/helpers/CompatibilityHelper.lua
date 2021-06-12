@@ -239,7 +239,7 @@ function MemoryAddon_CompatibilityHelper:new()
           local p = tremove( waitRecord, 1 );
           if( d > elapse ) then
 
-            tinsert( instance.waitTable, i, { d-elapse, f, p } );
+            tinsert( instance.waitTable, i, { d - elapse, f, p } );
             i = i + 1;
           else
             count = count - 1;
