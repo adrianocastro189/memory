@@ -39,6 +39,10 @@ function MemoryAddon_ScreenshotController:new()
   ]]
   function instance:prepareScreenshot( message )
 
+    if nil ~= message and nil ~= RaidNotice_AddMessage and nil ~= RaidWarningFrame then
+
+      RaidNotice_AddMessage( RaidWarningFrame, message, { r = 255, g = 255, b = 255 } );
+    end
   end
 
 
