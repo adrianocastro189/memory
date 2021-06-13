@@ -391,7 +391,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     function instance:takeScreenshot( textFormatter )
 
       -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
-      local sentence = textFormatter:getPresentCount( self, 1 );
+      local sentence = textFormatter:getPresentCount( self, 1, true );
 
       -- sanity check
       if nil == sentence then return; end
