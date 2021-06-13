@@ -45,7 +45,7 @@ Memory screenshots are disable by default and are part of the addon's 1.2.0 rele
 It's advised to use a small chance like `0.025` to avoid taking multiple screenshots in a row and also to save some space given that every screenshot is stored as a new file under your World of Warcraft installation folder.
 
 ```
-/memoryaddon set memory.screenshotChance 0.05
+/memoryaddon set memory.screenshotChance 0.025
 ```
 
 ## Changelog
