@@ -261,7 +261,8 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     @since 0.6.0-beta
 
     @param MemoryAddon_Memory memory
-    @param int x count to add
+    @param int x count to add (optional)
+    @param bool printFirst may print a "first time" sentence instead of a "don't remember" one (optional, default to false)
     @return string
     ]]
     function instance:getPresentCount( memory, --[[optional]] x, --[[optional]] printFirst )
