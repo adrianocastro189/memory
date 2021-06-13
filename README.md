@@ -54,7 +54,7 @@ Although the addon interface version is defined to follow Retail's version, Memo
 
 ## Changelog
 
-### yyyy.mm.dd - version 1.2.0
+### 2021.06.13 - version 1.2.0
 * Feature - Memories can take screenshots
 * Fix - Addon support to Retail updated (thanks to @tflo for the GitHub issue post)
 * Dev - Add a helper method to mimic functions like PHP's `sleep`
