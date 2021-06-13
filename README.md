@@ -48,10 +48,15 @@ It's advised to use a small chance like `0.025` to avoid taking multiple screens
 /memoryaddon set memory.screenshotChance 0.025
 ```
 
+## Retail support
+
+Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianostanley/memory/issues).
+
 ## Changelog
 
 ### yyyy.mm.dd - version 1.2.0
 * Feature - Memories can take screenshots
+* Fix - Addon support to Retail updated (thanks to @tflo for the GitHub issue post)
 * Dev - Add a helper method to mimic functions like PHP's `sleep`
 
 ### 2021.05.16 - version 1.1.1
