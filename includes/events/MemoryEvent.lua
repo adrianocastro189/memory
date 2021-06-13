@@ -113,6 +113,9 @@ function MemoryAddon_MemoryEvent:new( name, events, action )
     -- may print it
     memory:maybePrint( textFormatter );
 
+    -- may take a screenshot
+    memory:maybeTakeScreenshot( textFormatter );
+
     -- prevents x to duplicate on save()
     memory:setX( x );
 

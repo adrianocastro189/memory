@@ -350,6 +350,22 @@ function MemoryAddon_addMemoryPrototype( repository )
 
 
     --[[
+    May take a screenshot to store a visual memory.
+
+    @since 1.2.0
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:maybeTakeScreenshot( textFormatter )
+
+      if math.random() <= tonumber( MemoryCore:setting( 'memory.screenshotChance', '-1' ) ) then
+
+        self:takeScreenshot( textFormatter );
+      end
+    end
+
+
+    --[[
     Prints the memory in the chat frame.
 
     @since 0.5.0-beta
@@ -362,6 +378,26 @@ function MemoryAddon_addMemoryPrototype( repository )
       local sentence = textFormatter:getRandomChatMessage( self, 1 );
 
       MemoryCore:print( sentence );
+    end
+
+
+    --[[
+    Takes a screenshot to store a visual memory.
+
+    @since 1.2.0
+
+    @param textFormatter MemoryAddon_MemorTextFormatter
+    ]]
+    function instance:takeScreenshot( textFormatter )
+
+      -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
+      local sentence = textFormatter:getPresentCount( self, 1 );
+
+      -- sanity check
+      if nil == sentence then return; end
+
+      MemoryCore:getScreenshotController():prepareScreenshot( sentence );
+      MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotController.takeScreenshot );
     end
 
 
