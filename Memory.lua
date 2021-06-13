@@ -17,7 +17,7 @@ local function MemoryAddon_initializeCore()
   MemoryCore.ADDON_NAME = 'Memory';
 
   -- the addon version which is the same as the toc file
-  MemoryCore.ADDON_VERSION = '1.1.1';
+  MemoryCore.ADDON_VERSION = '1.2.0';
 
   -- the default hex color used highlight text
   MemoryCore.HIGHLIGHT_COLOR = 'ffee77';
@@ -42,6 +42,9 @@ local function MemoryAddon_initializeCore()
 
   -- the unique repository instance
   MemoryCore.repository = nil;
+
+  -- the unique screenshot controller instance
+  MemoryCore.screenshotController = nil;
 
   -- the unique settings repository instance
   MemoryCore.settingsRepository = nil;
@@ -154,6 +157,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique screenshot controller instance.
+
+  @since 1.2.0
+
+  @return MemoryAddon_ScreenshotController
+  ]]
+  function MemoryCore:getScreenshotController()
+
+    return self.screenshotController;
+  end
+
+
+  --[[
   Gets the unique string helper instance.
 
   @since 0.6.0-beta
@@ -204,15 +220,16 @@ local function MemoryAddon_initializeCore()
   ]]
   function MemoryCore:initializeSingletons()
 
-    self.arrayHelper         = MemoryAddon_ArrayHelper:new();
-    self.compatibilityHelper = MemoryAddon_CompatibilityHelper:new();
-    self.dateHelper          = MemoryAddon_DateHelper:new();
-    self.logger              = MemoryAddon_LoggerHelper:new();
-    self.momentRepository    = MemoryAddon_MomentRepository:new();
-    self.repository          = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
-    self.settingsRepository  = MemoryAddon_SettingsRepository:new();
-    self.stringHelper        = MemoryAddon_StringHelper:new();
-    self.tooltipController   = MemoryAddon_TooltipController:new();
+    self.arrayHelper          = MemoryAddon_ArrayHelper:new();
+    self.compatibilityHelper  = MemoryAddon_CompatibilityHelper:new();
+    self.dateHelper           = MemoryAddon_DateHelper:new();
+    self.logger               = MemoryAddon_LoggerHelper:new();
+    self.momentRepository     = MemoryAddon_MomentRepository:new();
+    self.repository           = MemoryAddon_MemoryRepository:new( UnitGUID( 'player' ), GetRealmName() );
+    self.screenshotController = MemoryAddon_ScreenshotController:new();
+    self.settingsRepository   = MemoryAddon_SettingsRepository:new();
+    self.stringHelper         = MemoryAddon_StringHelper:new();
+    self.tooltipController    = MemoryAddon_TooltipController:new();
   end
 
 

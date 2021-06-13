@@ -1,14 +1,15 @@
-## Author: Adriano Castro
-## Interface: 80300
+## Author: Squareone-Pagle
+## Interface: 90005
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings
-## Title: Memory |cffffee771.1.1|r
-## Version: 1.1.1
+## Title: Memory |cffffee771.2.0|r
+## Version: 1.2.0
 ## X-Curse-Project-ID: 413371
 
 Memory.lua
 
+includes\core\ScreenshotController.lua
 includes\core\SlashCommand.lua
 includes\core\TooltipController.lua
 

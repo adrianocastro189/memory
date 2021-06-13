@@ -38,7 +38,26 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 /memoryaddon set memory.printChance 0.5
 ```
 
+### Setting up the memory screenshot chance
+
+Memory screenshots are disable by default and are part of the addon's 1.2.0 release. You can enable the screenshot chance with a setting called `memory.screenshotChance` which accepts any decimal between `0` - to turn off memory screenshots - and `1` (inclusive) to take screenshots for every memory.
+
+It's advised to use a small chance like `0.025` to avoid taking multiple screenshots in a row and also to save some space given that every screenshot is stored as a new file under your World of Warcraft installation folder.
+
+```
+/memoryaddon set memory.screenshotChance 0.025
+```
+
+## Retail support
+
+Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianostanley/memory/issues).
+
 ## Changelog
+
+### 2021.06.13 - version 1.2.0
+* Feature - Memories can take screenshots
+* Fix - Addon support to Retail updated (thanks to @tflo for the GitHub issue post)
+* Dev - Add a helper method to mimic functions like PHP's `sleep`
 
 ### 2021.05.16 - version 1.1.1
 * Tweak - Memories printed to chat now may also show the location and level you were on when you got it
@@ -101,6 +120,4 @@ any decimal between `0` - to turn off memory printing - and `1` (inclusive) to p
 
 ## Known issues
 
-* The following windows won't generate NPC memories on Retail
-    * Flight Master frame
-    * Transmog frame
+* The mouse over the target's frame won't show memories on the tooltip
