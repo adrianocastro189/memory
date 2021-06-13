@@ -261,11 +261,15 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
     @since 0.6.0-beta
 
     @param MemoryAddon_Memory memory
+    @param int x count to add (optional)
+    @param bool printFirst may return a "first time" sentence instead of a "don't remember" one (optional, default to false)
     @return string
     ]]
-    function instance:getPresentCount( memory, --[[optional]] x )
+    function instance:getPresentCount( memory, --[[optional]] x, --[[optional]] printFirst )
 
-      if nil == memory or 0 == memory:getX() then
+      printFirst = printFirst or false;
+
+      if ( nil == memory or 0 == memory:getX() ) and not printFirst then
 
         return 'I don\'t remember how many times I ' .. self:getPastActionSentence() .. self:getPastActionSentenceConnector( 'view' ) .. self:getSubject( 'view' );
       end
