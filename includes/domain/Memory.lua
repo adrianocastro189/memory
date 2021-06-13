@@ -358,7 +358,7 @@ function MemoryAddon_addMemoryPrototype( repository )
     ]]
     function instance:maybeTakeScreenshot( textFormatter )
 
-      if math.random() <= tonumber( MemoryCore:setting( 'memory.screenshotChance', '0.8' ) ) then
+      if math.random() <= tonumber( MemoryCore:setting( 'memory.screenshotChance', '-1' ) ) then
 
         self:takeScreenshot( textFormatter );
       end
@@ -396,8 +396,8 @@ function MemoryAddon_addMemoryPrototype( repository )
       -- sanity check
       if nil == sentence then return; end
 
-      MemoryCore:getScreenshotHelper():prepareScreenshot( sentence );
-      MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotHelper.takeScreenshot );
+      MemoryCore:getScreenshotController():prepareScreenshot( sentence );
+      MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotController.takeScreenshot );
     end
 
 
