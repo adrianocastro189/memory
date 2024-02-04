@@ -1,5 +1,5 @@
 ## Author: Squareone-Pagle
-## Interface: 90005
+## Interface: 11500
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings

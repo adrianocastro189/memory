@@ -54,6 +54,9 @@ Although the addon interface version is defined to follow Retail's version, Memo
 
 ## Changelog
 
+### 2024.02.04 - version 1.2.1
+* Fix - Update the build version so it gets compatible with SoD
+
 ### 2021.06.13 - version 1.2.0
 * Feature - Memories can take screenshots
 * Fix - Addon support to Retail updated (thanks to @tflo for the GitHub issue post)
