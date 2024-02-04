@@ -26,6 +26,12 @@ Example: Let's say you're moving to another city in real life and you want to as
 
 That way, after you add another moment, all the memories collected in the last moments will be appended to the chat frame like: _The first time I looted a Linen Cloth was 41 days ago \~playing in a motel while my apartment is ready for us to move\~_.
 
+To print the current moment, simply run:
+
+```
+/memoryaddon get moment
+```
+
 ### Setting the memory print chance
 
 Every time a memory is stored, it has a chance to be printed to the chat window. In other words,
@@ -53,6 +59,9 @@ It's advised to use a small chance like `0.025` to avoid taking multiple screens
 Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianostanley/memory/issues).
 
 ## Changelog
+
+### 2024.02.04 - version 1.2.2
+* Feature - Add the `/memoryaddon get moment` command
 
 ### 2024.02.04 - version 1.2.1
 * Fix - Update the build version so it gets compatible with SoD

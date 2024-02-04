@@ -45,6 +45,27 @@ function MemoryAddon_MomentRepository:new()
 
 
   --[[
+  Gets the current moment, i.e. the most recent one.
+
+  This method can return nil if there's no moment to return.
+
+  @since 1.2.2
+
+  @return string
+  ]]
+  function instance:getCurrentMoment()
+    
+    local currentMomentIndex = self:getCurrentMomentIndex();
+
+    if 0 == currentMomentIndex then
+      return nil;
+    end
+
+    return self:getMoment( currentMomentIndex );
+  end
+
+
+  --[[
   Gets the current moment index, i.e. the most recent one.
 
   @since 1.1.0
