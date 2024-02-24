@@ -17,7 +17,7 @@ local function MemoryAddon_initializeCore()
   MemoryCore.ADDON_NAME = 'Memory';
 
   -- the addon version which is the same as the toc file
-  MemoryCore.ADDON_VERSION = '1.2.2';
+  MemoryCore.ADDON_VERSION = '1.2.3';
 
   -- the default hex color used highlight text
   MemoryCore.HIGHLIGHT_COLOR = 'ffee77';
