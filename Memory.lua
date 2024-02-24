@@ -52,6 +52,9 @@ local function MemoryAddon_initializeCore()
   -- the StringHelper instance
   MemoryCore.stringHelper = nil;
 
+  -- the Stormwind Library instance
+  MemoryCore.stormwindLibrary = nil;
+
   -- the tooltip controller
   MemoryCore.tooltipController = nil;
 
@@ -183,6 +186,19 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
+  Gets the unique Stormwind Library instance.
+
+  @since 1.2.3
+
+  @return StormwindLibrary_vx_y_z
+  ]]
+  function MemoryCore:getStormwindLibrary()
+    
+    return self.stormwindLibrary;
+  end
+
+
+  --[[
   Gets the unique tooltip controller instance.
 
   @since 1.1.0
@@ -229,6 +245,7 @@ local function MemoryAddon_initializeCore()
     self.screenshotController = MemoryAddon_ScreenshotController:new();
     self.settingsRepository   = MemoryAddon_SettingsRepository:new();
     self.stringHelper         = MemoryAddon_StringHelper:new();
+    self.stormwindLibrary     = StormwindLibrary_v0_0_3.new();
     self.tooltipController    = MemoryAddon_TooltipController:new();
   end
 

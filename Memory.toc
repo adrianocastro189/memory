@@ -1,5 +1,5 @@
 ## Author: Squareone-Pagle
-## Interface: 11500
+## Interface: 11501
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings
@@ -8,6 +8,8 @@
 ## X-Curse-Project-ID: 413371
 
 Memory.lua
+
+lib\stormwind-library\stormwind-library.lua
 
 includes\core\ScreenshotController.lua
 includes\core\SlashCommand.lua
