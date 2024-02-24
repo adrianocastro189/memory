@@ -60,6 +60,9 @@ Although the addon interface version is defined to follow Retail's version, Memo
 
 ## Changelog
 
+### 2024.02.24 - version 1.2.3
+* Dev - Import Stormwind Library, preparing the field for it to be used in the future
+
 ### 2024.02.04 - version 1.2.2
 * Feature - Add the `/memoryaddon get moment` command
 
