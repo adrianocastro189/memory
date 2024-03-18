@@ -56,7 +56,7 @@ It's advised to use a small chance like `0.025` to avoid taking multiple screens
 
 ## Retail support
 
-Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianostanley/memory/issues).
+Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianocastro189/memory/issues).
 
 ## Changelog
 
