@@ -62,6 +62,7 @@ Although the addon interface version is defined to follow Retail's version, Memo
 
 ### yyyy.mm.dd - version 1.2.4
 * Dev - Add unit testing support
+* Dev - Use the Stormwind Library event system to initialize core
 
 ### 2024.02.24 - version 1.2.3
 * Dev - Import Stormwind Library, preparing the field for it to be used in the future

@@ -1,17 +1,25 @@
+local __ = StormwindLibrary_v0_0_8.new({
+  -- command = 'memoryaddon',
+  name = 'Memory',
+})
+
+MemoryCore = {}
+MemoryCore.__ = __
+
+local events = __.events
+
 --[[
 Fires up the addon.
 
 @since 0.1.0-alpha
 ]]
-local function MemoryAddon_initializeCore()
+events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
 
   -- initializes the memory data set that stores all the players memories
   if not MemoryAddon_DataSet then MemoryAddon_DataSet = {} end
 
   -- initializes the settings saved variable that stores all the players settings
   if not MemoryAddon_Settings then MemoryAddon_Settings = {} end
-
-  MemoryCore = {};
 
   -- the addon name
   MemoryCore.ADDON_NAME = 'Memory';
@@ -30,6 +38,9 @@ local function MemoryAddon_initializeCore()
 
   -- the DateHelper instance
   MemoryCore.dateHelper = nil;
+
+  -- the main event frame used to trigger all the Memory listeners
+  MemoryCore.eventFrame = CreateFrame( 'Frame' );
 
   -- the memory event listeners that will add memories
   MemoryCore.eventListeners = {};
@@ -52,9 +63,6 @@ local function MemoryAddon_initializeCore()
   -- the StringHelper instance
   MemoryCore.stringHelper = nil;
 
-  -- the Stormwind Library instance
-  MemoryCore.stormwindLibrary = nil;
-
   -- the tooltip controller
   MemoryCore.tooltipController = nil;
 
@@ -73,10 +81,10 @@ local function MemoryAddon_initializeCore()
     for i, event in ipairs( listener.events ) do
 
       -- removes the event to avoid registering them twice
-      MemoryEventFrame:UnregisterEvent( event );
+      MemoryCore.eventFrame:UnregisterEvent( event );
 
       -- adds the event to the memory frame
-      MemoryEventFrame:RegisterEvent( event );
+      MemoryCore.eventFrame:RegisterEvent( event );
     end
   end
 
@@ -186,19 +194,6 @@ local function MemoryAddon_initializeCore()
 
 
   --[[
-  Gets the unique Stormwind Library instance.
-
-  @since 1.2.3
-
-  @return StormwindLibrary_vx_y_z
-  ]]
-  function MemoryCore:getStormwindLibrary()
-    
-    return self.stormwindLibrary;
-  end
-
-
-  --[[
   Gets the unique tooltip controller instance.
 
   @since 1.1.0
@@ -245,7 +240,6 @@ local function MemoryAddon_initializeCore()
     self.screenshotController = MemoryAddon_ScreenshotController:new();
     self.settingsRepository   = MemoryAddon_SettingsRepository:new();
     self.stringHelper         = MemoryAddon_StringHelper:new();
-    self.stormwindLibrary     = StormwindLibrary_v0_0_3.new();
     self.tooltipController    = MemoryAddon_TooltipController:new();
   end
 
@@ -301,7 +295,7 @@ local function MemoryAddon_initializeCore()
 
   @since 0.3.0-alpha
   ]]
-  MemoryEventFrame:SetScript( 'OnEvent',
+  MemoryCore.eventFrame:SetScript( 'OnEvent',
     function( self, event, ... )
 
       -- This weird code below was the only way I found to convert ... to an array
@@ -344,21 +338,4 @@ local function MemoryAddon_initializeCore()
 
   -- prints a debug message confirming the end of the initialization
   MemoryCore:getLogger():debug( 'MemoryCore initialized' );
-end
-
--- the main event frame used to trigger all the Memory listeners
-MemoryEventFrame = CreateFrame( 'Frame' );
-
--- registers the PLAYER_LOGIN event
-MemoryEventFrame:RegisterEvent( 'PLAYER_LOGIN' );
-
--- fires up the Memory addon when the player logs in
-MemoryEventFrame:SetScript( 'OnEvent',
-  function( self, event, ... )
-
-    if event == 'PLAYER_LOGIN' then
-
-      MemoryAddon_initializeCore();
-    end
-  end
-);
+end)
