@@ -7,9 +7,9 @@
 ## Version: 1.2.4
 ## X-Curse-Project-ID: 413371
 
-Memory.lua
-
 lib\stormwind-library\stormwind-library.lua
+
+Memory.lua
 
 includes\core\ScreenshotController.lua
 includes\core\SlashCommand.lua

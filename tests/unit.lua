@@ -1,7 +1,22 @@
+-- mocks the CreateFrame World of Warcraft API method
+function CreateFrame(name)
+    local mockInstance = {}
+    mockInstance.__index = mockInstance
+    function mockInstance:RegisterEvent() end
+    function mockInstance:SetPoint() end
+    function mockInstance:SetScript() end
+    function mockInstance:SetSize() end
+    function mockInstance:SetText() end
+    return mockInstance
+end
+
+SlashCmdList = {}
+
 lu = require('luaunit')
 
 dofile('./lib/stormwind-library/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v0_0_3
+
+dofile('./Memory.lua')
 
 --[[
 This is a base test class that sets everything up before each test.
@@ -25,5 +40,7 @@ BaseTestClass = {
 }
 
 lu.ORDER_ACTUAL_EXPECTED=false
+
+dofile('./tests/MemoryTest.lua')
 
 os.exit(lu.LuaUnit.run())
