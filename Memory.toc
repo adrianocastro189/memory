@@ -12,7 +12,7 @@ lib\stormwind-library\stormwind-library.lua
 Memory.lua
 
 includes\core\ScreenshotController.lua
-includes\core\SlashCommand.lua
+# includes\core\SlashCommand.lua
 includes\core\TooltipController.lua
 
 includes\domain\Memory.lua

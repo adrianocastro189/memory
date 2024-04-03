@@ -1,5 +1,5 @@
 local __ = StormwindLibrary_v0_0_8.new({
-  -- command = 'memoryaddon',
+  command = 'memoryaddon',
   name = 'Memory',
 })
 
