@@ -11,8 +11,10 @@ lib\stormwind-library\stormwind-library.lua
 
 Memory.lua
 
+includes\commands\AddMomentCommand.lua
+includes\commands\GetMomentCommand.lua
+
 includes\core\ScreenshotController.lua
-# includes\core\SlashCommand.lua
 includes\core\TooltipController.lua
 
 includes\domain\Memory.lua

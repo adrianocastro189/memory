@@ -90,6 +90,19 @@ events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
 
 
   --[[
+  Adds a moment to the player's memory.
+
+  @since 1.2.4
+  ]]
+  function MemoryCore:addMoment( moment )
+    
+    self:getMomentRepository():addMoment( moment );
+
+    MemoryCore:print( 'Current moment updated' );
+  end
+
+
+  --[[
   Gets the unique array helper instance.
 
   @since 0.4.0-alpha

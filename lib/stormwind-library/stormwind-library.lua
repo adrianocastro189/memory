@@ -257,6 +257,17 @@ local Bool = {}
     This method checks if a value is in a range of possible values that
     represent a true value.
 
+    @NOTE: Developers may notice this class has no isFalse() method.
+           In terms of determining if a value is true, there's a limited
+           range of values that can be considered true. On the other hand,
+           anything else shouldn't be considered false. Consumers of this
+           class can use isTrue() to determine if a value represents a true
+           value, but using a isFalse() method would be a bit inconsistent.
+           That said, instead of having a isFalse() method, consumers can
+           use the not operator to determine if a value is false, which
+           makes the code more readable, like: if this value is not true,
+           then do something.
+
     @tparam mixed value
 
     @treturn bool
@@ -306,6 +317,17 @@ local Str = {}
     end
 
     --[[
+    Determines whether a string is quoted by " or '.
+
+    @tparam string value
+
+    @treturn bool
+    ]]
+    function Str:isQuoted(value)
+        return self:isWrappedBy(value, '"') or self:isWrappedBy(value, "'")
+    end
+
+    --[[
     Determines whether a string is wrapped by a prefix and a suffix.
 
     This function is useful to determine if a string is wrapped by a pair of
@@ -332,6 +354,26 @@ local Str = {}
             (wrapper ~= nil) and
             (value ~= wrapper) and
             (value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper)
+    end
+
+    --[[
+    Removes quotes from a string.
+
+    This method can't simply call removeWrappers twice for " or ', because
+    the string could be wrapped by one type of quote and contain the other
+    type inside it, so it first checks which type of quote is wrapping the
+    string and then removes it.
+
+    @tparam string value
+
+    @treturn string
+    ]]
+    function Str:removeQuotes(value)
+        if self:isWrappedBy(value, '"') then
+            return self:removeWrappers(value, '"')
+        end
+
+        return self:removeWrappers(value, "'")
     end
 
     --[[
