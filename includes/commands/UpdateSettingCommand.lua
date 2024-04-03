@@ -9,7 +9,6 @@ local command = __
         -- sanity check
         if str:isEmpty(key) or str:isEmpty(value) then
             MemoryCore:print('Please, provide a key and a value to be set');
-
             return
         end
 
