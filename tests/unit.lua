@@ -86,5 +86,6 @@ dofile('./tests/Commands/AddMomentCommandTest.lua')
 dofile('./tests/Commands/GetMomentCommandTest.lua')
 dofile('./tests/Commands/GetSettingCommandTest.lua')
 dofile('./tests/Commands/UpdateSettingCommandTest.lua')
+dofile('./tests/Core/TooltipControllerTest.lua')
 
 os.exit(lu.LuaUnit.run())
