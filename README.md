@@ -10,6 +10,15 @@ For each memory stored, it will have a small chance to print that memory in your
 
 Feel free to increase the print chance rate using a slash command described below or just have fun with the game and let the addon decide when it's the best time to bring a memory to you!
 
+## ❤️ Support this project
+
+If you like this addon and want to support its development, you can
+[buy the author a coffee](https://github.com/sponsors/adrianocastro189).
+
+Every contribution or subscription is deeply appreciated and also supports
+the [Stormwind Library project](https://github.com/adrianocastro189/stormwind-library),
+which is the framework used to build this addon.
+
 ## Slash commands
 
 The following slash commands let you customize the addon experience.
@@ -67,13 +76,27 @@ It's advised to use a small chance like `0.025` to avoid taking multiple screens
 /memoryaddon set memory.screenshotChance 0.025
 ```
 
+### Disabling memories in tooltips
+
+The `memory.showInTooltips` setting is responsible for enabling or disabling
+the display of memories in unit and item tooltips. By default, it is 
+enabled, but you can disable it by running the following command:
+
+```
+/memoryaddon set memory.showInTooltips 0
+```
+
+To enable it again, run the same command, but with `1` instead of `0`.
+
 ## Retail support
 
 Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianocastro189/memory/issues).
 
 ## Changelog
 
-### yyyy.mm.dd - version 1.2.4
+### 2024.04.03 - version 1.2.4
+* Feature - Allow disabling the tooltip memory information (thanks to 
+@oddtoddy for the suggestion)
 * Tweak - The `/memoryaddon add moment` command was replaced by `/memoryaddon addm`
 * Tweak - The `/memoryaddon get moment` command was replaced by `/memoryaddon getm`
 * Dev - Add unit testing support
