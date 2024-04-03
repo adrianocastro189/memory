@@ -183,6 +183,26 @@ function MemoryAddon_TooltipController:new()
   end
 
 
+  --[[
+  Determines whether memories should be added to the tooltip.
+
+  It checks the setting 'memory.showInTooltips' and if it has a true value
+  according to what the Stormwind Library considers true.
+
+  In case the setting is not found, it returns true considering that the
+  default behavior is to show memories in the tooltips as soon as the addon
+  is enabled and collecting data.
+
+  @since 1.2.4
+  ]]
+  function instance:shouldAddMemoriesToTooltip()
+    
+    local value = MemoryCore:setting( 'memory.showInTooltips' )
+
+    return value == nil or MemoryCore.__.bool:isTrue( value )
+  end
+
+
   -- hooks the item tooltip script to call the handler method
   GameTooltip:HookScript( 'OnTooltipSetItem', function( tooltip )
 
