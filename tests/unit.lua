@@ -35,6 +35,7 @@ local function loadAddonFiles()
     dofile('./lib/stormwind-library/stormwind-library.lua')
     dofile('./Memory.lua')
     dofile('./includes/commands/AddMomentCommand.lua')
+    dofile('./includes/commands/GetMomentCommand.lua')
     dofile('./includes/core/ScreenshotController.lua')
     dofile('./includes/core/TooltipController.lua')
     dofile('./includes/domain/Memory.lua')
@@ -80,5 +81,6 @@ lu.ORDER_ACTUAL_EXPECTED=false
 dofile('./tests/MemoryTest.lua')
 
 dofile('./tests/Commands/AddMomentCommandTest.lua')
+dofile('./tests/Commands/GetMomentCommandTest.lua')
 
 os.exit(lu.LuaUnit.run())
