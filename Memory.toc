@@ -3,16 +3,20 @@
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings
-## Title: Memory |cffffee771.2.3|r
-## Version: 1.2.3
+## Title: Memory |cffffee771.2.4|r
+## Version: 1.2.4
 ## X-Curse-Project-ID: 413371
-
-Memory.lua
 
 lib\stormwind-library\stormwind-library.lua
 
+Memory.lua
+
+includes\commands\AddMomentCommand.lua
+includes\commands\GetMomentCommand.lua
+includes\commands\GetSettingCommand.lua
+includes\commands\UpdateSettingCommand.lua
+
 includes\core\ScreenshotController.lua
-includes\core\SlashCommand.lua
 includes\core\TooltipController.lua
 
 includes\domain\Memory.lua

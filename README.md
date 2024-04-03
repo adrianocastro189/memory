@@ -10,6 +10,15 @@ For each memory stored, it will have a small chance to print that memory in your
 
 Feel free to increase the print chance rate using a slash command described below or just have fun with the game and let the addon decide when it's the best time to bring a memory to you!
 
+## ❤️ Support this project
+
+If you like this addon and want to support its development, you can
+[buy the author a coffee](https://github.com/sponsors/adrianocastro189).
+
+Every contribution or subscription is deeply appreciated and also supports
+the [Stormwind Library project](https://github.com/adrianocastro189/stormwind-library),
+which is the framework used to build this addon.
+
 ## Slash commands
 
 The following slash commands let you customize the addon experience.
@@ -21,15 +30,28 @@ The following slash commands let you customize the addon experience.
 Example: Let's say you're moving to another city in real life and you want to associate all of your player memories with this moment, then all you have to do is:
 
 ```
-/memoryaddon add moment playing in a motel while my apartment is ready for us to move
+/memoryaddon addm "playing in a motel while my apartment is ready for us to move"
 ```
 
 That way, after you add another moment, all the memories collected in the last moments will be appended to the chat frame like: _The first time I looted a Linen Cloth was 41 days ago \~playing in a motel while my apartment is ready for us to move\~_.
 
+Make sure to wrap the moment in `""` or `''` so it can be recognized as a
+single phrase instead of multiple words.
+
+**⚠️ Important note:** There's a known issue with the `addm` command in
+case it contains quotation characters (" or ') inside the moment besides
+the ones wrapping it. This is due to the way the command is parsed and the
+current limitations of the parser. This is is already being addressed for
+future releases. That said:
+
+* ✅ `/memoryaddon addm "This is a moment"` will work as expected
+* ❌ `/memoryaddon addm "The time they didn't expect to come"` won't work
+* ❌ `/memoryaddon addm 'The "serendipity" of life often surprises us'` won't work
+
 To print the current moment, simply run:
 
 ```
-/memoryaddon get moment
+/memoryaddon getm
 ```
 
 ### Setting the memory print chance
@@ -54,11 +76,31 @@ It's advised to use a small chance like `0.025` to avoid taking multiple screens
 /memoryaddon set memory.screenshotChance 0.025
 ```
 
+### Disabling memories in tooltips
+
+The `memory.showInTooltips` setting is responsible for enabling or disabling
+the display of memories in unit and item tooltips. By default, it is 
+enabled, but you can disable it by running the following command:
+
+```
+/memoryaddon set memory.showInTooltips 0
+```
+
+To enable it again, run the same command, but with `1` instead of `0`.
+
 ## Retail support
 
 Although the addon interface version is defined to follow Retail's version, Memory is currently tested on Classic. If you find bugs while playing it on Retail, please post them on our [issues section](https://github.com/adrianocastro189/memory/issues).
 
 ## Changelog
+
+### 2024.04.03 - version 1.2.4
+* Feature - Allow disabling the tooltip memory information (thanks to 
+@oddtoddy for the suggestion)
+* Tweak - The `/memoryaddon add moment` command was replaced by `/memoryaddon addm`
+* Tweak - The `/memoryaddon get moment` command was replaced by `/memoryaddon getm`
+* Dev - Add unit testing support
+* Dev - Use the Stormwind Library event system to initialize core
 
 ### 2024.02.24 - version 1.2.3
 * Dev - Import Stormwind Library, preparing the field for it to be used in the future
