@@ -13,6 +13,8 @@ Memory.lua
 
 includes\commands\AddMomentCommand.lua
 includes\commands\GetMomentCommand.lua
+includes\commands\GetSettingCommand.lua
+includes\commands\UpdateSettingCommand.lua
 
 includes\core\ScreenshotController.lua
 includes\core\TooltipController.lua
