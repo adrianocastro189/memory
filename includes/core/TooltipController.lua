@@ -28,6 +28,8 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:addMemoriesToTooltip( memories )
 
+    if not self:shouldAddMemoriesToTooltip() then return end
+
     -- adds the memory addon tooltip header
     self:addMemoryHeader();
 
