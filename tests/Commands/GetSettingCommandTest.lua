@@ -13,7 +13,6 @@ TestGetSettingCommand = BaseTestClass:new()
             MemoryCore.__.commands.operations.get.callback(key)
 
             lu.assertEquals(expectedMessage, messagePrinted)
-            
         end
 
         execution(nil, nil, 'Please, provide a setting key to get its value')
