@@ -21,15 +21,28 @@ The following slash commands let you customize the addon experience.
 Example: Let's say you're moving to another city in real life and you want to associate all of your player memories with this moment, then all you have to do is:
 
 ```
-/memoryaddon add moment playing in a motel while my apartment is ready for us to move
+/memoryaddon addm "playing in a motel while my apartment is ready for us to move"
 ```
 
 That way, after you add another moment, all the memories collected in the last moments will be appended to the chat frame like: _The first time I looted a Linen Cloth was 41 days ago \~playing in a motel while my apartment is ready for us to move\~_.
 
+Make sure to wrap the moment in `""` or `''` so it can be recognized as a
+single phrase instead of multiple words.
+
+**⚠️ Important note:** There's a known issue with the `addm` command in
+case it contains quotation characters (" or ') inside the moment besides
+the ones wrapping it. This is due to the way the command is parsed and the
+current limitations of the parser. This is is already being addressed for
+future releases. That said:
+
+* ✅ `/memoryaddon addm "This is a moment"` will work as expected
+* ❌ `/memoryaddon addm "The time they didn't expect to come"` won't work
+* ❌ `/memoryaddon addm 'The "serendipity" of life often surprises us'` won't work
+
 To print the current moment, simply run:
 
 ```
-/memoryaddon get moment
+/memoryaddon getm
 ```
 
 ### Setting the memory print chance
@@ -61,6 +74,8 @@ Although the addon interface version is defined to follow Retail's version, Memo
 ## Changelog
 
 ### yyyy.mm.dd - version 1.2.4
+* Tweak - The `/memoryaddon add moment` command was replaced by `/memoryaddon addm`
+* Tweak - The `/memoryaddon get moment` command was replaced by `/memoryaddon getm`
 * Dev - Add unit testing support
 * Dev - Use the Stormwind Library event system to initialize core
 
