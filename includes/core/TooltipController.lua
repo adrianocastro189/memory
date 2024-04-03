@@ -197,9 +197,7 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:shouldAddMemoriesToTooltip()
     
-    local value = MemoryCore:setting( 'memory.showInTooltips' )
-
-    return value == nil or MemoryCore.__.bool:isTrue( value )
+    return MemoryCore.__.bool:isTrue( MemoryCore:setting( 'memory.showInTooltips', 1 ) )
   end
 
 

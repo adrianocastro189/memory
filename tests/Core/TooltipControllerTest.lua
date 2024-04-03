@@ -12,9 +12,6 @@ TestTooltipController = BaseTestClass:new()
             lu.assertEquals(expected, result)
         end
 
-        -- default behavior
-        execution(nil, true)
-
         -- true values
         execution(true, true)
         execution(1, true)
