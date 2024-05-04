@@ -202,18 +202,9 @@ function MemoryAddon_TooltipController:new()
     return MemoryCore.__.bool:isTrue( MemoryCore:setting( 'memory.showInTooltips', 1 ) )
   end
 
-
-  -- hooks the item tooltip script to call the handler method
-  GameTooltip:HookScript( 'OnTooltipSetItem', function( tooltip )
-
-      local itemName = tooltip:GetItem();
-
-      instance:handleTooltipItem( itemName );
-    end
-  );
-
-  -- hooks the unit tooltip script to call the handler method
-  GameTooltip:HookScript( 'OnTooltipSetUnit', instance.handleTooltipUnit );
+  -- listens to the tooltip events to call this controller handlers
+  MemoryCore.__.events:listen('TOOLTIP_ITEM_SHOWN', function ( item ) instance:handleTooltipItem( item.name ) end)
+  MemoryCore.__.events:listen('TOOLTIP_UNIT_SHOWN', function () instance:handleTooltipUnit() end)
 
   -- destroys the prototype, so instance will be unique
   MemoryAddon_TooltipController = nil;

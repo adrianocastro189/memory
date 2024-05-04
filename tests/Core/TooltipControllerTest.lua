@@ -1,6 +1,22 @@
 ---@diagnostic disable: duplicate-set-field
 
 TestTooltipController = BaseTestClass:new()
+    -- @covers MemoryAddon_TooltipController
+    function TestTooltipController:testIsListeningToTooltipEvents()
+        local function execution(handlerName, event)
+            local isListening = false
+
+            MemoryCore:getTooltipController()[handlerName] = function() isListening = true end
+
+            MemoryCore.__.events:notify(event, { name = 'test-name' })
+
+            lu.assertTrue(isListening)
+        end
+
+        execution('handleTooltipItem', 'TOOLTIP_ITEM_SHOWN')
+        execution('handleTooltipUnit', 'TOOLTIP_UNIT_SHOWN')
+    end
+
     -- @covers MemoryAddon_TooltipController:shouldAddMemoriesToTooltip()
     function TestTooltipController:testShouldAddMemoriesToTooltip()
         local function execution(settingValue, expected)
