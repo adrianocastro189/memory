@@ -73,8 +73,14 @@ BaseTestClass = {
     end,
     
     setUp = function()
+        function dd(...) MemoryCore.__:dd(...) end
+
+        -- this makes the Environment class to return the proper client flavor when
+        -- running this test suite
+        _G['TEST_ENVIRONMENT'] = true
+
         loadAddonFiles()
-        MemoryCore.__.events:notify( 'PLAYER_LOGIN' )
+        MemoryCore.__.events:notify('PLAYER_LOGIN')
     end,
 }
 
