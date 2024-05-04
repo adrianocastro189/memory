@@ -96,6 +96,8 @@ Although the addon interface version is defined to follow Retail's version, Memo
 
 ### 2024.05.04 - version 1.3.0
 
+* Dev - Update Stormwind Library to version 1.2.0
+
 ### 2024.04.03 - version 1.2.4
 * Feature - Allow disabling the tooltip memory information (thanks to 
 @oddtoddy for the suggestion)
