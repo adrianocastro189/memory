@@ -90,6 +90,11 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ## Changelog
 
+### 2024.05.07 - version 1.3.1
+
+* Dev - Update Stormwind Library to prevent incompatibility issues with the
+MultiTargets addon, which is also sharing its pre-release
+
 ### 2024.05.04 - version 1.3.0
 
 * Fix - Fix a breaking bug that was preventing the addon to work on Retail
