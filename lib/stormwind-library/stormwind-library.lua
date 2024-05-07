@@ -939,7 +939,7 @@ local Configuration = {}
         library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
-        return self.__.arr:get(self.data, key, default)
+        return self.__.arr:get(self.data, self:maybePrefixKey(key), default)
     end
 
     --[[--
@@ -961,7 +961,7 @@ local Configuration = {}
         library.configuration:getOrInitialize('test.property', 'default-value')
     --]]
     function Configuration:getOrInitialize(key, default)
-        self.__.arr:maybeInitialize(self.data, key, default)
+        self.__.arr:maybeInitialize(self.data, self:maybePrefixKey(key), default)
 
         return self:get(key, default)
     end
@@ -1001,6 +1001,24 @@ local Configuration = {}
     end
 
     --[[--
+    Prefixes a key with the prefix key if it's set.
+
+    This method is used internally to prefix the configuration keys with the
+    prefix key if it's set. It should not be called directly, especially
+    when getting or setting configuration properties, otherwise the prefix
+    may be added twice.
+
+    @local
+
+    @tparam string key The key to be prefixed
+
+    @treturn string The key with the prefix if it's set, or the key itself
+    ]]
+    function Configuration:maybePrefixKey(key)
+        return self.prefixKey and self.prefixKey .. '.' .. key or key
+    end
+
+    --[[--
     Sets a configuration property by a dot notation key.
 
     This will update the configuration property with the new value. If the key
@@ -1013,7 +1031,29 @@ local Configuration = {}
         library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
-        self.__.arr:set(self.data, key, value)
+        self.__.arr:set(self.data, self:maybePrefixKey(key), value)
+    end
+
+    --[[--
+    Sets a prefix key that will be used to prefix all the configuration keys.
+
+    If this method is not called during the addon lifecycle, no prefixes
+    will be used.
+
+    One of the reasons to use a prefix key is to group configuration values
+    and settings per player, realm, etc.
+
+    Note: The prefix will be concatenated with a dot before any key used in
+    this class, which means that this method should not be called with a
+    prefix key that already ends with a dot.
+
+    @tparam string value The prefix key to be used to prefix all the configuration keys
+
+    @treturn Core.Configuration The Configuration instance itself to allow method chaining
+    ]]
+    function Configuration:setPrefixKey(value)
+        self.prefixKey = value
+        return self
     end
 -- end of Configuration
 
@@ -1065,8 +1105,34 @@ function self:maybeInitializeConfiguration()
     if key and (self.configuration == nil) then
         -- initializes the addon data if it's not set yet
         _G[key] = self.arr:get(_G, key, {})
+        
+        -- global configurations
         self.configuration = self:new('Configuration', _G[key])
+
+        -- player configurations
+        self.playerConfiguration = self:new('Configuration', _G[key])
+        self.playerConfiguration:setPrefixKey(self.currentPlayer.realm.name .. '.' .. self.currentPlayer.name)
     end
+end
+
+--[[
+Gets, sets or initializes a player configuration property by a dot notation
+key.
+
+This is the only method that should be used to handle the addon
+player configurations, unless the addon needs to have multiple configuration
+instances.
+
+playerConfig() is a proxy method that forwards the configuration operation
+to the player Configuration instance that's internally handled by
+Configuration:handle().
+
+@see Configuration.handle
+]]
+function self:playerConfig(...)
+    if not self:isConfigEnabled() then return nil end
+
+    return self.playerConfiguration:handle(...)
 end
 
 --[[--
@@ -1501,33 +1567,30 @@ local CommandsHandler = {}
     function CommandsHandler:parseArguments(input)
         if not input then return {} end
 
-        local function removeQuotes(value)
-            return self.__.str:replaceAll(self.__.str:replaceAll(value, "'", ''), '"', '')
-        end
-
         local result = {}
-        local inQuotes = false
+        local inDoubleQuotes, inSingleQuotes = false, false
         local currentWord = ""
-        
+    
         for i = 1, #input do
             local char = input:sub(i, i)
-            if char == '"' or char == "'" then
-                inQuotes = not inQuotes
-                currentWord = currentWord .. char
-            elseif char == " " and not inQuotes then
+            if char == "'" and not inDoubleQuotes then
+                inSingleQuotes = not inSingleQuotes
+            elseif char == '"' and not inSingleQuotes then
+                inDoubleQuotes = not inDoubleQuotes
+            elseif char == " " and not (inSingleQuotes or inDoubleQuotes) then
                 if currentWord ~= "" then
-                    table.insert(result, removeQuotes(currentWord))
+                    table.insert(result, currentWord)
                     currentWord = ""
                 end
             else
                 currentWord = currentWord .. char
             end
         end
-        
+    
         if currentWord ~= "" then
-            table.insert(result, removeQuotes(currentWord))
+            table.insert(result, currentWord)
         end
-        
+    
         return result
     end
 
@@ -2312,6 +2375,149 @@ for name, id in pairs({
     self.raidMarkers[name] = self.raidMarkers[id]
 end
 
+--[[--
+The Realm class is a model that maps realms also known as servers.
+
+Just like any other model, it's used to standardize the way addons interact 
+with realm information.
+
+This model will grow over time as new features are implemented in the
+library.
+
+@classmod Models.Realm
+]]
+local Realm = {}
+    Realm.__index = Realm
+    Realm.__ = self
+    self:addClass('Realm', Realm)
+
+    --[[--
+    Realm constructor.
+    ]]
+    function Realm.__construct()
+        return setmetatable({}, Realm)
+    end
+
+    --[[--
+    Instantiates a new Realm object with the current realm's information.
+
+    This method acts as a constructor for the Realm model and should not be
+    called in a realm object instance. Consider this a static builder
+    method.
+
+    @treturn Models.Realm a new Realm object with the current realm's information
+    ]]
+    function Realm.getCurrentRealm()
+        local realm = Realm.__construct()
+
+        realm:setName(GetRealmName())
+
+        return realm
+    end
+
+    --[[--
+    Sets the Realm name.
+
+    @tparam string value the Realm's name
+
+    @treturn Models.Realm self
+    ]]
+    function Realm:setName(value)
+        self.name = value
+        return self
+    end
+-- end of Realm
+
+--[[--
+The Player class is a model that maps player information.
+
+Just like any other model, it's used to standardize the way addons interact 
+with data related to players.
+
+This model will grow over time as new features are implemented in the
+library.
+
+@TODO: Make this model extend Unit when the Unit model is implemented <2024.05.06>
+
+@classmod Models.Player
+]]
+local Player = {}
+    Player.__index = Player
+    Player.__ = self
+    self:addClass('Player', Player)
+
+    --[[--
+    Player constructor.
+    ]]
+    function Player.__construct()
+        return setmetatable({}, Player)
+    end
+
+    --[[--
+    Gets the current player information.
+
+    This method acts as a constructor for the Player model and should not be
+    called in a player object instance. Consider this a static builder
+    method.
+
+    @treturn Models.Player a new Player object with the current player's information
+    ]]
+    function Player.getCurrentPlayer()
+        return Player.__construct()
+            :setName(UnitName('player'))
+            :setGuid(UnitGUID('player'))
+            :setRealm(self:getClass('Realm'):getCurrentRealm())
+    end
+
+    --[[--
+    Sets the Player GUID.
+
+    @TODO: Move this method to Unit when the Unit model is implemented <2024.05.06>
+
+    @tparam string value the Player's GUID
+
+    @treturn Models.Player self
+    ]]
+    function Player:setGuid(value)
+        self.guid = value
+        return self
+    end
+
+    --[[--
+    Sets the Player name.
+
+    @TODO: Move this method to Unit when the Unit model is implemented <2024.05.06>
+
+    @tparam string value the Player's name
+
+    @treturn Models.Player self
+    ]]
+    function Player:setName(value)
+        self.name = value
+        return self
+    end
+
+    --[[--
+    Sets the Player realm.
+
+    It's most likely that a player realm will be the same realm as the
+    player is logged in, but it's possible to have a player from a different
+    realm, especially in Retail, where Blizzard allows players from other
+    realms to share the same place or group.
+
+    @tparam Models.Realm value the Player's realm
+
+    @treturn Models.Player self
+    ]]
+    function Player:setRealm(value)
+        self.realm = value
+        return self
+    end
+-- end of Player
+
+-- stores the current player information for easy access
+self.currentPlayer = Player.getCurrentPlayer()
+
 
 --[[--
 The Window class is the base class for all windows in the library.
@@ -2359,6 +2565,20 @@ local Window = {}
         self.contentChildren = {}
 
         return self
+    end
+
+    --[[--
+    Decides whether this window instance should proxy to the player's or the
+    global configuration instance.
+
+    By default, the window will proxy to the global configuration instance.
+    ]]
+    function Window:config(...)
+        if self.persistStateByPlayer then
+            return self.__:playerConfig(...)
+        end
+        
+        return self.__:config(...)
     end
 
     --[[--
@@ -2628,7 +2848,7 @@ local Window = {}
     @treturn any The property value
     ]]
     function Window:getProperty(key)
-        return self.__:config(self:getPropertyKey(key))
+        return self:config(self:getPropertyKey(key))
     end
 
     --[[--
@@ -2812,6 +3032,19 @@ local Window = {}
     end
 
     --[[--
+    Sets the window instance to have its stated persisted in the player's
+    configuration instead of the global one.
+
+    @tparam boolean value Whether the window should persist its state by player
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:setPersistStateByPlayer(value)
+        self.persistStateByPlayer = value
+        return self
+    end
+
+    --[[--
     Sets a window property using the library configuration instance.
 
     This method is used internally by the library to persist the window's
@@ -2823,7 +3056,7 @@ local Window = {}
     @param any value The property value
     ]]
     function Window:setProperty(key, value)
-        self.__:config({
+        self:config({
             [self:getPropertyKey(key)] = value
         })
     end
