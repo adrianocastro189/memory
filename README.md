@@ -38,16 +38,6 @@ That way, after you add another moment, all the memories collected in the last m
 Make sure to wrap the moment in `""` or `''` so it can be recognized as a
 single phrase instead of multiple words.
 
-**⚠️ Important note:** There's a known issue with the `addm` command in
-case it contains quotation characters (" or ') inside the moment besides
-the ones wrapping it. This is due to the way the command is parsed and the
-current limitations of the parser. This is is already being addressed for
-future releases. That said:
-
-* ✅ `/memoryaddon addm "This is a moment"` will work as expected
-* ❌ `/memoryaddon addm "The time they didn't expect to come"` won't work
-* ❌ `/memoryaddon addm 'The "serendipity" of life often surprises us'` won't work
-
 To print the current moment, simply run:
 
 ```
@@ -92,6 +82,7 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ### 2024.05.07 - version 1.3.1
 
+* Fix a bug that was parsing commands with mixed quotes incorrectly
 * Dev - Update Stormwind Library to prevent incompatibility issues with the
 MultiTargets addon, which is also sharing its pre-release
 
