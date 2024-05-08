@@ -22,8 +22,21 @@ GetZoneText = function() return 'Stormwind City' end
 GetSubZoneText = function() return 'Trade District' end
 UnitGUID = function(unit) return 'player' end
 UnitLevel = function(unit) return 60 end
-GetRealmName = function() return 'test-realm' end
 date = function(format) return '2024-02-04' end
+
+GetRealmName = function () return 'test-realm' end
+
+UnitGUID = function (unit)
+    if unit == 'player' then
+        return 'test-player-guid'
+    end
+end
+
+UnitName = function (unit)
+    if unit == 'player' then
+        return 'test-player-name'
+    end
+end
 -- end of World of Warcraft mocks
 
 lu = require('luaunit')
