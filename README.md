@@ -1,12 +1,24 @@
 # Memory
 
-A World of Warcraft addon to register memories while players do stuff around the world.
+A World of Warcraft addon to register memories while players do stuff around 
+the world.
+
+* The addon counts the number of times you loot an item, fight or interact with
+NPCs, group with other players, visit zones and subzones, and store them as
+memories in the addon data. It also saves the first and the last time you did
+each of these actions.
+* For each memory stored, it will have a small chance to print that memory in 
+your chat frame, just like something you remember in real life!
+* Memories can be associated with moments, which are special events happening
+in your life while you play the game that will be associated with all memories
+you store while that moment is active.
+* Automatic screenshots are taken when players level up.
+* Automatic screenshots can also be enabled to take pictures when memories are 
+stored.
 
 ## Installation
 
 No setup is required! **Just install the addon and play the game!** While you play, it will record memories about **players** you party with, **items** you loot, **zones** and **subzones** you visit and **NPCs** you fight, talk, turn quests, buy, sell and repair.
-
-For each memory stored, it will have a small chance to print that memory in your chat frame, just like something you remember in real life!
 
 Feel free to increase the print chance rate using a slash command described below or just have fun with the game and let the addon decide when it's the best time to bring a memory to you!
 
