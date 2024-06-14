@@ -41,6 +41,7 @@ BaseTestClass = {
         dofile('./includes/commands/UpdateSettingCommand.lua')
         dofile('./includes/core/ScreenshotController.lua')
         dofile('./includes/core/TooltipController.lua')
+        dofile('./includes/domain/LevelMemory.lua')
         dofile('./includes/domain/Memory.lua')
         dofile('./includes/domain/MemoryString.lua')
         dofile('./includes/domain/Player.lua')
@@ -66,6 +67,7 @@ dofile('./tests/Commands/AddMomentCommandTest.lua')
 dofile('./tests/Commands/GetMomentCommandTest.lua')
 dofile('./tests/Commands/GetSettingCommandTest.lua')
 dofile('./tests/Commands/UpdateSettingCommandTest.lua')
+dofile('./tests/Domain/LevelMemoryTest.lua')
 dofile('./tests/Core/TooltipControllerTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
