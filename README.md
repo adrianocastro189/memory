@@ -82,6 +82,9 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ### yyyy.mm.dd - version 1.4.0
 
+* Fix a bug that was throwing an error when getm command was called without at
+least one moment set
+
 ### 2024.05.07 - version 1.3.1
 
 * Fix a bug that was parsing commands with mixed quotes incorrectly
