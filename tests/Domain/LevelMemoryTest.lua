@@ -16,6 +16,16 @@ TestLevelMemory = BaseTestClass:new()
     -- @TODO: Implement this method in HN5 <2024.06.14>
     end
 
+    -- @covers LevelMemory.newWithCurrentData()
+    -- @TODO: Improve this method implementation in HN3 <2024.06.14>
+    function TestLevelMemory:testNewWithCurrentData()
+        local instance = MemoryCore.__
+            :getClass('Memory/LevelMemory')
+            .newWithCurrentData()
+
+        lu.assertNotNil(instance)
+    end
+
     -- @covers LevelMemory:setDate()
     -- @covers LevelMemory:setLevel()
     -- @covers LevelMemory:setMoment()

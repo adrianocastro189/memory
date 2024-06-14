@@ -30,11 +30,25 @@ local LevelMemory = {}
     end
 
     --[[
-    May take a screenshot to store a visual memory of the moment when the player
-    leveled up.
+    May take a screenshot to store a visual memory of when the player leveled up.
     ]]
     function LevelMemory:maybeTakeScreenshot()
     -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
+
+    --[[
+    Builds a new LevelMemory instance with the current data for storing the
+    memory of when the player leveled up.
+
+    This is a static method that should be called by getting a class reference
+    from Stormwind Library and calling it as a method instead of calling it
+    in any instance.
+
+    @treturn LevelMemory
+    ]]
+    function LevelMemory.newWithCurrentData()
+        -- @TODO: Improve this method implementation in HN3 <2024.06.14>
+        return LevelMemory.__construct()
     end
 
     --[[
@@ -98,7 +112,7 @@ local LevelMemory = {}
     end
 
     --[[
-    Takes a screenshot to represent the moment when the player leveled up.
+    Takes a screenshot to representing when the player leveled up.
     ]]
     function LevelMemory:takeScreenshot()
     -- @TODO: Implement this method in HN5 <2024.06.14>
