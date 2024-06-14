@@ -26,7 +26,12 @@ local LevelMemory = {}
     @treturn string
     ]]
     function LevelMemory:getScreenshotMessage()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local formattedDate = MemoryCore:getDateHelper():getFormattedDate(self.date)
+
+        return string.format('Reached level %d on %s',
+            self.level,
+            formattedDate
+        )
     end
 
     --[[

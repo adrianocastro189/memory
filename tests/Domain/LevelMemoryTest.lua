@@ -8,7 +8,13 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:getScreenshotMessage()
     function TestLevelMemory:testGetScreenshotMessage()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local instance = MemoryCore.__:new('Memory/LevelMemory')
+            :setDate('2024-01-01')
+            :setLevel(13)
+
+        local result = instance:getScreenshotMessage()
+
+        lu.assertEquals(result, 'Reached level 13 on January 1, 2024')
     end
 
     -- @covers LevelMemory:maybeTakeScreenshot()
