@@ -1,4 +1,4 @@
-local __ = StormwindLibrary_v1_2_0.new({
+local __ = StormwindLibrary_v1_5_0.new({
   command = 'memoryaddon',
   name = 'Memory',
 })
