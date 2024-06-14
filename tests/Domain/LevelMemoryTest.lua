@@ -19,11 +19,22 @@ TestLevelMemory = BaseTestClass:new()
     -- @covers LevelMemory.newWithCurrentData()
     -- @TODO: Improve this method implementation in HN3 <2024.06.14>
     function TestLevelMemory:testNewWithCurrentData()
+        -- mocks
+        MemoryCore.getDateHelper = function() return { getToday = function() return 'test-date' end } end
+        MemoryCore.__.currentPlayer = { level = 5 }
+        MemoryCore.getMomentRepository = function() return { getCurrentMomentIndex = function() return 3 end } end
+        GetSubZoneText = function() return 'test-sub-zone' end
+        GetZoneText = function() return 'test-zone' end
+
         local instance = MemoryCore.__
             :getClass('Memory/LevelMemory')
             .newWithCurrentData()
 
-        lu.assertNotNil(instance)
+        lu.assertEquals(instance.date, 'test-date')
+        lu.assertEquals(instance.level, 5)
+        lu.assertEquals(instance.moment, 3)
+        lu.assertEquals(instance.subZone, 'test-sub-zone')
+        lu.assertEquals(instance.zone, 'test-zone')
     end
 
     -- @covers LevelMemory:save()

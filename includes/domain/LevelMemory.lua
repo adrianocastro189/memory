@@ -47,8 +47,14 @@ local LevelMemory = {}
     @treturn LevelMemory
     ]]
     function LevelMemory.newWithCurrentData()
-        -- @TODO: Improve this method implementation in HN3 <2024.06.14>
         return LevelMemory.__construct()
+            :setDate(MemoryCore:getDateHelper():getToday())
+            :setLevel(MemoryCore.__.currentPlayer.level)
+            :setMoment(MemoryCore:getMomentRepository():getCurrentMomentIndex())
+            -- @TODO: Use a constant to represent nil strings instead of '-',
+            --        which is used in the MemoryString class as well <2024.06.14>
+            :setSubZone(GetSubZoneText() or '-')
+            :setZone(GetZoneText() or '-')
     end
 
     --[[
