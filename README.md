@@ -92,7 +92,7 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ## Changelog
 
-### yyyy.mm.dd - version 1.4.0
+### 2024.06.14 - version 1.4.0
 
 * Feature - Take a screenshot when players level up (thanks to
 [foobanana](https://www.curseforge.com/members/foobanana) for the suggestion)
