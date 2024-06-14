@@ -82,8 +82,9 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ### yyyy.mm.dd - version 1.4.0
 
-* Fix a bug that was throwing an error when getm command was called without at
-least one moment set
+* Fix - Fix a bug that was throwing an error when getm command was called 
+without at least one moment set
+* Dev - Update Stormwind Library to version 1.5.0
 
 ### 2024.05.07 - version 1.3.1
 
