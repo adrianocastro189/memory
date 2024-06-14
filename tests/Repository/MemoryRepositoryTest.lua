@@ -48,6 +48,3 @@ TestMemoryRepository = BaseTestClass:new()
         })
     end
 -- end of TestMemoryRepository.lua
-
--- {"5"={date="2024-01-01", moment=9, subzone="(not set)", zone="(not set)"}}
--- {"5"={date="2024-01-01", moment=9, subZone="(not set)", zone="(not set)"}}
