@@ -57,6 +57,7 @@ BaseTestClass = {
         dofile('./includes/repository/SettingsRepository.lua')
         dofile('./includes/view/MemoryTextFormatter.lua') 
 
+        MemoryAddon_DataSet = nil
         MemoryCore.__.events:notify('PLAYER_LOGIN')
         MemoryCore.__.output:setTestingMode()
     end,
@@ -67,8 +68,9 @@ dofile('./tests/Commands/AddMomentCommandTest.lua')
 dofile('./tests/Commands/GetMomentCommandTest.lua')
 dofile('./tests/Commands/GetSettingCommandTest.lua')
 dofile('./tests/Commands/UpdateSettingCommandTest.lua')
-dofile('./tests/Domain/LevelMemoryTest.lua')
 dofile('./tests/Core/TooltipControllerTest.lua')
+dofile('./tests/Domain/LevelMemoryTest.lua')
+dofile('./tests/Repository/MemoryRepositoryTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
 
