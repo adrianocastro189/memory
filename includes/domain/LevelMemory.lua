@@ -18,6 +18,66 @@ local LevelMemory = {}
     function LevelMemory.__construct()
         return setmetatable({}, LevelMemory)
     end
+
+    --[[
+    Sets the date when the player leveled up.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function LevelMemory:setDate(value)
+        self.date = value
+        return self
+    end
+
+    --[[
+    Sets the level.
+
+    @tparam int value
+
+    @return self
+    ]]
+    function LevelMemory:setLevel(value)
+        self.level = value
+        return self
+    end
+
+    --[[
+    Sets the current moment index when the player leveled up.
+
+    @tparam int value
+
+    @return self
+    ]]
+    function LevelMemory:setMoment(value)
+        self.moment = value
+        return self
+    end
+
+    --[[
+    Sets the sub zone where the player leveled up.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function LevelMemory:setSubZone(value)
+        self.subZone = value
+        return self
+    end
+
+    --[[
+    Sets the zone where the player leveled up.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function LevelMemory:setZone(value)
+        self.zone = value
+        return self
+    end
 -- end of LevelMemory
 
 -- allows this class to be instantiated
