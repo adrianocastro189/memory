@@ -90,6 +90,16 @@ following command:
 
 To enable it again, run the same command, but with `1` instead of `0`.
 
+## What's on the roadmap for the next versions
+
+* **Graphical interface** - A simple interface to show memories, moments,
+settings, and other data collected by the addon.
+
+## Known issues
+
+* Quest interactions with NPCs are not being recorded yet, but it's on the 
+radar for the next versions
+
 ## Changelog
 
 ### 2024.06.14 - version 1.4.0
