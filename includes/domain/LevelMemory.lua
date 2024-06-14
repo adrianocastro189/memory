@@ -30,6 +30,14 @@ local LevelMemory = {}
     end
 
     --[[
+    May take a screenshot to store a visual memory of the moment when the player
+    leveled up.
+    ]]
+    function LevelMemory:maybeTakeScreenshot()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
+
+    --[[
     Sets the date when the player leveled up.
 
     @tparam string value

@@ -11,6 +11,11 @@ TestLevelMemory = BaseTestClass:new()
     -- @TODO: Implement this method in HN5 <2024.06.14>
     end
 
+    -- @covers LevelMemory:maybeTakeScreenshot()
+    function TestLevelMemory:testMaybeTakeScreenshot()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
+
     -- @covers LevelMemory:setDate()
     -- @covers LevelMemory:setLevel()
     -- @covers LevelMemory:setMoment()
