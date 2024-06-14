@@ -61,7 +61,7 @@ local LevelMemory = {}
     Saves this level memory.
     ]]
     function LevelMemory:save()
-    -- @TODO: Implement this method in HN4 <2024.06.14>
+        MemoryCore:getRepository():storeLevelMemory(self)
     end
 
     --[[

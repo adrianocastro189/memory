@@ -39,7 +39,23 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:save()
     function TestLevelMemory:testSave()
-    -- @TODO: Implement this method in HN4 <2024.06.14>
+        -- mocks
+        MemoryCore.getRepository = function()
+            return {
+                storeLevelMemory = function(self, levelMemory)
+                    MemoryCore.levelMemoryArg = levelMemory
+                end
+            }
+        end
+
+        local instance = MemoryCore.__:new('Memory/LevelMemory')
+            :setLevel(13)
+            :setDate('2024-01-01')
+            :setMoment(2)
+
+        instance:save()
+
+        lu.assertEquals(MemoryCore.levelMemoryArg, instance)
     end
 
     -- @covers LevelMemory:setDate()
