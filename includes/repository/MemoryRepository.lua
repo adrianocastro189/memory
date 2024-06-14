@@ -298,8 +298,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
     arr:set(MemoryAddon_DataSet, key .. 'date', levelMemory.date)
     arr:set(MemoryAddon_DataSet, key .. 'moment', levelMemory.moment)
-    arr:set(MemoryAddon_DataSet, key .. 'subZone', levelMemory.subZone or '(not set)')
-    arr:set(MemoryAddon_DataSet, key .. 'zone', levelMemory.zone or '(not set)')
+    arr:set(MemoryAddon_DataSet, key .. 'subZone', levelMemory.subZone)
+    arr:set(MemoryAddon_DataSet, key .. 'zone', levelMemory.zone)
   end
 
 
