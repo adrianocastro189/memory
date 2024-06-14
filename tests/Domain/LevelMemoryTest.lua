@@ -35,4 +35,9 @@ TestLevelMemory = BaseTestClass:new()
         -- asserts that the setters return the instance for chaining
         lu.assertEquals(instance, result)
     end
+
+    -- @covers LevelMemory:takeScreenshot()
+    function TestLevelMemory:testTakeScreenshot()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
 -- end of TestLevelMemory

@@ -88,6 +88,13 @@ local LevelMemory = {}
         self.zone = value
         return self
     end
+
+    --[[
+    Takes a screenshot to represent the moment when the player leveled up.
+    ]]
+    function LevelMemory:takeScreenshot()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
 -- end of LevelMemory
 
 -- allows this class to be instantiated
