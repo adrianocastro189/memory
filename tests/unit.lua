@@ -57,6 +57,7 @@ BaseTestClass = {
         dofile('./includes/repository/SettingsRepository.lua')
         dofile('./includes/view/MemoryTextFormatter.lua') 
 
+        MemoryAddon_DataSet = nil
         MemoryCore.__.events:notify('PLAYER_LOGIN')
         MemoryCore.__.output:setTestingMode()
     end,
