@@ -133,7 +133,13 @@ local LevelMemory = {}
     Takes a screenshot to representing when the player leveled up.
     ]]
     function LevelMemory:takeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local message = self:getScreenshotMessage()
+
+        local controller = MemoryCore:getScreenshotController()
+
+        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
+        controller:prepareScreenshot(message)
+        MemoryCore:getCompatibilityHelper():wait(2, controller.takeScreenshot)
     end
 -- end of LevelMemory
 

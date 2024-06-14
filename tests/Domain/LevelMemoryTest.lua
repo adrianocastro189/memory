@@ -91,6 +91,25 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:takeScreenshot()
     function TestLevelMemory:testTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        MemoryCore.compatibilityHelper = {
+            wait = function(self, arg1, arg2)
+                self.arg1 = arg1
+                self.arg2 = arg2
+            end,
+        }
+
+        MemoryCore.screenshotController = {
+            prepareScreenshot = function(self, message) self.messageArg = message end,
+            takeScreenshot = 'test-take-screenshot',
+        }
+
+        local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+        
+        levelMemory.getScreenshotMessage = function() return 'test-message' end
+        levelMemory:takeScreenshot()
+
+        lu.assertEquals('test-message', MemoryCore.screenshotController.messageArg)
+        lu.assertEquals(2, MemoryCore.compatibilityHelper.arg1)
+        lu.assertEquals(MemoryCore.screenshotController.takeScreenshot, MemoryCore.compatibilityHelper.arg2)
     end
 -- end of TestLevelMemory

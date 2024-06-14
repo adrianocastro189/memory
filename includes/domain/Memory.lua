@@ -396,6 +396,7 @@ function MemoryAddon_addMemoryPrototype( repository )
       -- sanity check
       if nil == sentence then return; end
 
+      -- @TODO: Move these two calls to a single and reused method <2024.06.14>
       MemoryCore:getScreenshotController():prepareScreenshot( sentence );
       MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotController.takeScreenshot );
     end
