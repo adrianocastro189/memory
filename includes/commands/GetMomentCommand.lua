@@ -7,5 +7,10 @@ local command = __
     :setCallback(function ()
         MemoryCore:print(MemoryCore:getMomentRepository():getCurrentMoment())
     end)
+    :setArgsValidator(function ()
+        return MemoryCore:getMomentRepository():hasCurrentMoment()
+            and 'valid'
+            or 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"'
+    end)
 
 __.commands:add(command)

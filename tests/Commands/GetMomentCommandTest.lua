@@ -2,6 +2,22 @@
 
 TestGetMomentCommand = BaseTestClass:new()
     -- @covers includes/commands/GetMomentCommand.lua
+    function TestGetMomentCommand:testCommandArgsValidator()
+        local function execution(hasCurrentMoment, expectedResult)
+            MemoryCore.getMomentRepository = function ()
+                return {
+                    hasCurrentMoment = function() return hasCurrentMoment end
+                }
+            end
+
+            lu.assertEquals(expectedResult, MemoryCore.__.commands.operations.getm.argsValidator())
+        end
+
+        execution(true, 'valid')
+        execution(false, 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"')
+    end
+
+    -- @covers includes/commands/GetMomentCommand.lua
     function TestGetMomentCommand:testCommandCallback()
         local messagePrinted = nil
 

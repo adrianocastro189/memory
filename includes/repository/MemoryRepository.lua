@@ -286,6 +286,24 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
 
   --[[
+  Stores a player memory when leveling up.
+
+  @since 1.4.0
+
+  @tparam Memory/LevelMemory levelMemory
+  ]]
+  function instance:storeLevelMemory(levelMemory)
+    local arr = MemoryCore.__.arr
+    local key = self.realm .. '.' .. self.player .. '.levels.' .. levelMemory.level .. '.'
+
+    arr:set(MemoryAddon_DataSet, key .. 'date', levelMemory.date)
+    arr:set(MemoryAddon_DataSet, key .. 'moment', levelMemory.moment)
+    arr:set(MemoryAddon_DataSet, key .. 'subZone', levelMemory.subZone)
+    arr:set(MemoryAddon_DataSet, key .. 'zone', levelMemory.zone)
+  end
+
+
+  --[[
   Overload to instance:store that accepts a MemoryAddon_Memory instance.
 
   Note: although a memory instance has first, last and x properties, this method will

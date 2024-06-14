@@ -33,6 +33,7 @@ function MemoryAddon_addMemoryStringPrototype( repository )
     instance.DATA_SEPARATOR = '|';
 
     -- default value to be used if any information in the memory string is missing
+    -- @TODO: Move this to a more broad scope, like a global constant <2024.06.14>
     instance.DATA_DEFAULT_CHAR = '-';
 
     -- the date when the memory string was collected
