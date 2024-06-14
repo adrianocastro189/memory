@@ -38,7 +38,9 @@ local LevelMemory = {}
     May take a screenshot to store a visual memory of when the player leveled up.
     ]]
     function LevelMemory:maybeTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        if MemoryCore.__.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1)) then
+            self:takeScreenshot()
+        end
     end
 
     --[[

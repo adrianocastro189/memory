@@ -19,7 +19,30 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:maybeTakeScreenshot()
     function TestLevelMemory:testMaybeTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local function execution(settingValue, shouldCallTakeScreenshot)
+            MemoryCore.settingsRepository:set('memory.screenshotOnLevelUp', settingValue)
+
+            local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+            levelMemory.takeScreenshotInvoked = false
+            levelMemory.takeScreenshot = function() levelMemory.takeScreenshotInvoked = true end
+
+            levelMemory:maybeTakeScreenshot()
+
+            lu.assertEquals(shouldCallTakeScreenshot, levelMemory.takeScreenshotInvoked)
+        end
+
+        -- setting is nil
+        execution(nil, true)
+
+        -- setting is false
+        execution(0, false)
+        execution('no', false)
+        execution('false', false)
+
+        -- setting is true
+        execution(1, true)
+        execution('yes', true)
+        execution('true', true)
     end
 
     -- @covers LevelMemory.newWithCurrentData()
