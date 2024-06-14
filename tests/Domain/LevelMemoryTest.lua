@@ -6,6 +6,11 @@ TestLevelMemory = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers LevelMemory:getScreenshotMessage()
+    function TestLevelMemory:testGetScreenshotMessage()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
+
     -- @covers LevelMemory:setDate()
     -- @covers LevelMemory:setLevel()
     -- @covers LevelMemory:setMoment()

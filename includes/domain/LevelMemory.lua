@@ -20,6 +20,16 @@ local LevelMemory = {}
     end
 
     --[[
+    Generates a message to be placed in the screenshot taken when the player
+    levels up.
+
+    @treturn string
+    ]]
+    function LevelMemory:getScreenshotMessage()
+    -- @TODO: Implement this method in HN5 <2024.06.14>
+    end
+
+    --[[
     Sets the date when the player leveled up.
 
     @tparam string value
