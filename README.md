@@ -78,6 +78,18 @@ enabled, but you can disable it by running the following command:
 
 To enable it again, run the same command, but with `1` instead of `0`.
 
+### Disabling screenshots when leveling up
+
+Version 1.4.0 introduced a new feature that takes a screenshot when players
+level up which is enabled by default. You can disable it by running the 
+following command:
+
+```lua
+/memoryaddon set memory.screenshotOnLevelUp 0
+```
+
+To enable it again, run the same command, but with `1` instead of `0`.
+
 ## Changelog
 
 ### yyyy.mm.dd - version 1.4.0

@@ -60,7 +60,7 @@ function MemoryAddon_DateHelper:new()
   function instance:getFormattedDate( date )
 
     -- explodes the date
-    local year, month, day = strsplit( '-', date );
+    local year, month, day = MemoryCore.__.arr:unpack( MemoryCore.__.str:split( date, '-' ) )
 
     -- fixes a two digit year
     if 2 == #year then year = '20' .. year; end

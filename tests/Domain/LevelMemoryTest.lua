@@ -8,16 +8,44 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:getScreenshotMessage()
     function TestLevelMemory:testGetScreenshotMessage()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local instance = MemoryCore.__:new('Memory/LevelMemory')
+            :setDate('2024-01-01')
+            :setLevel(13)
+
+        local result = instance:getScreenshotMessage()
+
+        lu.assertEquals(result, 'Reached level 13 on January 1, 2024')
     end
 
     -- @covers LevelMemory:maybeTakeScreenshot()
     function TestLevelMemory:testMaybeTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local function execution(settingValue, shouldCallTakeScreenshot)
+            MemoryCore.settingsRepository:set('memory.screenshotOnLevelUp', settingValue)
+
+            local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+            levelMemory.takeScreenshotInvoked = false
+            levelMemory.takeScreenshot = function() levelMemory.takeScreenshotInvoked = true end
+
+            levelMemory:maybeTakeScreenshot()
+
+            lu.assertEquals(shouldCallTakeScreenshot, levelMemory.takeScreenshotInvoked)
+        end
+
+        -- setting is nil
+        execution(nil, true)
+
+        -- setting is false
+        execution(0, false)
+        execution('no', false)
+        execution('false', false)
+
+        -- setting is true
+        execution(1, true)
+        execution('yes', true)
+        execution('true', true)
     end
 
     -- @covers LevelMemory.newWithCurrentData()
-    -- @TODO: Improve this method implementation in HN3 <2024.06.14>
     function TestLevelMemory:testNewWithCurrentData()
         -- mocks
         MemoryCore.getDateHelper = function() return { getToday = function() return 'test-date' end } end
@@ -85,6 +113,25 @@ TestLevelMemory = BaseTestClass:new()
 
     -- @covers LevelMemory:takeScreenshot()
     function TestLevelMemory:testTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        MemoryCore.compatibilityHelper = {
+            wait = function(self, arg1, arg2)
+                self.arg1 = arg1
+                self.arg2 = arg2
+            end,
+        }
+
+        MemoryCore.screenshotController = {
+            prepareScreenshot = function(self, message) self.messageArg = message end,
+            takeScreenshot = 'test-take-screenshot',
+        }
+
+        local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+        
+        levelMemory.getScreenshotMessage = function() return 'test-message' end
+        levelMemory:takeScreenshot()
+
+        lu.assertEquals('test-message', MemoryCore.screenshotController.messageArg)
+        lu.assertEquals(2, MemoryCore.compatibilityHelper.arg1)
+        lu.assertEquals(MemoryCore.screenshotController.takeScreenshot, MemoryCore.compatibilityHelper.arg2)
     end
 -- end of TestLevelMemory

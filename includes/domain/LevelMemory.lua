@@ -26,14 +26,21 @@ local LevelMemory = {}
     @treturn string
     ]]
     function LevelMemory:getScreenshotMessage()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local formattedDate = MemoryCore:getDateHelper():getFormattedDate(self.date)
+
+        return string.format('Reached level %d on %s',
+            self.level,
+            formattedDate
+        )
     end
 
     --[[
     May take a screenshot to store a visual memory of when the player leveled up.
     ]]
     function LevelMemory:maybeTakeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        if MemoryCore.__.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1)) then
+            self:takeScreenshot()
+        end
     end
 
     --[[
@@ -128,7 +135,13 @@ local LevelMemory = {}
     Takes a screenshot to representing when the player leveled up.
     ]]
     function LevelMemory:takeScreenshot()
-    -- @TODO: Implement this method in HN5 <2024.06.14>
+        local message = self:getScreenshotMessage()
+
+        local controller = MemoryCore:getScreenshotController()
+
+        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
+        controller:prepareScreenshot(message)
+        MemoryCore:getCompatibilityHelper():wait(2, controller.takeScreenshot)
     end
 -- end of LevelMemory
 
