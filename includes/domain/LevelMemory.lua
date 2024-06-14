@@ -52,6 +52,13 @@ local LevelMemory = {}
     end
 
     --[[
+    Saves this level memory.
+    ]]
+    function LevelMemory:save()
+    -- @TODO: Implement this method in HN4 <2024.06.14>
+    end
+
+    --[[
     Sets the date when the player leveled up.
 
     @tparam string value

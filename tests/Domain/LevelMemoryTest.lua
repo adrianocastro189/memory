@@ -26,6 +26,11 @@ TestLevelMemory = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers LevelMemory:save()
+    function TestLevelMemory:testSave()
+    -- @TODO: Implement this method in HN4 <2024.06.14>
+    end
+
     -- @covers LevelMemory:setDate()
     -- @covers LevelMemory:setLevel()
     -- @covers LevelMemory:setMoment()
