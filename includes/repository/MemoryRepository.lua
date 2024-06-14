@@ -286,6 +286,18 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
 
   --[[
+  Stores a player memory when leveling up.
+
+  @since 1.4.0
+
+  @tparam Memory/LevelMemory levelMemory
+  ]]
+  function instance:storeLevelMemory(levelMemory)
+  -- @TODO: Implement this method <2024.06.14>
+  end
+
+
+  --[[
   Overload to instance:store that accepts a MemoryAddon_Memory instance.
 
   Note: although a memory instance has first, last and x properties, this method will
