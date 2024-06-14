@@ -46,7 +46,6 @@ TestLevelMemory = BaseTestClass:new()
     end
 
     -- @covers LevelMemory.newWithCurrentData()
-    -- @TODO: Improve this method implementation in HN3 <2024.06.14>
     function TestLevelMemory:testNewWithCurrentData()
         -- mocks
         MemoryCore.getDateHelper = function() return { getToday = function() return 'test-date' end } end
