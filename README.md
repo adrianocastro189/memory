@@ -94,6 +94,8 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 ### yyyy.mm.dd - version 1.4.0
 
+* Feature - Take a screenshot when players level up (thanks to
+[foobanana](https://www.curseforge.com/members/foobanana) for the suggestion)
 * Fix - Fix a bug that was throwing an error when getm command was called 
 without at least one moment set
 * Dev - Update Stormwind Library to version 1.5.0
