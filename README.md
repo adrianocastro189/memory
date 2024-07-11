@@ -114,6 +114,10 @@ radar for the next versions
 
 ## Changelog
 
+### 2024.07.11 - version 1.4.1
+
+* Update TOC interface number for Classic Era
+
 ### 2024.06.14 - version 1.4.0
 
 * Feature - Take a screenshot when players level up (thanks to
