@@ -1,10 +1,10 @@
 ## Author: Adriano Castro
-## Interface: 11502
+## Interface: 11503
 ## Name: Memory
 ## Notes: Addon to register memories while players do stuff around the world.
 ## SavedVariables: MemoryAddon_DataSet, MemoryAddon_Settings
-## Title: Memory |cffffee771.4.0|r
-## Version: 1.4.0
+## Title: Memory |cffffee771.4.1|r
+## Version: 1.4.1
 ## X-Curse-Project-ID: 413371
 
 lib\stormwind-library\stormwind-library.lua
