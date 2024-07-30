@@ -114,6 +114,10 @@ radar for the next versions
 
 ## Changelog
 
+### yyyy.mm.dd - version 1.5.0
+
+* Update Stormwind Library to version 1.11.0
+
 ### 2024.07.24 - version 1.4.2
 
 * Update TOC interface number for Retail
