@@ -1,6 +1,7 @@
 MemoryCore = StormwindLibrary_v1_11_0.new({
   command = 'memoryaddon',
   name = 'Memory',
+  version = '1.5.0',
 })
 
 local events = MemoryCore.events
@@ -20,9 +21,6 @@ events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
 
   -- the addon name
   MemoryCore.ADDON_NAME = 'Memory';
-
-  -- the addon version which is the same as the toc file
-  MemoryCore.ADDON_VERSION = '1.5.0';
 
   -- the default hex color used highlight text
   MemoryCore.HIGHLIGHT_COLOR = 'ffee77';
@@ -278,7 +276,7 @@ events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
   ]]
   function MemoryCore:printVersion()
 
-    MemoryCore:print( MemoryCore.ADDON_VERSION );
+    MemoryCore:print( MemoryCore.addon.version );
   end
 
 
