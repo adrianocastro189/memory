@@ -32,7 +32,7 @@ BaseTestClass = {
 
         dofile('./tests/wow-mocks.lua')
 
-        dofile('./lib/stormwind-library/stormwind-library.lua')
+        dofile('./lib/stormwind-library.lua')
 
         dofile('./Memory.lua')
         dofile('./includes/commands/AddMomentCommand.lua')
