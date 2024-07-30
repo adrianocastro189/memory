@@ -10,7 +10,7 @@ TestGetSettingCommand = BaseTestClass:new()
             function MemoryCore:setting() return settingValue end
             function MemoryCore:print(message) messagePrinted = message end
 
-            MemoryCore.__.commands.operations.get.callback(key)
+            MemoryCore.commands.operations.get.callback(key)
 
             lu.assertEquals(expectedMessage, messagePrinted)
         end
@@ -22,8 +22,8 @@ TestGetSettingCommand = BaseTestClass:new()
 
     -- @covers includes/commands/GetSettingCommand.lua
     function TestGetSettingCommand:testCommandWasAdded()
-        local operations = MemoryCore.__.commands.operations
+        local operations = MemoryCore.commands.operations
 
-        lu.assertNotIsNil(MemoryCore.__.arr:get(operations, 'get'))
+        lu.assertNotIsNil(MemoryCore.arr:get(operations, 'get'))
     end
 -- end of TestGetSettingCommand

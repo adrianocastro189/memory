@@ -24,7 +24,7 @@ BaseTestClass = {
     end,
     
     setUp = function()
-        function dd(...) MemoryCore.__:dd(...) end
+        function dd(...) MemoryCore:dd(...) end
 
         -- this makes the Environment class to return the proper client flavor when
         -- running this test suite
@@ -58,10 +58,46 @@ BaseTestClass = {
         dofile('./includes/view/MemoryTextFormatter.lua') 
 
         MemoryAddon_DataSet = nil
-        MemoryCore.__.events:notify('PLAYER_LOGIN')
-        MemoryCore.__.output:setTestingMode()
+        MemoryCore.events:notify('PLAYER_LOGIN')
+        MemoryCore.output:setTestingMode()
     end,
 }
+
+--[[
+Allows test classes to create reusable test cases for one or multiple
+scenarios.
+
+It works by registering one test method per scenario, where the test method
+is named after the test case name and the scenario name. Inspired by PHPUnit
+data provider structure.
+]]
+TestCase = {}
+    TestCase.__index = TestCase
+
+    -- constructor
+    function TestCase.new() return setmetatable({}, TestCase) end
+
+    -- creates one test method per scenario
+    function TestCase:register()
+        self.scenarios = self.scenarios or {[''] = {}}
+        for scenario, data in pairs(self.scenarios) do
+            local methodName = 'test_' .. self.name .. (scenario ~= '' and (':' .. scenario) or '')
+            if self.testClass[methodName] then error('Test method already exists: ' .. methodName) end
+            self.testClass[methodName] = function()
+                if type(data) == "function" then
+                    data = data()
+                end
+                self.execution(data)
+            end
+        end
+    end
+
+    -- setters
+    function TestCase:setExecution(value) self.execution = value return self end
+    function TestCase:setName(value) self.name = value return self end
+    function TestCase:setScenarios(value) self.scenarios = value return self end
+    function TestCase:setTestClass(value) self.testClass = value return self end
+-- end of TestCase
 
 dofile('./tests/MemoryTest.lua')
 dofile('./tests/Commands/AddMomentCommandTest.lua')

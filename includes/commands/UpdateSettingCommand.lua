@@ -1,7 +1,6 @@
-local __ = MemoryCore.__
-local str = __.str
+local str = MemoryCore.str
 
-local command = __
+local command = MemoryCore
     :new('Command')
     :setOperation('set')
     :setDescription("Updates a configuration value")
@@ -19,4 +18,4 @@ local command = __
         MemoryCore:print(key .. ' set to ' .. value);
     end)
 
-__.commands:add(command)
+MemoryCore.commands:add(command)

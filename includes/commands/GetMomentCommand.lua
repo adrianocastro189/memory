@@ -1,6 +1,4 @@
-local __ = MemoryCore.__
-
-local command = __
+local command = MemoryCore
     :new('Command')
     :setOperation('getm')
     :setDescription("Gets the current moment in the player's memory")
@@ -13,4 +11,4 @@ local command = __
             or 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"'
     end)
 
-__.commands:add(command)
+MemoryCore.commands:add(command)
