@@ -24,7 +24,7 @@ BaseTestClass = {
     end,
     
     setUp = function()
-        function dd(...) MemoryCore.__:dd(...) end
+        function dd(...) MemoryCore:dd(...) end
 
         -- this makes the Environment class to return the proper client flavor when
         -- running this test suite
@@ -58,8 +58,8 @@ BaseTestClass = {
         dofile('./includes/view/MemoryTextFormatter.lua') 
 
         MemoryAddon_DataSet = nil
-        MemoryCore.__.events:notify('PLAYER_LOGIN')
-        MemoryCore.__.output:setTestingMode()
+        MemoryCore.events:notify('PLAYER_LOGIN')
+        MemoryCore.output:setTestingMode()
     end,
 }
 

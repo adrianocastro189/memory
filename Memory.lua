@@ -1,12 +1,9 @@
-local __ = StormwindLibrary_v1_11_0.new({
+MemoryCore = StormwindLibrary_v1_11_0.new({
   command = 'memoryaddon',
   name = 'Memory',
 })
 
-MemoryCore = {}
-MemoryCore.__ = __
-
-local events = __.events
+local events = MemoryCore.events
 
 --[[
 Fires up the addon.

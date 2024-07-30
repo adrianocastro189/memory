@@ -199,12 +199,12 @@ function MemoryAddon_TooltipController:new()
   ]]
   function instance:shouldAddMemoriesToTooltip()
     
-    return MemoryCore.__.bool:isTrue( MemoryCore:setting( 'memory.showInTooltips', 1 ) )
+    return MemoryCore.bool:isTrue( MemoryCore:setting( 'memory.showInTooltips', 1 ) )
   end
 
   -- listens to the tooltip events to call this controller handlers
-  MemoryCore.__.events:listen('TOOLTIP_ITEM_SHOWN', function ( item ) instance:handleTooltipItem( item.name ) end)
-  MemoryCore.__.events:listen('TOOLTIP_UNIT_SHOWN', function () instance:handleTooltipUnit() end)
+  MemoryCore.events:listen('TOOLTIP_ITEM_SHOWN', function ( item ) instance:handleTooltipItem( item.name ) end)
+  MemoryCore.events:listen('TOOLTIP_UNIT_SHOWN', function () instance:handleTooltipUnit() end)
 
   -- destroys the prototype, so instance will be unique
   MemoryAddon_TooltipController = nil;

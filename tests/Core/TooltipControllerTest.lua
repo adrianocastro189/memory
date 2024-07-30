@@ -8,7 +8,7 @@ TestTooltipController = BaseTestClass:new()
 
             MemoryCore:getTooltipController()[handlerName] = function() isListening = true end
 
-            MemoryCore.__.events:notify(event, { name = 'test-name' })
+            MemoryCore.events:notify(event, { name = 'test-name' })
 
             lu.assertTrue(isListening)
         end

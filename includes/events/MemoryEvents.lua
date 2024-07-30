@@ -378,8 +378,8 @@ function MemoryAddon_addEvents( core )
   core:addEventListener( eventItemLoot );
 
   -- the first event handled by Stormwind Library added in v1.4.0
-  MemoryCore.__.events:listen(MemoryCore.__.events.EVENT_NAME_PLAYER_LEVEL_UP, function ()
-    local levelMemory = MemoryCore.__:getClass('Memory/LevelMemory').newWithCurrentData()
+  MemoryCore.events:listen(MemoryCore.events.EVENT_NAME_PLAYER_LEVEL_UP, function ()
+    local levelMemory = MemoryCore:getClass('Memory/LevelMemory').newWithCurrentData()
 
     levelMemory:save()
     levelMemory:maybeTakeScreenshot()

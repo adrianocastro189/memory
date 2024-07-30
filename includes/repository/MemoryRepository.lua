@@ -293,7 +293,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   @tparam Memory/LevelMemory levelMemory
   ]]
   function instance:storeLevelMemory(levelMemory)
-    local arr = MemoryCore.__.arr
+    local arr = MemoryCore.arr
     local key = self.realm .. '.' .. self.player .. '.levels.' .. levelMemory.level .. '.'
 
     arr:set(MemoryAddon_DataSet, key .. 'date', levelMemory.date)

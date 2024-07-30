@@ -1,7 +1,6 @@
-local __ = MemoryCore.__
-local str = __.str
+local str = MemoryCore.str
 
-local command = __
+local command = MemoryCore
     :new('Command')
     :setOperation('get')
     :setDescription("Gets a configuration value")
@@ -23,4 +22,4 @@ local command = __
         MemoryCore:print('No setting with key = ' .. key .. ' was found');
     end)
 
-__.commands:add(command)
+MemoryCore.commands:add(command)

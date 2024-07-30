@@ -13,7 +13,7 @@ TestUpdateSettingCommand = BaseTestClass:new()
         end
         function MemoryCore:print(message) messageArg = message end
 
-        MemoryCore.__.commands.operations.set.callback('test-key', 'test-value')
+        MemoryCore.commands.operations.set.callback('test-key', 'test-value')
 
         lu.assertEquals(keyArg, 'test-key')
         lu.assertEquals(valueArg, 'test-value')
@@ -28,7 +28,7 @@ TestUpdateSettingCommand = BaseTestClass:new()
             
             function MemoryCore:print(message) messageArg = message end
 
-            MemoryCore.__.commands.operations.set.callback(key, value)
+            MemoryCore.commands.operations.set.callback(key, value)
 
             lu.assertEquals('Please, provide a key and a value to be set', messageArg)
         end
@@ -39,8 +39,8 @@ TestUpdateSettingCommand = BaseTestClass:new()
 
     -- @covers includes/commands/UpdateSettingCommand.lua
     function TestUpdateSettingCommand:testCommandWasAdded()
-        local operations = MemoryCore.__.commands.operations
+        local operations = MemoryCore.commands.operations
 
-        lu.assertNotIsNil(MemoryCore.__.arr:get(operations, 'set'))
+        lu.assertNotIsNil(MemoryCore.arr:get(operations, 'set'))
     end
 -- end of TestUpdateSettingCommand

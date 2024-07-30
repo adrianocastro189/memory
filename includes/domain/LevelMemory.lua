@@ -38,7 +38,7 @@ local LevelMemory = {}
     May take a screenshot to store a visual memory of when the player leveled up.
     ]]
     function LevelMemory:maybeTakeScreenshot()
-        if MemoryCore.__.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1)) then
+        if MemoryCore.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1)) then
             self:takeScreenshot()
         end
     end
@@ -56,7 +56,7 @@ local LevelMemory = {}
     function LevelMemory.newWithCurrentData()
         return LevelMemory.__construct()
             :setDate(MemoryCore:getDateHelper():getToday())
-            :setLevel(MemoryCore.__.currentPlayer.level)
+            :setLevel(MemoryCore.currentPlayer.level)
             :setMoment(MemoryCore:getMomentRepository():getCurrentMomentIndex())
             -- @TODO: Use a constant to represent nil strings instead of '-',
             --        which is used in the MemoryString class as well <2024.06.14>
@@ -146,4 +146,4 @@ local LevelMemory = {}
 -- end of LevelMemory
 
 -- allows this class to be instantiated
-MemoryCore.__:addClass('Memory/LevelMemory', LevelMemory)
+MemoryCore:addClass('Memory/LevelMemory', LevelMemory)
