@@ -1,8 +1,10 @@
----@diagnostic disable: duplicate-set-field
-
 TestMemory = BaseTestClass:new()
-    -- @covers MemoryCore:addMoment()
-    function TestMemory:testAddMoment()
+
+-- @covers MemoryCore:addMoment()
+TestCase.new()
+    :setName('addMoment')
+    :setTestClass(TestMemory)
+    :setExecution(function ()
         local momentAdded = nil
         local printedMessage = nil
 
@@ -25,10 +27,16 @@ TestMemory = BaseTestClass:new()
 
         lu.assertEquals(momentAdded, 'test-moment')
         lu.assertEquals(printedMessage, 'Current moment updated')
-    end
+    end)
+    :register()
 
-    -- @covers Memory
-    function TestMemory:testGlobalMemoryInstanceIsSet()
+-- @covers MemoryCore
+TestCase.new()
+    :setName('globalMemoryInstanceIsSet')
+    :setTestClass(TestMemory)
+    :setExecution(function ()
         lu.assertNotIsNil(MemoryCore)
-    end
+    end)
+    :register()
+
 -- end of TestMemory
