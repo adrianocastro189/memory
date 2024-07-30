@@ -1,4 +1,4 @@
----@diagnostic disable: unused-function, duplicate-set-field
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
 
 TestUpdateSettingCommand = BaseTestClass:new()
     -- @covers includes/commands/UpdateSettingCommand.lua

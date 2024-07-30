@@ -1,4 +1,4 @@
----@diagnostic disable: duplicate-set-field
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
 
 TestTooltipController = BaseTestClass:new()
     -- @covers MemoryAddon_TooltipController
