@@ -377,6 +377,27 @@ function MemoryAddon_addEvents( core )
   end
   core:addEventListener( eventItemLoot );
 
+  local eventDeath = MemoryAddon_MemoryEvent:new(
+    'EventDeath',
+    { 'PLAYER_DEAD' },
+    function(listener, event, params)
+      listener:printAndSave('misc', {'others'}, 'die')
+    end
+  );
+  function eventDeath:buildMemoryTextFormatter()
+    local textFormatter = MemoryCore:newMemoryTextFormatter()
+      :setPastActionSentence('died')
+      :setPastActionSentenceConnector('')
+      :setPresentActionSentence('die')
+      :setPresentActionSentenceConnector('')
+
+    textFormatter.getPastActionSentenceConnector = function() return '' end
+    textFormatter.getSubject = function() return '' end
+
+    return textFormatter
+  end
+  core:addEventListener(eventDeath)
+
   -- the first event handled by Stormwind Library added in v1.4.0
   MemoryCore.events:listen(MemoryCore.events.EVENT_NAME_PLAYER_LEVEL_UP, function ()
     local levelMemory = MemoryCore:getClass('Memory/LevelMemory').newWithCurrentData()
