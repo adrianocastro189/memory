@@ -1,532 +1,387 @@
 --[[
-Adds the memory prototype and creation method to repository.
+Represents a memory that the player has experienced in the game.
 
-@since 0.5.0-beta
-
-@param MemoryAddon_MemoryRepository repository the memory repository instance
+This class was completely refactored in version 1.5.0 to use the Stormwind Library
+class system. This change was made to improve the code organization and to be part
+of migrating the addon to a more object-oriented approach.
 ]]
-function MemoryAddon_addMemoryPrototype( repository )
-
-  --[[
-  The memory prototype.
-
-  @since 0.5.0-beta
-  ]]
-  local MemoryAddon_Memory = {};
-  MemoryAddon_Memory.__index = MemoryAddon_Memory;
-
-  --[[
-  Builds a new instance of a memory.
-
-  @since 0.5.0-beta
-
-  @return MemoryAddon_Memory
-  ]]
-  function MemoryAddon_Memory:new()
-
-    local instance = {};
-
-    setmetatable( instance, MemoryAddon_Memory );
+local Memory = {}
+    Memory.__index = Memory
 
     -- placeholder for some getters when properties are null
-    instance.DATA_PLACEHOLDER = 'undefined';
+    Memory.DATA_PLACEHOLDER = 'undefined'
 
-    instance.category        = '';
-    instance.first           = -1;
-    instance.interactionType = '';
-    instance.last            = -1;
-    instance.path            = {};
-    instance.x               =  0;
+    --[[
+    Memory constructor.
+    ]]
+    function Memory.__construct()
+        local instance = setmetatable({}, Memory)
+        
+        instance.category = ''
+        instance.first = -1
+        instance.interactionType = ''
+        instance.last = -1
+        instance.path = {}
+        instance.x = 0
 
+        return instance
+    end
 
     --[[
     Gets the memory category.
 
-    @since 0.5.0-beta
-
     @return string the memory category
     ]]
-    function instance:getCategory()
-
-      return self.category;
+    function Memory:getCategory()
+        return self.category
     end
-
 
     --[[
     Gets how many days have passed since the first occurrence of this memory.
 
-    @since 0.6.0-beta
-
-    @return int -1 if this memory has no first defined
+    @return integer -1 if this memory has no first defined
     ]]
-    function instance:getDaysSinceFirstDay()
+    function Memory:getDaysSinceFirstDay()
+        if not self:hasFirst() then
+          return -1
+        end
 
-      if not self:hasFirst() then
-
-        return -1;
-      end
-
-      return MemoryCore:getDateHelper():getDaysDiff( self:getFirst():getDate(), MemoryCore:getDateHelper():getToday() );
+        return MemoryCore
+            :getDateHelper()
+            :getDaysDiff(self:getFirst():getDate(), MemoryCore:getDateHelper():getToday())
     end
-
 
     --[[
     Gets how many days have passed since the last occurrence of this memory.
 
-    @since 0.6.0-beta
-
-    @return int -1 if this memory has no last defined
+    @return integer -1 if this memory has no last defined
     ]]
-    function instance:getDaysSinceLastDay()
+    function Memory:getDaysSinceLastDay()
+        if not self:hasLast() then
+            return -1
+        end
 
-      if not self:hasLast() then
-
-        return -1;
-      end
-
-      return MemoryCore:getDateHelper():getDaysDiff( self:getLast():getDate(), MemoryCore:getDateHelper():getToday() );
+        return MemoryCore
+            :getDateHelper()
+            :getDaysDiff(self:getLast():getDate(), MemoryCore:getDateHelper():getToday())
     end
-
 
     --[[
     Gets the first time player had this memory.
 
-    @since 0.5.0-beta
-
     @return MemoryAddon_MemoryString
     ]]
-    function instance:getFirst()
-
-      return self.first;
+    function Memory:getFirst()
+        return self.first
     end
-
 
     --[[
     Gets a formatted date for the first time this memory was experienced.
 
     This methods gets information from the memory string.
 
-    @since 0.6.0-beta
-
     @return string
     ]]
-    function instance:getFirstFormattedDate()
+    function Memory:getFirstFormattedDate()
+        if (not self:hasFirst()) or (not self:getFirst():hasDate()) then
+            return self.DATA_PLACEHOLDER
+        end
 
-      if ( not self:hasFirst() ) or ( not self:getFirst():hasDate() ) then
-
-        return self.DATA_PLACEHOLDER;
-      end
-
-      return MemoryCore:getDateHelper():getFormattedDate( self:getFirst():getDate() );
+        return MemoryCore
+            :getDateHelper()
+            :getFormattedDate(self:getFirst():getDate())
     end
-
 
     --[[
     Gets the level the player was when collected the first memory.
 
-    @since 1.1.1
-
     @return string
     ]]
-    function instance:getFirstPlayerLevel()
+    function Memory:getFirstPlayerLevel()
+        if (not self:hasFirst()) or (not self:getFirst():hasLevel()) then
+            return ''
+        end
 
-      if ( not self:hasFirst() ) or ( not self:getFirst():hasLevel() ) then
-
-        return '';
-      end
-
-      return self:getFirst():getPlayerLevel();
+        return self
+            :getFirst()
+            :getPlayerLevel()
     end
-
 
     --[[
     Gets the memory interaction type.
 
-    @since 0.5.0-beta
-
     @return string the memory interaction type.
     ]]
-    function instance:getInteractionType()
-
-      return self.interactionType;
+    function Memory:getInteractionType()
+        return self.interactionType
     end
-
 
     --[[
     Gets the last time player had this memory.
 
-    @since 0.5.0-beta
-
     @return MemoryAddon_MemoryString
     ]]
-    function instance:getLast()
-
-      return self.last;
+    function Memory:getLast()
+        return self.last
     end
-
 
     --[[
     Gets a formatted date for the last time this memory was experienced.
 
     This methods gets information from the memory string.
 
-    @since 0.6.0-beta
-
     @return string
     ]]
-    function instance:getLastFormattedDate()
+    function Memory:getLastFormattedDate()
+        if not self:hasLast() then
+            return self.DATA_PLACEHOLDER
+        end
 
-      if not self:hasLast() then
-
-        return self.DATA_PLACEHOLDER;
-      end
-
-      return MemoryCore:getDateHelper():getFormattedDate( self:getLast():getDate() );
+        return MemoryCore
+            :getDateHelper()
+            :getFormattedDate(self:getLast():getDate())
     end
-
 
     --[[
     Gets the level the player was when collected the last memory.
 
-    @since 1.1.1
-
     @return string
     ]]
-    function instance:getLastPlayerLevel()
+    function Memory:getLastPlayerLevel()
+        if (not self:hasLast()) or (not self:getLast():hasLevel()) then
+            return ''
+        end
 
-      if ( not self:hasLast() ) or ( not self:getLast():hasLevel() ) then
-
-        return '';
-      end
-
-      return self:getLast():getPlayerLevel();
+        return self
+            :getLast()
+            :getPlayerLevel()
     end
-
 
     --[[
     Gets the memory path.
 
-    @since 0.5.0-beta
-
     @return string[] the memory path
     ]]
-    function instance:getPath()
-
-      return self.path;
+    function Memory:getPath()
+        return self.path
     end
-
 
     --[[
     Gets the number of times player had this memory.
 
-    @since 0.5.0-beta
-
-    @return int
+    @return integer
     ]]
-    function instance:getX()
-
-      return self.x;
+    function Memory:getX()
+        return self.x
     end
-
 
     --[[
     Determines whether the memory has a category.
 
-    @since 0.5.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasCategory()
-
-      return self:getCategory() ~= nil and self:getCategory() ~= '';
+    function Memory:hasCategory()
+        return self:getCategory() ~= nil and self:getCategory() ~= ''
     end
-
 
     --[[
     Determines whether the player had already experienced this memory before.
 
-    @since 0.5.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasFirst()
-
-      return nil ~= self.first and -1 ~= self:getFirst() and self:getFirst():hasDate();
+    function Memory:hasFirst()
+        return nil ~= self.first and -1 ~= self:getFirst() and self:getFirst():hasDate()
     end
-
 
     --[[
     Determines whether the first memory has a moment.
 
-    @since 1.0.0
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasFirstMoment()
-
-      return self:hasFirst() and self:getFirst():hasMoment();
+    function Memory:hasFirstMoment()
+        return self:hasFirst() and self:getFirst():hasMoment()
     end
-
 
     --[[
     Determines whether the memory has an interaction type.
 
-    @since 0.5.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasInteractionType()
-
-      return self:getInteractionType() ~= nil and self:getInteractionType() ~= '';
+    function Memory:hasInteractionType()
+        return self:getInteractionType() ~= nil and self:getInteractionType() ~= ''
     end
-
 
     --[[
     Determines whether the player had already experienced this memory before.
 
-    @since 0.6.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasLast()
-
-      return nil ~= self.last and -1 ~= self:getLast() and self:getLast():hasDate();
+    function Memory:hasLast()
+        return nil ~= self.last and -1 ~= self:getLast() and self:getLast():hasDate()
     end
-
 
     --[[
     Determines whether the last memory has a moment.
 
-    @since 1.0.0
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasLastMoment()
-
-      return self:hasLast() and self:getLast():hasMoment();
+    function Memory:hasLastMoment()
+        return self:hasLast() and self:getLast():hasMoment()
     end
-
 
     --[[
     Determines whether the memory has a path
 
-    @since 0.5.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:hasPath()
-
-      return self:getPath() ~= nil and #self:getPath() > 0;
+    function Memory:hasPath()
+        return self:getPath() ~= nil and #self:getPath() > 0
     end
-
 
     --[[
     Determines whether the memory is a valid memory based on its primary properties.
 
-    @since 0.5.0-beta
-
-    @return bool
+    @return boolean
     ]]
-    function instance:isValid()
-
-      return self:hasCategory() and self:hasInteractionType() and self:hasPath();
+    function Memory:isValid()
+        return self:hasCategory() and self:hasInteractionType() and self:hasPath()
     end
-
 
     --[[
     May print the memory in the chat frame based on a random chance.
 
-    @since 0.5.0-beta
-
-    @param textFormatter MemoryAddon_MemorTextFormatter
+    @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
-    function instance:maybePrint( textFormatter )
-
-      if math.random() <= tonumber( MemoryCore:setting( 'memory.printChance', '0.2' ) ) then
-
-        self:print( textFormatter );
-      end
+    function Memory:maybePrint(textFormatter)
+        if math.random() <= tonumber(MemoryCore:setting('memory.printChance', '0.2')) then
+            self:print(textFormatter)
+        end
     end
-
 
     --[[
     May take a screenshot to store a visual memory.
 
-    @since 1.2.0
-
-    @param textFormatter MemoryAddon_MemorTextFormatter
+    @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
-    function instance:maybeTakeScreenshot( textFormatter )
-
-      if math.random() <= tonumber( MemoryCore:setting( 'memory.screenshotChance', '-1' ) ) then
-
-        self:takeScreenshot( textFormatter );
-      end
+    function Memory:maybeTakeScreenshot(textFormatter)
+        if math.random() <= tonumber(MemoryCore:setting('memory.screenshotChance', '-1')) then
+            self:takeScreenshot(textFormatter)
+        end
     end
-
 
     --[[
     Prints the memory in the chat frame.
 
-    @since 0.5.0-beta
-
-    @param textFormatter MemoryAddon_MemorTextFormatter
+    @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
-    function instance:print( textFormatter )
+    function Memory:print(textFormatter)
+        -- TODO: improve the way x = 1 is passed as a parameter {AC 2020-12-05}
+        local sentence = textFormatter:getRandomChatMessage(self, 1)
 
-      -- TODO: improve the way x = 1 is passed as a parameter {AC 2020-12-05}
-      local sentence = textFormatter:getRandomChatMessage( self, 1 );
-
-      MemoryCore:print( sentence );
+        MemoryCore:print(sentence)
     end
-
 
     --[[
     Takes a screenshot to store a visual memory.
 
-    @since 1.2.0
-
-    @param textFormatter MemoryAddon_MemorTextFormatter
+    @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
-    function instance:takeScreenshot( textFormatter )
+    function Memory:takeScreenshot(textFormatter)
+        -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
+        local sentence = textFormatter:getPresentCount(self, 1, true)
 
-      -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
-      local sentence = textFormatter:getPresentCount( self, 1, true );
+        -- sanity check
+        if nil == sentence then return end
 
-      -- sanity check
-      if nil == sentence then return; end
-
-      -- @TODO: Move these two calls to a single and reused method <2024.06.14>
-      MemoryCore:getScreenshotController():prepareScreenshot( sentence );
-      MemoryCore:getCompatibilityHelper():wait( 2, MemoryCore.screenshotController.takeScreenshot );
+        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
+        MemoryCore:getScreenshotController():prepareScreenshot(sentence)
+        MemoryCore:getCompatibilityHelper():wait(2, MemoryCore.screenshotController.takeScreenshot)
     end
-
 
     --[[
     Saves this memory in the repository.
 
     @see MemoryAddon_MemoryRepository:storeMemory()
-
-    @since 0.5.0-beta
     ]]
-    function instance:save()
-
-      MemoryCore:getRepository():storeMemory( self );
+    function Memory:save()
+        MemoryCore:getRepository():storeMemory(self)
     end
-
 
     --[[
     Sets the memory category.
 
-    @since 0.5.0-beta
+    @param string value
 
-    @param string memory category
-    @return self MemoryAddon_Memory
+    @return self
     ]]
-    function instance:setCategory( category )
-
-      self.category = category or '';
-
-      return self;
+    function Memory:setCategory(value)
+        self.category = value or ''
+        return self
     end
-
 
     --[[
     Sets the first time player had this memory.
 
-    @since 0.5.0-beta
+    @param MemoryAddon_MemoryString value
 
-    @param MemoryAddon_MemoryString a memory string instance
-    @return self MemoryAddon_Memory
+    @return self
     ]]
-    function instance:setFirst( first )
-
-      self.first = first or -1;
-
-      return self;
+    function Memory:setFirst(value)
+        self.first = value or -1
+        return self
     end
 
 
     --[[
     Sets the memory interaction type.
 
-    @since 0.5.0-beta
+    @param string value
 
-    @param string memory interaction type
-    @return self MemoryAddon_Memory
+    @return self
     ]]
-    function instance:setInteractionType( interactionType )
-
-      self.interactionType = interactionType or '';
-
-      return self;
+    function Memory:setInteractionType(value)
+        self.interactionType = value or ''
+        return self
     end
 
 
     --[[
     Sets the last time player had this memory.
 
-    @since 0.5.0-beta
+    @param MemoryAddon_MemoryString value
 
-    @param MemoryAddon_MemoryString a memory string instance
-    @return self MemoryAddon_Memory
+    @return self
     ]]
-    function instance:setLast( last )
-
-      self.last = last or -1;
-
-      return self;
+    function Memory:setLast(value)
+        self.last = value or -1
+        return self
     end
 
 
     --[[
     Sets the memory path.
 
-    @since 0.5.0-beta
-
     @param string[] memory path
-    @return self MemoryAddon_Memory
+
+    @return self
     ]]
-    function instance:setPath( path )
-
-      self.path = path or {};
-
-      return self;
+    function Memory:setPath(value)
+        self.path = value or {}
+        return self
     end
 
 
     --[[
     Sets the number of times player had this memory.
 
-    @since 0.5.0-beta
+    @param integer x
 
-    @param int x
-    @return self MemoryAddon_Memory
+    @return self
     ]]
-    function instance:setX( x )
-
-      self.x = x or 0;
-
-      return self;
+    function Memory:setX(value)
+        self.x = value or 0
+        return self
     end
 
-
-    return instance;
-  end
-
-  --[[
-  Builds a new instance of a memory from repository.
-
-  @since 0.5.0-beta
-
-  @return MemoryAddon_Memory
-  ]]
-  function repository:newMemory()
-
-    return MemoryAddon_Memory:new();
-  end
-
-
-  -- prevents this method to be called again
-  MemoryAddon_addMemoryPrototype = nil;
-end
+-- allows this class to be instantiated
+MemoryCore:addClass('Memory/Memory', Memory)

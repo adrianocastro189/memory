@@ -146,8 +146,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
   function instance:get( category, path, interactionType )
 
     -- creates the memory instance
-    local memoryInstance = self
-      :newMemory()
+    local memoryInstance = MemoryCore
+      :new('Memory/Memory')
       :setCategory( category )
       :setPath( path )
       :setInteractionType( interactionType );
@@ -235,8 +235,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
     for interactionType, values in pairs( memoryPath ) do
 
       -- creates the memory instance
-      table.insert( memories, self
-        :newMemory()
+      table.insert( memories, MemoryCore
+        :new('Memory/Memory')
         :setCategory( category )
         :setPath( path )
         :setInteractionType( interactionType )
