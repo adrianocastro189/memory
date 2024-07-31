@@ -327,9 +327,6 @@ events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
   MemoryCore:printVersion();
 
   -- adds the memory prototype to the repository
-  MemoryAddon_addMemoryPrototype( MemoryCore.repository );
-
-  -- adds the memory prototype to the repository
   MemoryAddon_addMemoryStringPrototype( MemoryCore.repository );
 
   -- adds the memory text formatter prototype to core
