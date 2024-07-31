@@ -106,6 +106,7 @@ dofile('./tests/Commands/GetSettingCommandTest.lua')
 dofile('./tests/Commands/UpdateSettingCommandTest.lua')
 dofile('./tests/Core/TooltipControllerTest.lua')
 dofile('./tests/Domain/LevelMemoryTest.lua')
+dofile('./tests/Domain/MemoryTest.lua')
 dofile('./tests/Repository/MemoryRepositoryTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false

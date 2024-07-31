@@ -133,7 +133,7 @@ local Memory = {}
     @return string
     ]]
     function Memory:getLastFormattedDate()
-        if not self:hasLast() then
+        if (not self:hasLast()) or (not self:getLast():hasDate()) then
             return self.DATA_PLACEHOLDER
         end
 
@@ -253,7 +253,7 @@ local Memory = {}
     @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
     function Memory:maybePrint(textFormatter)
-        if math.random() <= tonumber(MemoryCore:setting('memory.printChance', '0.2')) then
+        if self:randomNumber() <= tonumber(MemoryCore:setting('memory.printChance', '0.2')) then
             self:print(textFormatter)
         end
     end
@@ -264,7 +264,7 @@ local Memory = {}
     @param MemoryAddon_MemorTextFormatter textFormatter
     ]]
     function Memory:maybeTakeScreenshot(textFormatter)
-        if math.random() <= tonumber(MemoryCore:setting('memory.screenshotChance', '-1')) then
+        if self:randomNumber() <= tonumber(MemoryCore:setting('memory.screenshotChance', '-1')) then
             self:takeScreenshot(textFormatter)
         end
     end
@@ -282,20 +282,12 @@ local Memory = {}
     end
 
     --[[
-    Takes a screenshot to store a visual memory.
+    Just a random number generator encapsulation to make it easier to test.
 
-    @param MemoryAddon_MemorTextFormatter textFormatter
+    @return number
     ]]
-    function Memory:takeScreenshot(textFormatter)
-        -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
-        local sentence = textFormatter:getPresentCount(self, 1, true)
-
-        -- sanity check
-        if nil == sentence then return end
-
-        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
-        MemoryCore:getScreenshotController():prepareScreenshot(sentence)
-        MemoryCore:getCompatibilityHelper():wait(2, MemoryCore.screenshotController.takeScreenshot)
+    function Memory:randomNumber()
+        return math.random()
     end
 
     --[[
@@ -381,6 +373,23 @@ local Memory = {}
     function Memory:setX(value)
         self.x = value or 0
         return self
+    end
+
+    --[[
+    Takes a screenshot to store a visual memory.
+
+    @param MemoryAddon_MemorTextFormatter textFormatter
+    ]]
+    function Memory:takeScreenshot(textFormatter)
+        -- TODO: improve the way x = 1 is passed as a parameter {AC 2021-06-12}
+        local sentence = textFormatter:getPresentCount(self, 1, true)
+
+        -- sanity check
+        if nil == sentence then return end
+
+        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
+        MemoryCore:getScreenshotController():prepareScreenshot(sentence)
+        MemoryCore:getCompatibilityHelper():wait(2, MemoryCore:getScreenshotController().takeScreenshot)
     end
 
 -- allows this class to be instantiated
