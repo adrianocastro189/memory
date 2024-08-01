@@ -1,4 +1,4 @@
----@diagnostic disable: unused-function, duplicate-set-field
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
 
 TestAddMomentCommand = BaseTestClass:new()
     -- @covers includes/commands/AddMomentCommand.lua
@@ -11,7 +11,7 @@ TestAddMomentCommand = BaseTestClass:new()
             function MemoryCore:addMoment(momentToBeAdded) addedMoment = momentToBeAdded end
             function MemoryCore:print(message) errorMessage = message end
 
-            MemoryCore.__.commands.operations.addm.callback(moment, rest)
+            MemoryCore.commands.operations.addm.callback(moment, rest)
 
             lu.assertEquals(expectedErrorMessage, errorMessage)
             lu.assertEquals(expectedAddedMoment, addedMoment)
@@ -25,8 +25,8 @@ TestAddMomentCommand = BaseTestClass:new()
 
     -- @covers includes/commands/AddMomentCommand.lua
     function TestAddMomentCommand:testCommandWasAdded()
-        local operations = MemoryCore.__.commands.operations
+        local operations = MemoryCore.commands.operations
 
-        lu.assertNotIsNil(MemoryCore.__.arr:get(operations, 'addm'))
+        lu.assertNotIsNil(MemoryCore.arr:get(operations, 'addm'))
     end
 -- end of TestAddMomentCommand

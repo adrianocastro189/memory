@@ -1,14 +1,16 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestLevelMemory = BaseTestClass:new()
     -- @covers TestLevelMemory:__construct()
     function TestLevelMemory:testConstruct()
-        local instance = MemoryCore.__:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/LevelMemory')
 
         lu.assertNotNil(instance)
     end
 
     -- @covers LevelMemory:getScreenshotMessage()
     function TestLevelMemory:testGetScreenshotMessage()
-        local instance = MemoryCore.__:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/LevelMemory')
             :setDate('2024-01-01')
             :setLevel(13)
 
@@ -22,7 +24,7 @@ TestLevelMemory = BaseTestClass:new()
         local function execution(settingValue, shouldCallTakeScreenshot)
             MemoryCore.settingsRepository:set('memory.screenshotOnLevelUp', settingValue)
 
-            local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+            local levelMemory = MemoryCore:new('Memory/LevelMemory')
             levelMemory.takeScreenshotInvoked = false
             levelMemory.takeScreenshot = function() levelMemory.takeScreenshotInvoked = true end
 
@@ -49,12 +51,12 @@ TestLevelMemory = BaseTestClass:new()
     function TestLevelMemory:testNewWithCurrentData()
         -- mocks
         MemoryCore.getDateHelper = function() return { getToday = function() return 'test-date' end } end
-        MemoryCore.__.currentPlayer = { level = 5 }
+        MemoryCore.currentPlayer = { level = 5 }
         MemoryCore.getMomentRepository = function() return { getCurrentMomentIndex = function() return 3 end } end
         GetSubZoneText = function() return 'test-sub-zone' end
         GetZoneText = function() return 'test-zone' end
 
-        local instance = MemoryCore.__
+        local instance = MemoryCore
             :getClass('Memory/LevelMemory')
             .newWithCurrentData()
 
@@ -76,7 +78,7 @@ TestLevelMemory = BaseTestClass:new()
             }
         end
 
-        local instance = MemoryCore.__:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/LevelMemory')
             :setLevel(13)
             :setDate('2024-01-01')
             :setMoment(2)
@@ -92,7 +94,7 @@ TestLevelMemory = BaseTestClass:new()
     -- @covers LevelMemory:setSubZone()
     -- @covers LevelMemory:setZone()
     function TestLevelMemory:testSetters()
-        local instance = MemoryCore.__:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/LevelMemory')
 
         local result = instance
             :setDate('2024-01-01')
@@ -125,7 +127,7 @@ TestLevelMemory = BaseTestClass:new()
             takeScreenshot = 'test-take-screenshot',
         }
 
-        local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+        local levelMemory = MemoryCore:new('Memory/LevelMemory')
         
         levelMemory.getScreenshotMessage = function() return 'test-message' end
         levelMemory:takeScreenshot()

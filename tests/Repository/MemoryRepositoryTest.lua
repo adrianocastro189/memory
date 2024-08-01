@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestMemoryRepository = BaseTestClass:new()
     -- @covers TestMemoryRepository:__construct()
     function TestMemoryRepository:testGetInstance()
@@ -9,7 +11,7 @@ TestMemoryRepository = BaseTestClass:new()
         MemoryCore:getRepository().realm = 'test-realm'
         MemoryCore:getRepository().player = 'test-player'
 
-        local levelMemory = MemoryCore.__:new('Memory/LevelMemory')
+        local levelMemory = MemoryCore:new('Memory/LevelMemory')
             :setLevel(5)
             :setDate('2024-01-01')
             :setMoment(9)
@@ -18,7 +20,7 @@ TestMemoryRepository = BaseTestClass:new()
 
         MemoryCore:getRepository():storeLevelMemory(levelMemory)
 
-        local levels = MemoryCore.__.arr:get(MemoryAddon_DataSet, 'test-realm.test-player.levels')
+        local levels = MemoryCore.arr:get(MemoryAddon_DataSet, 'test-realm.test-player.levels')
 
         lu.assertEquals({
             ['5'] = {

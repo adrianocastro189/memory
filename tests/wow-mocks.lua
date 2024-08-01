@@ -7,6 +7,34 @@
 -- Although some of the functions and variables have static values, it's
 -- possible to override them in the test suite to provide different values
 -- for the tests when needed.
+C_PetJournal = {
+    GetPetInfoByPetID = function (petGuid)
+        -- return speciesID, customName, level, xp, maxXP, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable
+        return 189, 'Test Pet', 1, 0, 0, 1, false, 'Test Pet', 'test-icon', 1, 1, 'Test Source', 'Test Description', false, true, true, true, true
+    end,
+    GetSummonedPetGUID = function () return 'test-pet-guid' end,
+    GetOwnedBattlePetString = function (speciesId)
+        if speciesId == -1 then
+            return nil
+        end
+
+        return '|cFFFFD200Collected (1/3)'
+    end
+}
+
+C_Timer = {
+    After = function (seconds, callback) end,
+    NewTicker = function (seconds, callback)
+        local tickerMock = {}
+        tickerMock.canceled = false
+        tickerMock.callback = callback
+        tickerMock.seconds = seconds
+        
+        function tickerMock:Cancel() self.canceled = true end
+
+        return tickerMock
+    end
+}
 
 CreateFrame = function (...)
     local mockFrame = {
@@ -16,6 +44,7 @@ CreateFrame = function (...)
     }
     
     mockFrame.AddMessage = function (self, ...) self.addMessageInvoked = true end
+    mockFrame.ClearAllPoints = function (self) self.clearAllPointsInvoked = true end
     mockFrame.CreateFontString = function (self, ...) return CreateFrame(...) end
     mockFrame.CreateTexture = function (self, ...) return CreateFrame(...) end
     mockFrame.GetHeight = function (self) return self.height end
@@ -59,6 +88,7 @@ CreateFrame = function (...)
     mockFrame.SetText = function (self, text) self.text = text end
     mockFrame.SetTextColor = function (self, r, g, b, a) self.textColor = { r, g, b, a } end
     mockFrame.SetTextInsets = function (self, left, right, top, bottom) self.textInsets = { left, right, top, bottom } end
+    mockFrame.SetTexture = function (self, texture) self.texture = texture end
     mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
     mockFrame.UnregisterEvent = function (self, event) table.insert(self.unregisteredEvents or {}, event) end
@@ -89,6 +119,15 @@ GetZoneText = function () return 'Stormwind City' end
 
 LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
 LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
+
+UIErrorsFrame = { AddMessage = function(instance, message, r, g, b)
+    UIErrorsFrame.messageArg = message
+    UIErrorsFrame.rArg = r
+    UIErrorsFrame.gArg = g
+    UIErrorsFrame.bArg = b
+end }
+
+UnitAffectingCombat = function (unit) return true end
 
 UnitGUID = function (unit)
     if unit == 'player' then

@@ -1,4 +1,4 @@
----@diagnostic disable: unused-function, duplicate-set-field
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
 
 TestGetMomentCommand = BaseTestClass:new()
     -- @covers includes/commands/GetMomentCommand.lua
@@ -10,7 +10,7 @@ TestGetMomentCommand = BaseTestClass:new()
                 }
             end
 
-            lu.assertEquals(expectedResult, MemoryCore.__.commands.operations.getm.argsValidator())
+            lu.assertEquals(expectedResult, MemoryCore.commands.operations.getm.argsValidator())
         end
 
         execution(true, 'valid')
@@ -27,15 +27,15 @@ TestGetMomentCommand = BaseTestClass:new()
         } end
         function MemoryCore:print(message) messagePrinted = message end
 
-        MemoryCore.__.commands.operations.getm.callback()
+        MemoryCore.commands.operations.getm.callback()
 
         lu.assertEquals('test-moment', messagePrinted)
     end
 
     -- @covers includes/commands/GetMomentCommand.lua
     function TestGetMomentCommand:testCommandWasAdded()
-        local operations = MemoryCore.__.commands.operations
+        local operations = MemoryCore.commands.operations
 
-        lu.assertNotIsNil(MemoryCore.__.arr:get(operations, 'getm'))
+        lu.assertNotIsNil(MemoryCore.arr:get(operations, 'getm'))
     end
 -- end of TestGetMomentCommand

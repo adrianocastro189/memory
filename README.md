@@ -4,7 +4,7 @@ A World of Warcraft addon to register memories while players do stuff around
 the world.
 
 * The addon counts the number of times you loot an item, fight or interact with
-NPCs, group with other players, visit zones and subzones, and store them as
+NPCs, group with other players, visit zones and subzones, die, and store them as
 memories in the addon data. It also saves the first and the last time you did
 each of these actions.
 * For each memory stored, it will have a small chance to print that memory in 
@@ -106,6 +106,8 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 * **Graphical interface** - A simple interface to show memories, moments,
 settings, and other data collected by the addon.
+* **Screenshots on achievements** - Take a screenshot when players get an
+achievement in Cataclysm Classic and in The War Within expansion.
 
 ## Known issues
 
@@ -113,6 +115,12 @@ settings, and other data collected by the addon.
 radar for the next versions
 
 ## Changelog
+
+### 2024.08.01 - version 1.5.0
+
+* Deaths are now recorded as memories and can be printed to the chat frame,
+  associated with moments and also have a screenshot taken
+* Update Stormwind Library to version 1.11.0
 
 ### 2024.07.24 - version 1.4.2
 

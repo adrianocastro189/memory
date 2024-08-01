@@ -1,7 +1,6 @@
-local __ = MemoryCore.__
-local str = __.str
+local str = MemoryCore.str
 
-local command = __
+local command = MemoryCore
     :new('Command')
     :setOperation('addm')
     :setDescription("Adds a new moment to the player's memory")
@@ -25,4 +24,4 @@ local command = __
         MemoryCore:addMoment(moment)
     end)
 
-__.commands:add(command)
+MemoryCore.commands:add(command)
