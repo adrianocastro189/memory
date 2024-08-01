@@ -116,7 +116,7 @@ radar for the next versions
 
 ## Changelog
 
-### yyyy.mm.dd - version 1.5.0
+### 2024.08.01 - version 1.5.0
 
 * Deaths are now recorded as memories and can be printed to the chat frame,
   associated with moments and also have a screenshot taken
