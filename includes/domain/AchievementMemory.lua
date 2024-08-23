@@ -13,4 +13,9 @@ local AchievementMemory = {}
     function AchievementMemory.__construct()
         return setmetatable({}, AchievementMemory)
     end
+
+    --[[
+    @inheritDoc
+    ]]
+    function AchievementMemory:save() end
 -- End of AchievementMemory

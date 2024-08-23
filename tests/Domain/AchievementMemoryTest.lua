@@ -10,3 +10,15 @@ TestCase.new()
         lu.assertNotNil(instance)
     end)
     :register()
+
+-- @covers TestAchievementMemory:save()
+TestCase.new()
+    :setName('save')
+    :setTestClass(TestAchievementMemory)
+    :setExecution(function()
+        local instance = MemoryCore:new('Memory/AchievementMemory')
+
+        -- just asserts that no error is thrown
+        instance:save()
+    end)
+    :register()
