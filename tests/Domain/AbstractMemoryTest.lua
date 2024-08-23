@@ -13,6 +13,7 @@ end
 
 -- @covers AbstractMemory:getScreenshotMessage()
 -- @covers AbstractMemory:save()
+-- @covers AbstractMemory:shouldTakeScreenshot()
 TestCase.new()
     :setName('abstract methods')
     :setTestClass(TestAbstractMemory)
