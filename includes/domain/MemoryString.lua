@@ -1,3 +1,9 @@
+--[[
+A memory string is a string that contains important information about a player's
+memory to be saved to text files.
+
+This class is responsible for parsing and building memory strings.
+]]
 local MemoryString = {}
 MemoryString.__index = MemoryString
 
