@@ -27,4 +27,11 @@ local AchievementMemory = {}
     @inheritDoc
     ]]
     function AchievementMemory:save() end
+
+    --[[
+    @inheritDoc
+    ]]
+    function AchievementMemory:shouldTakeScreenshot()
+        return MemoryCore.bool:isTrue(MemoryCore:setting('memory.screenshotOnAchievement', 1))
+    end
 -- End of AchievementMemory

@@ -37,3 +37,47 @@ TestCase.new()
         instance:save()
     end)
     :register()
+
+-- @covers AchievementMemory:shouldTakeScreenshot()
+TestCase.new()
+    :setName('shouldTakeScreenshot')
+    :setTestClass(TestAchievementMemory)
+    :setExecution(function(data)
+        MemoryCore.settingsRepository:set('memory.screenshotOnAchievement', data.settingValue)
+
+        local instance = MemoryCore:new('Memory/AchievementMemory')
+
+        lu.assertEquals(data.expectedResult, instance:shouldTakeScreenshot())
+    end)
+    :setScenarios({
+        ['setting is nil'] = {
+            settingValue = nil,
+            expectedResult = true,
+        },
+        ['setting is 0'] = {
+            settingValue = 0,
+            expectedResult = false,
+        },
+        ['setting is "no"'] = {
+            settingValue = 'no',
+            expectedResult = false,
+        },
+        ['setting is "false"'] = {
+            settingValue = 'false',
+            expectedResult = false,
+        },
+        ['setting is 1'] = {
+            settingValue = 1,
+            expectedResult = true,
+        },
+        ['setting is "yes"'] = {
+            settingValue = 'yes',
+            expectedResult = true,
+        },
+        ['setting is "true"'] = {
+            settingValue = 'true',
+            expectedResult = true,
+        },
+    })
+    :register()
+-- End of TestAchievementMemory
