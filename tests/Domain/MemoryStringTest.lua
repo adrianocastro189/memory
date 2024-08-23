@@ -351,8 +351,9 @@ TestCase.new()
     :setExecution(function(data)
         local instance = MemoryCore:new('Memory/MemoryString')
 
-        instance[data.setter](instance, 'value')
+        local result = instance[data.setter](instance, 'value')
 
+        lu.assertEquals(instance, result)
         lu.assertEquals('value', instance[data.getter](instance))
     end)
     :setScenarios({

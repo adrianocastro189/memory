@@ -19,6 +19,7 @@ includes\commands\UpdateSettingCommand.lua
 includes\core\ScreenshotController.lua
 includes\core\TooltipController.lua
 
+includes\domain\AbstractMemory.lua
 includes\domain\LevelMemory.lua
 includes\domain\Memory.lua
 includes\domain\MemoryString.lua
