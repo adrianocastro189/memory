@@ -2,28 +2,6 @@ TestUpdateSettingCommand = BaseTestClass:new()
 
 -- @covers includes/commands/UpdateSettingCommand.lua
 TestCase.new()
-    :setName('command callback')
-    :setTestClass(TestUpdateSettingCommand)
-    :setExecution(function()
-        MemoryCore = Spy
-            .new(MemoryCore)
-            :mockMethod('setting')
-            :mockMethod('print')
-
-        MemoryCore.commands.operations.set.callback('test-key', 'test-value')
-
-        MemoryCore
-            :getMethod('setting')
-            :assertCalledOnceWith('test-key', 'test-value', true)
-
-        MemoryCore
-            :getMethod('print')
-            :assertCalledOnceWith('test-key set to test-value')
-    end)
-    :register()
-
--- @covers includes/commands/UpdateSettingCommand.lua
-TestCase.new()
     :setName('callback with empty values')
     :setTestClass(TestUpdateSettingCommand)
     :setExecution(function(data)
@@ -47,6 +25,28 @@ TestCase.new()
             expectedMessage = 'Please, provide a key and a value to be set'
         }
     })
+    :register()
+
+-- @covers includes/commands/UpdateSettingCommand.lua
+TestCase.new()
+    :setName('command callback')
+    :setTestClass(TestUpdateSettingCommand)
+    :setExecution(function()
+        MemoryCore = Spy
+            .new(MemoryCore)
+            :mockMethod('setting')
+            :mockMethod('print')
+
+        MemoryCore.commands.operations.set.callback('test-key', 'test-value')
+
+        MemoryCore
+            :getMethod('setting')
+            :assertCalledOnceWith('test-key', 'test-value', true)
+
+        MemoryCore
+            :getMethod('print')
+            :assertCalledOnceWith('test-key set to test-value')
+    end)
     :register()
 
 -- @covers includes/commands/UpdateSettingCommand.lua
