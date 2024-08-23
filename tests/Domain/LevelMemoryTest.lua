@@ -1,5 +1,3 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestLevelMemory = BaseTestClass:new()
 
 -- @covers TestLevelMemory:__construct()
