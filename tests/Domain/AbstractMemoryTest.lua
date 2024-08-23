@@ -4,11 +4,12 @@ TestAbstractMemory = BaseTestClass:new()
 Utility function to get the class under test.
 ]]
 function TestAbstractMemory.getClass()
-    return MemoryCore
+    return setmetatable({}, MemoryCore
         .classes
         [MemoryCore.environment.constants.TEST_SUITE]
         ['Memory/AbstractMemory']
         ['structure']
+    )
 end
 
 -- @covers AbstractMemory:getScreenshotMessage()
@@ -62,6 +63,47 @@ TestCase.new()
     :setScenarios({
         ['should take screenshot'] = { shouldTakeScreenshot = true },
         ['should not take screenshot'] = { shouldTakeScreenshot = false },
+    })
+    :register()
+
+
+-- @covers AbstractMemory:setDate()
+-- @covers AbstractMemory:setLevel()
+-- @covers AbstractMemory:setMoment()
+-- @covers AbstractMemory:setSubZone()
+-- @covers AbstractMemory:setZone()
+TestCase.new()
+    :setName('setters')
+    :setTestClass(TestAbstractMemory)
+    :setExecution(function(data)
+        local instance = TestAbstractMemory.getClass()
+
+        local result = instance[data.setter](instance, 'value')
+
+        lu.assertEquals(instance, result)
+        lu.assertEquals('value', instance[data.property])
+    end)
+    :setScenarios({
+        ['date'] = {
+            setter = 'setDate',
+            property = 'date',
+        },
+        ['level'] = {
+            setter = 'setLevel',
+            property = 'level',
+        },
+        ['moment'] = {
+            setter = 'setMoment',
+            property = 'moment',
+        },
+        ['zone'] = {
+            setter = 'setZone',
+            property = 'zone',
+        },
+        ['subZone'] = {
+            setter = 'setSubZone',
+            property = 'subZone',
+        }
     })
     :register()
 

@@ -36,6 +36,66 @@ local AbstractMemory = {}
     end
 
     --[[
+    Sets the memory date.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function AbstractMemory:setDate(value)
+        self.date = value
+        return self
+    end
+
+    --[[
+    Sets the player level.
+
+    @tparam int value
+
+    @return self
+    ]]
+    function AbstractMemory:setLevel(value)
+        self.level = value
+        return self
+    end
+
+    --[[
+    Sets the memory moment index.
+
+    @tparam int value
+
+    @return self
+    ]]
+    function AbstractMemory:setMoment(value)
+        self.moment = value
+        return self
+    end
+
+    --[[
+    Sets the memory sub zone.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function AbstractMemory:setSubZone(value)
+        self.subZone = value
+        return self
+    end
+
+    --[[
+    Sets the memory zone.
+
+    @tparam string value
+
+    @return self
+    ]]
+    function AbstractMemory:setZone(value)
+        self.zone = value
+        return self
+    end
+
+    --[[
     Determines whether this memory should trigger a screenshot.
 
     @return boolean
