@@ -408,6 +408,15 @@ function MemoryAddon_addEvents( core )
     levelMemory:maybeTakeScreenshot()
   end)
 
+  MemoryCore.events:listenOriginal('ACHIEVEMENT_EARNED', function ()
+    local achievementMemory = MemoryCore
+        :new('Memory/AchievementMemory')
+        :setCurrentData()
+
+    achievementMemory:save()
+    achievementMemory:maybeTakeScreenshot()
+  end)
+
   core:getLogger():debug( 'Events added' );
 
   -- prevents MemoryAddon_MemoryEvent from being exposed after all events are created
