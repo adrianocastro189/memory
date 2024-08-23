@@ -25,4 +25,13 @@ local AbstractMemory = {}
     function AbstractMemory:save()
         error('This is an abstract method and should be implemented by this class inheritances')
     end
+
+    --[[
+    Determines whether this memory should trigger a screenshot.
+
+    @return boolean
+    ]]
+    function AbstractMemory:shouldTakeScreenshot()
+        error('This is an abstract method and should be implemented by this class inheritances')
+    end
 -- End of AbstractMemory

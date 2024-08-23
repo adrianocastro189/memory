@@ -26,6 +26,7 @@ TestCase.new()
     :setScenarios({
         ['getScreenshotMessage'] = {abstractMethod = 'getScreenshotMessage'},
         ['save'] = {abstractMethod = 'save'},
+        ['shouldTakeScreenshot'] = {abstractMethod = 'shouldTakeScreenshot'},
     })
     :register()
 
