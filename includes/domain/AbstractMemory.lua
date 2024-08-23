@@ -10,4 +10,12 @@ local AbstractMemory = {}
     -- allows this class to be extended
     MemoryCore:addAbstractClass('Memory/AbstractMemory', AbstractMemory)
 
+    --[[
+    Gets a message to be printed on the screen when the user takes a screenshot.
+
+    @return string
+    ]]
+    function AbstractMemory:getScreenshotMessage()
+        error('This is an abstract method and should be implemented by this class inheritances')
+    end
 -- End of AbstractMemory
