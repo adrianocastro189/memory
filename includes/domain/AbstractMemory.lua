@@ -36,6 +36,22 @@ local AbstractMemory = {}
     end
 
     --[[
+    Sets the current data to the memory instance.
+
+    @return self
+    ]]
+    function AbstractMemory:setCurrentData()
+        return self
+            :setDate(MemoryCore:getDateHelper():getToday())
+            :setLevel(MemoryCore.currentPlayer.level)
+            :setMoment(MemoryCore:getMomentRepository():getCurrentMomentIndex())
+            -- @TODO: Use a constant to represent nil strings instead of '-',
+            --        which is used in the MemoryString class as well <2024.06.14>
+            :setSubZone(GetSubZoneText() or '-')
+            :setZone(GetZoneText() or '-')
+    end
+
+    --[[
     Sets the memory date.
 
     @tparam string value

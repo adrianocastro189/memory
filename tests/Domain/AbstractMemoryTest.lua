@@ -66,6 +66,34 @@ TestCase.new()
     })
     :register()
 
+-- @covers AbstractMemory:setCurrentData()
+TestCase.new()
+    :setName('setCurrentData')
+    :setTestClass(TestAbstractMemory)
+    :setExecution(function()
+        MemoryCore = Spy
+            .new(MemoryCore)
+            :mockMethod('getDateHelper', function() return {
+                getToday = function() return 'date' end,
+            } end)
+            :mockMethod('getMomentRepository', function() return {
+                getCurrentMomentIndex = function() return 3 end,
+            } end)
+
+        MemoryCore.currentPlayer = { level = 5 }
+
+        GetSubZoneText = function() return 'subzone' end
+        GetZoneText = function() return 'zone' end
+
+        local instance = TestAbstractMemory.getClass():setCurrentData()
+
+        lu.assertEquals('date', instance.date)
+        lu.assertEquals(5, instance.level)
+        lu.assertEquals(3, instance.moment)
+        lu.assertEquals('subzone', instance.subZone)
+        lu.assertEquals('zone', instance.zone)
+    end)
+    :register()
 
 -- @covers AbstractMemory:setDate()
 -- @covers AbstractMemory:setLevel()
