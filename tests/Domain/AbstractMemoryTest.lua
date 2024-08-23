@@ -20,14 +20,15 @@ TestCase.new()
     :setExecution(function(data)
         local abstractClass = TestAbstractMemory.getClass()
 
-        lu.assertErrorMsgContains('This is an abstract method and should be implemented by this class inheritances', function ()
-            abstractClass[data.abstractMethod]()
-        end)
+        lu.assertErrorMsgContains('This is an abstract method and should be implemented by this class inheritances',
+            function()
+                abstractClass[data.abstractMethod]()
+            end)
     end)
     :setScenarios({
-        ['getScreenshotMessage'] = {abstractMethod = 'getScreenshotMessage'},
-        ['save'] = {abstractMethod = 'save'},
-        ['shouldTakeScreenshot'] = {abstractMethod = 'shouldTakeScreenshot'},
+        ['getScreenshotMessage'] = { abstractMethod = 'getScreenshotMessage' },
+        ['save'] = { abstractMethod = 'save' },
+        ['shouldTakeScreenshot'] = { abstractMethod = 'shouldTakeScreenshot' },
     })
     :register()
 
@@ -39,6 +40,37 @@ TestCase.new()
         local abstractClass = TestAbstractMemory.getClass()
 
         lu.assertNotNil(abstractClass)
+    end)
+    :register()
+
+-- @covers AbstractMemory:takeScreenshot()
+TestCase.new()
+    :setName('takeScreenshot')
+    :setTestClass(TestAbstractMemory)
+    :setExecution(function()
+        MemoryCore.compatibilityHelper = Spy
+            .new()
+            :mockMethod('wait')
+
+        MemoryCore.screenshotController = Spy
+            .new()
+            :mockMethod('prepareScreenshot')
+
+        MemoryCore.screenshotController.takeScreenshot = 'mock'
+
+        local levelMemory = Spy
+            .new(TestAbstractMemory.getClass())
+            :mockMethod('getScreenshotMessage', function() return 'message' end)
+
+        levelMemory:takeScreenshot()
+
+        MemoryCore.screenshotController
+            :getMethod('prepareScreenshot')
+            :assertCalledOnceWith('message')
+
+        MemoryCore.compatibilityHelper
+            :getMethod('wait')
+            :assertCalledOnceWith(2, 'mock')
     end)
     :register()
 -- End of TestAbstractMemory

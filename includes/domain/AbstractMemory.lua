@@ -34,4 +34,17 @@ local AbstractMemory = {}
     function AbstractMemory:shouldTakeScreenshot()
         error('This is an abstract method and should be implemented by this class inheritances')
     end
+
+    --[[
+    Takes a screenshot to representing when the player leveled up.
+    ]]
+    function AbstractMemory:takeScreenshot()
+        local message = self:getScreenshotMessage()
+
+        local controller = MemoryCore:getScreenshotController()
+
+        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
+        controller:prepareScreenshot(message)
+        MemoryCore:getCompatibilityHelper():wait(2, controller.takeScreenshot)
+    end
 -- End of AbstractMemory
