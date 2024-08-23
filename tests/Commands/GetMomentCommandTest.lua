@@ -7,7 +7,8 @@ TestCase.new()
     :setExecution(function(data)
         MemoryCore = Spy
             .new(MemoryCore)
-            :mockMethod('getMomentRepository', function() return {
+            :mockMethod('getMomentRepository', function()
+                return {
                     hasCurrentMoment = function() return data.hasCurrentMoment end
                 }
             end)
@@ -21,7 +22,8 @@ TestCase.new()
         },
         ['no current moment'] = {
             hasCurrentMoment = false,
-            expectedResult = 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"'
+            expectedResult =
+            'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"'
         }
     })
     :register()
@@ -33,7 +35,8 @@ TestCase.new()
     :setExecution(function()
         MemoryCore = Spy
             .new(MemoryCore)
-            :mockMethod('getMomentRepository', function() return { getCurrentMoment = function() return 'test-moment' end } end)
+            :mockMethod('getMomentRepository',
+                function() return { getCurrentMoment = function() return 'test-moment' end } end)
             :mockMethod('print')
 
         MemoryCore.commands.operations.getm.callback()
