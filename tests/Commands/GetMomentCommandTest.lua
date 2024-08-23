@@ -1,41 +1,57 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestGetMomentCommand = BaseTestClass:new()
-    -- @covers includes/commands/GetMomentCommand.lua
-    function TestGetMomentCommand:testCommandArgsValidator()
-        local function execution(hasCurrentMoment, expectedResult)
-            MemoryCore.getMomentRepository = function ()
-                return {
-                    hasCurrentMoment = function() return hasCurrentMoment end
+
+-- @covers includes/commands/GetMomentCommand.lua
+TestCase.new()
+    :setName('command args validator')
+    :setTestClass(TestGetMomentCommand)
+    :setExecution(function(data)
+        MemoryCore = Spy
+            .new(MemoryCore)
+            :mockMethod('getMomentRepository', function() return {
+                    hasCurrentMoment = function() return data.hasCurrentMoment end
                 }
-            end
+            end)
 
-            lu.assertEquals(expectedResult, MemoryCore.commands.operations.getm.argsValidator())
-        end
+        lu.assertEquals(data.expectedResult, MemoryCore.commands.operations.getm.argsValidator())
+    end)
+    :setScenarios({
+        ['has current moment'] = {
+            hasCurrentMoment = true,
+            expectedResult = 'valid'
+        },
+        ['no current moment'] = {
+            hasCurrentMoment = false,
+            expectedResult = 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"'
+        }
+    })
+    :register()
 
-        execution(true, 'valid')
-        execution(false, 'There\'s no moment in the player\'s memory yet. Add one by typing /memoryaddon addm "Your moment here"')
-    end
-
-    -- @covers includes/commands/GetMomentCommand.lua
-    function TestGetMomentCommand:testCommandCallback()
-        local messagePrinted = nil
-
-        -- mocks
-        function MemoryCore:getMomentRepository() return {
-            getCurrentMoment = function() return 'test-moment' end
-        } end
-        function MemoryCore:print(message) messagePrinted = message end
+-- @covers includes/commands/GetMomentCommand.lua
+TestCase.new()
+    :setName('command callback')
+    :setTestClass(TestGetMomentCommand)
+    :setExecution(function()
+        MemoryCore = Spy
+            .new(MemoryCore)
+            :mockMethod('getMomentRepository', function() return { getCurrentMoment = function() return 'test-moment' end } end)
+            :mockMethod('print')
 
         MemoryCore.commands.operations.getm.callback()
 
-        lu.assertEquals('test-moment', messagePrinted)
-    end
+        MemoryCore
+            :getMethod('print')
+            :assertCalledOnceWith('test-moment')
+    end)
+    :register()
 
-    -- @covers includes/commands/GetMomentCommand.lua
-    function TestGetMomentCommand:testCommandWasAdded()
+-- @covers includes/commands/GetMomentCommand.lua
+TestCase.new()
+    :setName('command was added')
+    :setTestClass(TestGetMomentCommand)
+    :setExecution(function()
         local operations = MemoryCore.commands.operations
 
         lu.assertNotIsNil(MemoryCore.arr:get(operations, 'getm'))
-    end
+    end)
+    :register()
 -- end of TestGetMomentCommand
