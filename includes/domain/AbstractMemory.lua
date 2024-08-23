@@ -20,6 +20,15 @@ local AbstractMemory = {}
     end
 
     --[[
+    May take a screenshot to store a visual memory of when the player leveled up.
+    ]]
+    function AbstractMemory:maybeTakeScreenshot()
+        if self:shouldTakeScreenshot() then
+            self:takeScreenshot()
+        end
+    end
+
+    --[[
     Saves the memory data.
     ]]
     function AbstractMemory:save()

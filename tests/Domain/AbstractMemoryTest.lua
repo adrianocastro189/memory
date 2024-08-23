@@ -43,6 +43,28 @@ TestCase.new()
     end)
     :register()
 
+-- @covers AbstractMemory:maybeTakeScreenshot()
+TestCase.new()
+    :setName('maybeTakeScreenshot')
+    :setTestClass(TestAbstractMemory)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(TestAbstractMemory.getClass())
+            :mockMethod('shouldTakeScreenshot', function() return data.shouldTakeScreenshot end)
+            :mockMethod('takeScreenshot')
+
+        instance:maybeTakeScreenshot()
+
+        instance
+            :getMethod('takeScreenshot')
+            :assertCalledOrNot(data.shouldTakeScreenshot)
+    end)
+    :setScenarios({
+        ['should take screenshot'] = { shouldTakeScreenshot = true },
+        ['should not take screenshot'] = { shouldTakeScreenshot = false },
+    })
+    :register()
+
 -- @covers AbstractMemory:takeScreenshot()
 TestCase.new()
     :setName('takeScreenshot')
