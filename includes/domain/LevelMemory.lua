@@ -11,6 +11,8 @@ it's registered in a different way than the other classes.
 ]]
 local LevelMemory = {}
     LevelMemory.__index = LevelMemory
+    -- allows this class to be instantiated
+    MemoryCore:addChildClass('Memory/LevelMemory', LevelMemory, 'Memory/AbstractMemory')
 
     --[[
     LevelMemory constructor.
@@ -32,15 +34,6 @@ local LevelMemory = {}
             self.level,
             formattedDate
         )
-    end
-
-    --[[
-    May take a screenshot to store a visual memory of when the player leveled up.
-    ]]
-    function LevelMemory:maybeTakeScreenshot()
-        if MemoryCore.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1)) then
-            self:takeScreenshot()
-        end
     end
 
     --[[
@@ -72,78 +65,9 @@ local LevelMemory = {}
     end
 
     --[[
-    Sets the date when the player leveled up.
-
-    @tparam string value
-
-    @return self
+    @inheritDoc
     ]]
-    function LevelMemory:setDate(value)
-        self.date = value
-        return self
-    end
-
-    --[[
-    Sets the level.
-
-    @tparam int value
-
-    @return self
-    ]]
-    function LevelMemory:setLevel(value)
-        self.level = value
-        return self
-    end
-
-    --[[
-    Sets the current moment index when the player leveled up.
-
-    @tparam int value
-
-    @return self
-    ]]
-    function LevelMemory:setMoment(value)
-        self.moment = value
-        return self
-    end
-
-    --[[
-    Sets the sub zone where the player leveled up.
-
-    @tparam string value
-
-    @return self
-    ]]
-    function LevelMemory:setSubZone(value)
-        self.subZone = value
-        return self
-    end
-
-    --[[
-    Sets the zone where the player leveled up.
-
-    @tparam string value
-
-    @return self
-    ]]
-    function LevelMemory:setZone(value)
-        self.zone = value
-        return self
-    end
-
-    --[[
-    Takes a screenshot to representing when the player leveled up.
-    ]]
-    function LevelMemory:takeScreenshot()
-        local message = self:getScreenshotMessage()
-
-        local controller = MemoryCore:getScreenshotController()
-
-        -- @TODO: Move these two calls to a single and reused method <2024.06.14>
-        controller:prepareScreenshot(message)
-        MemoryCore:getCompatibilityHelper():wait(2, controller.takeScreenshot)
+    function LevelMemory:shouldTakeScreenshot()
+        return MemoryCore.bool:isTrue(MemoryCore:setting('memory.screenshotOnLevelUp', 1))
     end
 -- end of LevelMemory
-
--- allows this class to be instantiated
-MemoryCore:addClass('Memory/LevelMemory', LevelMemory)
