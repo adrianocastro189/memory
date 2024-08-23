@@ -37,27 +37,6 @@ local LevelMemory = {}
     end
 
     --[[
-    Builds a new LevelMemory instance with the current data for storing the
-    memory of when the player leveled up.
-
-    This is a static method that should be called by getting a class reference
-    from Stormwind Library and calling it as a method instead of calling it
-    in any instance.
-
-    @treturn LevelMemory
-    ]]
-    function LevelMemory.newWithCurrentData()
-        return LevelMemory.__construct()
-            :setDate(MemoryCore:getDateHelper():getToday())
-            :setLevel(MemoryCore.currentPlayer.level)
-            :setMoment(MemoryCore:getMomentRepository():getCurrentMomentIndex())
-            -- @TODO: Use a constant to represent nil strings instead of '-',
-            --        which is used in the MemoryString class as well <2024.06.14>
-            :setSubZone(GetSubZoneText() or '-')
-            :setZone(GetZoneText() or '-')
-    end
-
-    --[[
     Saves this level memory.
     ]]
     function LevelMemory:save()

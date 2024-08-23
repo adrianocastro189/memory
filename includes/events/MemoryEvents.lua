@@ -400,7 +400,9 @@ function MemoryAddon_addEvents( core )
 
   -- the first event handled by Stormwind Library added in v1.4.0
   MemoryCore.events:listen(MemoryCore.events.EVENT_NAME_PLAYER_LEVEL_UP, function ()
-    local levelMemory = MemoryCore:getClass('Memory/LevelMemory').newWithCurrentData()
+    local levelMemory = MemoryCore
+        :new('Memory/LevelMemory')
+        :setCurrentData()
 
     levelMemory:save()
     levelMemory:maybeTakeScreenshot()
