@@ -12,6 +12,7 @@ function TestAbstractMemory.getClass()
 end
 
 -- @covers AbstractMemory:getScreenshotMessage()
+-- @covers AbstractMemory:save()
 TestCase.new()
     :setName('abstract methods')
     :setTestClass(TestAbstractMemory)
@@ -23,7 +24,8 @@ TestCase.new()
         end)
     end)
     :setScenarios({
-        ['getScreenshotMessage'] = {abstractMethod = 'getScreenshotMessage'}
+        ['getScreenshotMessage'] = {abstractMethod = 'getScreenshotMessage'},
+        ['save'] = {abstractMethod = 'save'},
     })
     :register()
 

@@ -18,4 +18,11 @@ local AbstractMemory = {}
     function AbstractMemory:getScreenshotMessage()
         error('This is an abstract method and should be implemented by this class inheritances')
     end
+
+    --[[
+    Saves the memory data.
+    ]]
+    function AbstractMemory:save()
+        error('This is an abstract method and should be implemented by this class inheritances')
+    end
 -- End of AbstractMemory
