@@ -118,8 +118,6 @@ To enable it again, run the same command, but with `1` instead of `0`.
 
 * **Graphical interface** - A simple interface to show memories, moments,
 settings, and other data collected by the addon.
-* **Screenshots on achievements** - Take a screenshot when players get an
-achievement in Cataclysm Classic and in The War Within expansion.
 
 ## Known issues
 
