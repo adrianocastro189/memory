@@ -12,7 +12,7 @@ your chat frame, just like something you remember in real life!
 * Memories can be associated with moments, which are special events happening
 in your life while you play the game that will be associated with all memories
 you store while that moment is active.
-* Automatic screenshots are taken when players level up.
+* Automatic screenshots are taken when players level up and earn achievements.
 * Automatic screenshots can also be enabled to take pictures when memories are 
 stored.
 
@@ -90,6 +90,18 @@ enabled, but you can disable it by running the following command:
 
 To enable it again, run the same command, but with `1` instead of `0`.
 
+### Disabling screenshots when earning achievements
+
+Version 1.6.0 introduced a new feature that takes a screenshot when players
+earn achievements which is enabled by default. You can disable it by running the 
+following command:
+
+```lua
+/memoryaddon set memory.screenshotOnAchievement 0
+```
+
+To enable it again, run the same command, but with `1` instead of `0`.
+
 ### Disabling screenshots when leveling up
 
 Version 1.4.0 introduced a new feature that takes a screenshot when players
@@ -118,6 +130,9 @@ radar for the next versions
 
 ### yyyy.mm.dd - version 1.6.0
 
+* Screenshots are now taken when achievements are earned, for Retail and Cataclysm 
+  Classic (thanks to
+[Platetits](https://www.curseforge.com/members/platetits) for the suggestion)
 * Update Stormwind Library to version 1.12.2
 
 ### 2024.08.01 - version 1.5.0
