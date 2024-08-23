@@ -69,7 +69,7 @@ local Memory = {}
     --[[
     Gets the first time player had this memory.
 
-    @return MemoryAddon_MemoryString
+    @return MemoryString
     ]]
     function Memory:getFirst()
         return self.first
@@ -119,7 +119,7 @@ local Memory = {}
     --[[
     Gets the last time player had this memory.
 
-    @return MemoryAddon_MemoryString
+    @return MemoryString
     ]]
     function Memory:getLast()
         return self.last
@@ -314,7 +314,7 @@ local Memory = {}
     --[[
     Sets the first time player had this memory.
 
-    @param MemoryAddon_MemoryString value
+    @param MemoryString value
 
     @return self
     ]]
@@ -340,7 +340,7 @@ local Memory = {}
     --[[
     Sets the last time player had this memory.
 
-    @param MemoryAddon_MemoryString value
+    @param MemoryString value
 
     @return self
     ]]
@@ -391,6 +391,7 @@ local Memory = {}
         MemoryCore:getScreenshotController():prepareScreenshot(sentence)
         MemoryCore:getCompatibilityHelper():wait(2, MemoryCore:getScreenshotController().takeScreenshot)
     end
+-- End of Memory
 
 -- allows this class to be instantiated
 MemoryCore:addClass('Memory/Memory', Memory)

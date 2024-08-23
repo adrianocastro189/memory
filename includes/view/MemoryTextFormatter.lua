@@ -375,7 +375,7 @@ function MemoryAddon_addMemoryTextFormatterPrototype( core )
 
     @since 1.1.0
 
-    @param MemoryAddon_MemoryString memoryString
+    @param MemoryString memoryString
     @return string
     ]]
     function instance:maybeAppendMoment( memoryString )

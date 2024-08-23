@@ -1,7 +1,7 @@
-MemoryCore = StormwindLibrary_v1_11_0.new({
+MemoryCore = StormwindLibrary_v1_12_2.new({
   command = 'memoryaddon',
   name = 'Memory',
-  version = '1.5.0',
+  version = '1.6.0',
 })
 
 local events = MemoryCore.events
@@ -325,9 +325,6 @@ events:listen(events.EVENT_NAME_PLAYER_LOGIN, function ()
 
   MemoryCore:initializeSingletons();
   MemoryCore:printVersion();
-
-  -- adds the memory prototype to the repository
-  MemoryAddon_addMemoryStringPrototype( MemoryCore.repository );
 
   -- adds the memory text formatter prototype to core
   MemoryAddon_addMemoryTextFormatterPrototype( MemoryCore );

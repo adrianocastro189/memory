@@ -1,66 +1,51 @@
-TestLevelMemory = BaseTestClass:new()
+TestAchievementMemory = BaseTestClass:new()
 
--- @covers TestLevelMemory:__construct()
+-- @covers AchievementMemory:__construct()
 TestCase.new()
     :setName('__construct')
-    :setTestClass(TestLevelMemory)
+    :setTestClass(TestAchievementMemory)
     :setExecution(function()
-        local instance = MemoryCore:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/AchievementMemory')
 
         lu.assertNotNil(instance)
     end)
     :register()
 
--- @covers LevelMemory:getScreenshotMessage()
+-- @covers AchievementMemory:getScreenshotMessage()
 TestCase.new()
     :setName('getScreenshotMessage')
-    :setTestClass(TestLevelMemory)
+    :setTestClass(TestAchievementMemory)
     :setExecution(function()
-        local instance = MemoryCore:new('Memory/LevelMemory')
+        local instance = MemoryCore
+            :new('Memory/AchievementMemory')
             :setDate('2024-01-01')
-            :setLevel(13)
 
         local result = instance:getScreenshotMessage()
 
-        lu.assertEquals(result, 'Reached level 13 on January 1, 2024')
+        lu.assertEquals(result, 'Achievement earned on January 1, 2024')
     end)
     :register()
 
--- @covers LevelMemory:save()
+-- @covers AchievementMemory:save()
 TestCase.new()
     :setName('save')
-    :setTestClass(TestLevelMemory)
+    :setTestClass(TestAchievementMemory)
     :setExecution(function()
-        local repository = Spy
-            .new()
-            :mockMethod('storeLevelMemory')
+        local instance = MemoryCore:new('Memory/AchievementMemory')
 
-        MemoryCore = Spy
-            .new(MemoryCore)
-            :mockMethod('getRepository', function () return repository end)
-        
-        local instance = MemoryCore
-            :new('Memory/LevelMemory')
-            :setLevel(13)
-            :setDate('2024-01-01')
-            :setMoment(2)
-
+        -- just asserts that no error is thrown
         instance:save()
-
-        repository
-            :getMethod('storeLevelMemory')
-            :assertCalledOnceWith(instance)
     end)
     :register()
 
--- @covers LevelMemory:shouldTakeScreenshot()
+-- @covers AchievementMemory:shouldTakeScreenshot()
 TestCase.new()
     :setName('shouldTakeScreenshot')
-    :setTestClass(TestLevelMemory)
+    :setTestClass(TestAchievementMemory)
     :setExecution(function(data)
-        MemoryCore.settingsRepository:set('memory.screenshotOnLevelUp', data.settingValue)
+        MemoryCore.settingsRepository:set('memory.screenshotOnAchievement', data.settingValue)
 
-        local instance = MemoryCore:new('Memory/LevelMemory')
+        local instance = MemoryCore:new('Memory/AchievementMemory')
 
         lu.assertEquals(data.expectedResult, instance:shouldTakeScreenshot())
     end)
@@ -95,4 +80,4 @@ TestCase.new()
         },
     })
     :register()
--- end of TestLevelMemory
+-- End of TestAchievementMemory

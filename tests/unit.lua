@@ -41,6 +41,8 @@ BaseTestClass = {
         dofile('./includes/commands/UpdateSettingCommand.lua')
         dofile('./includes/core/ScreenshotController.lua')
         dofile('./includes/core/TooltipController.lua')
+        dofile('./includes/domain/AbstractMemory.lua')
+        dofile('./includes/domain/AchievementMemory.lua')
         dofile('./includes/domain/LevelMemory.lua')
         dofile('./includes/domain/Memory.lua')
         dofile('./includes/domain/MemoryString.lua')
@@ -99,13 +101,18 @@ TestCase = {}
     function TestCase:setTestClass(value) self.testClass = value return self end
 -- end of TestCase
 
+dofile('./tests/spies.lua')
+
 dofile('./tests/MemoryTest.lua')
 dofile('./tests/Commands/AddMomentCommandTest.lua')
 dofile('./tests/Commands/GetMomentCommandTest.lua')
 dofile('./tests/Commands/GetSettingCommandTest.lua')
 dofile('./tests/Commands/UpdateSettingCommandTest.lua')
 dofile('./tests/Core/TooltipControllerTest.lua')
+dofile('./tests/Domain/AbstractMemoryTest.lua')
+dofile('./tests/Domain/AchievementMemoryTest.lua')
 dofile('./tests/Domain/LevelMemoryTest.lua')
+dofile('./tests/Domain/MemoryStringTest.lua')
 dofile('./tests/Domain/MemoryTest.lua')
 dofile('./tests/Events/DeathMemoryEventTest.lua')
 dofile('./tests/Repository/MemoryRepositoryTest.lua')
