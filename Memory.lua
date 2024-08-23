@@ -1,7 +1,7 @@
-MemoryCore = StormwindLibrary_v1_11_0.new({
+MemoryCore = StormwindLibrary_v1_12_2.new({
   command = 'memoryaddon',
   name = 'Memory',
-  version = '1.5.0',
+  version = '1.6.0',
 })
 
 local events = MemoryCore.events

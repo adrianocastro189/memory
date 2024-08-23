@@ -116,6 +116,10 @@ radar for the next versions
 
 ## Changelog
 
+### yyyy.mm.dd - version 1.6.0
+
+* Update Stormwind Library to version 1.12.2
+
 ### 2024.08.01 - version 1.5.0
 
 * Deaths are now recorded as memories and can be printed to the chat frame,
