@@ -128,7 +128,7 @@ radar for the next versions
 
 ## Changelog
 
-### yyyy.mm.dd - version 1.6.0
+### 2024.08.23 - version 1.6.0
 
 * Screenshots are now taken when achievements are earned, for Retail and Cataclysm 
   Classic (thanks to
