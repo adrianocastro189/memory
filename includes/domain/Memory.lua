@@ -391,6 +391,7 @@ local Memory = {}
         MemoryCore:getScreenshotController():prepareScreenshot(sentence)
         MemoryCore:getCompatibilityHelper():wait(2, MemoryCore:getScreenshotController().takeScreenshot)
     end
+-- End of Memory
 
 -- allows this class to be instantiated
 MemoryCore:addClass('Memory/Memory', Memory)

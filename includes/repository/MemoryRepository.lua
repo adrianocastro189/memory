@@ -157,8 +157,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
 
     -- populates the memory with saved or new values
     memoryInstance
-      :setFirst( self:newMemoryString( savedMemory['first'] ) )
-      :setLast( self:newMemoryString( savedMemory['last'] ) )
+      :setFirst( MemoryCore:new('Memory/MemoryString', savedMemory['first'] ) )
+      :setLast( MemoryCore:new('Memory/MemoryString', savedMemory['last'] ) )
       :setX( savedMemory['x'] );
 
     return memoryInstance;
@@ -240,8 +240,8 @@ function MemoryAddon_MemoryRepository:new( player, realm )
         :setCategory( category )
         :setPath( path )
         :setInteractionType( interactionType )
-        :setFirst( self:newMemoryString( values['first'] ) )
-        :setLast( self:newMemoryString( values['last'] ) )
+        :setFirst( MemoryCore:new('Memory/MemoryString', values['first'] ) )
+        :setLast( MemoryCore:new('Memory/MemoryString', values['last'] ) )
         :setX( values['x'] )
       );
     end
@@ -269,7 +269,7 @@ function MemoryAddon_MemoryRepository:new( player, realm )
     local memoryPath = self:check( category, path, interactionType );
 
     -- gets the memory string to store the player's memory
-    local memoryString = self:newMemoryString():toString();
+    local memoryString = MemoryCore:new('Memory/MemoryString'):toString();
 
     -- stores the first time player experienced this memory
     if memoryPath['first'] == -1 then memoryPath['first'] = memoryString; end
