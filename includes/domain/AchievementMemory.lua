@@ -17,5 +17,14 @@ local AchievementMemory = {}
     --[[
     @inheritDoc
     ]]
+    function AchievementMemory:getScreenshotMessage()
+        local formattedDate = MemoryCore:getDateHelper():getFormattedDate(self.date)
+
+        return string.format('Achievement earned on %s', formattedDate)
+    end
+
+    --[[
+    @inheritDoc
+    ]]
     function AchievementMemory:save() end
 -- End of AchievementMemory
