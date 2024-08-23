@@ -73,6 +73,29 @@ MemoryString.__index = MemoryString
     end
 
     --[[
+    Gets a location string based on the zone and the subzone this memory string
+    was recorded on.
+
+    @return string
+    ]]
+    function MemoryString:getLocation()
+        local hasZone = self:hasZone()
+        local hasSubZone = self:hasSubZone() and self:getZone() ~= self:getSubZone()
+
+        -- has zone and subzone and they're different
+        if hasZone and hasSubZone then return self:getSubZone() .. ', ' .. self:getZone() end
+
+        -- has only zone
+        if hasZone then return self:getZone() end
+
+        -- has only subzone
+        if hasSubZone then return self:getSubZone() end
+
+        -- has no zone and no subzone
+        return ''
+    end
+
+    --[[
     Gets the moment when the memory string was collected.
 
     @param string context will determine the returned moment of this method (index or description)
@@ -157,29 +180,6 @@ MemoryString.__index = MemoryString
     ]]
     function MemoryString:hasZone()
         return nil ~= self.zone and self.DATA_DEFAULT_CHAR ~= self.zone
-    end
-
-    --[[
-    Gets a location string based on the zone and the subzone this memory string
-    was recorded on.
-
-    @return string
-    ]]
-    function MemoryString:getLocation()
-        local hasZone = self:hasZone()
-        local hasSubZone = self:hasSubZone() and self:getZone() ~= self:getSubZone()
-
-        -- has zone and subzone and they're different
-        if hasZone and hasSubZone then return self:getSubZone() .. ', ' .. self:getZone() end
-
-        -- has only zone
-        if hasZone then return self:getZone() end
-
-        -- has only subzone
-        if hasSubZone then return self:getSubZone() end
-
-        -- has no zone and no subzone
-        return ''
     end
 
     --[[
