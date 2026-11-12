@@ -1,258 +1,137 @@
-# Memory
+# Memory Forever
 
-**⚠️ NOV 11, 2024 - THIS PROJECT IS PAUSED FOR AN INDEFINITE PERIOD:** Due to other dev
-priorities requiring my attention in recent weeks, I have decided to pause the development
-of Memory. I greatly appreciate all the support and feedback received
-so far and intend to resume work as soon as I complete the ongoing projects.
+A World of Warcraft: Forever addon that remembers what you do in the world and occasionally reminds you of it:
 
-A World of Warcraft addon to register memories while players do stuff around 
-the world.
+> *The first time I looted a **Linen Cloth** was 41 days ago*
+>
+> **Goldshire**: You've been here 30 times. Last visit: 3 days ago. You died here 2 times.
 
-* The addon counts the number of times you loot an item, fight or interact with
-NPCs, group with other players, visit zones and subzones, die, and store them as
-memories in the addon data. It also saves the first and the last time you did
-each of these actions.
-* For each memory stored, it will have a small chance to print that memory in 
-your chat frame, just like something you remember in real life!
-* Memories can be associated with moments, which are special events happening
-in your life while you play the game that will be associated with all memories
-you store while that moment is active.
-* Automatic screenshots are taken when players level up and earn achievements.
-* Automatic screenshots can also be enabled to take pictures when memories are 
-stored.
+Memory Forever is a fork of **[Memory](https://github.com/adrianocastro189/memory)** by **Adriano Castro** ([Squareone189 on CurseForge](https://www.curseforge.com/wow/addons/memory)), ported to WoW: Forever and modernized. Development of the original paused in November 2024. All credit for the original idea and design goes to Adriano. If you enjoy this addon, consider [supporting the original author](https://github.com/sponsors/adrianocastro189).
 
-## Installation
+> **Status: 2.0.0-alpha.1.** Fully tested against a stubbed Forever client, **not yet verified in the live game**. Please report Lua errors (BugSack output) in the issues.
 
-No setup is required! **Just install the addon and play the game!** While you play, it will record memories about **players** you party with, **items** you loot, **zones** and **subzones** you visit and **NPCs** you fight, talk, turn quests, buy, sell and repair.
+## What it remembers
 
-Feel free to increase the print chance rate using a slash command described below or just have fun with the game and let the addon decide when it's the best time to bring a memory to you!
+For each of these it stores how many times it happened and the first and last time, with date, level, location and moment:
 
-## ❤️ Support this project
+| | |
+|---|---|
+| **Places** | Every zone and subzone you enter. Returning within 5 minutes doesn't count twice. |
+| **Deaths** | How often you died, and where |
+| **Levels** | When and where you reached each level, with a screenshot |
+| **NPCs** | Talking, doing business (buy, sell, repair), turning in quests, and fights |
+| **Items** | Everything you loot |
+| **Players** | Who you grouped with, counted once per day |
+| **Achievements** | A screenshot and a count, if the client has achievements |
 
-If you like this addon and want to support its development, you can
-[buy the author a coffee](https://github.com/sponsors/adrianocastro189).
+When a memory is stored there's a chance (20% by default) that you get reminded of it in chat, in a pop-up, or both. When you return to a place you've been before, or die somewhere you died before, a pop-up tells you. The same place won't pop up again for 30 minutes.
 
-Every contribution or subscription is deeply appreciated and also supports
-the [Stormwind Library project](https://github.com/adrianocastro189/stormwind-library),
-which is the framework used to build this addon.
+Memories also show in NPC, player and item tooltips.
 
-## Slash commands
+## Commands
 
-The following slash commands let you customize the addon experience.
+| Command | |
+|---|---|
+| `/mem` | Open the journal: Zones, NPCs, Items, Players, Deaths, Levels, Moments, Here, Stats |
+| `/mem here` | Everything that happened in this place |
+| `/mem stats` | Deaths, places discovered, most visited place, most deaths... |
+| `/mem moment "Leveling with Sam"` | Start a new moment (alias: `addm`) |
+| `/mem moment` | Show the current moment (alias: `getm`) |
+| `/mem options` | Options panel (also under Options > AddOns) |
+| `/mem settings` | List all settings |
+| `/mem set <key> <value>` / `/mem get <key>` | Change or read a setting |
+| `/mem status` | Version and which memory types are active on this client |
+| `/mem toast` | Show a sample pop-up |
 
-### Associating memories with moments
+`/memoryforever` works as well. The minimap button opens the journal on left-click and the options on right-click, and you can drag it to move it.
 
-**Moments** can be anything happening while you play. They can refer to a moment in real life you're having while you play or even related to your current gameplay story. The current moment will be shared accross all your characters in this first version of this feature. In other words, you can't set a current moment for each character (yet).
+### Moments
 
-Example: Let's say you're moving to another city in real life and you want to associate all of your player memories with this moment, then all you have to do is:
+A moment is a label that gets attached to every memory you record while it's the current one. It could be something in real life ("playing in a motel while the apartment is ready") or something in the game ("Leveling with Sam"). Later reminders mention it:
 
-```
-/memoryaddon addm "playing in a motel while my apartment is ready for us to move"
-```
+> *The first time I looted a Linen Cloth was 41 days ago ~playing in a motel while the apartment is ready~*
 
-That way, after you add another moment, all the memories collected in the last moments will be appended to the chat frame like: _The first time I looted a Linen Cloth was 41 days ago \~playing in a motel while my apartment is ready for us to move\~_.
+### Settings
 
-Make sure to wrap the moment in `""` or `''` so it can be recognized as a
-single phrase instead of multiple words.
+| Key | Default | |
+|---|---|---|
+| `printChance` | `0.2` | Chance of a reminder when a memory is stored (0-1, or `25%`) |
+| `reminderStyle` | `chat` | `chat`, `toast`, `both` or `off` |
+| `placeToasts` | `on` | Pop-ups for returning to a place or dying where you died before |
+| `placeToastCooldown` | `30` | Minutes before the same place pops up again |
+| `showInTooltips` | `on` | Memories in tooltips |
+| `screenshotOnLevelUp` | `on` | |
+| `screenshotOnAchievement` | `on` | |
+| `screenshotChance` | `0` | Chance of a screenshot when a memory is stored |
+| `minimapButton` | `on` | |
+| `debug` | `off` | |
 
-To print the current moment, simply run:
+The original addon's keys (`memory.printChance`, `memory.showInTooltips`, ...) still work.
 
-```
-/memoryaddon getm
-```
+## WoW: Forever limitations
 
-### Setting the memory print chance
+Forever runs on the modern (Midnight-era) engine with its addon restrictions:
 
-Every time a memory is stored, it has a chance to be printed to the chat window. In other words,
-this is the chance your character will remember something!
+- **No killer names.** Deaths record where and when, not who. The combat log is closed to addons.
+- **Fights are approximate.** Any attackable NPC you target or focus during combat counts as fought when combat ends. Enemies you never target aren't counted.
+- **Hidden ("secret") values.** In combat and in restricted content, some names and GUIDs are hidden from addons. Memory Forever skips those memories instead of erroring. For example, a tooltip in a dungeon may show nothing.
+- **Dungeon loot** is read from the loot window and your bags, because loot chat is hidden in instances. Items won later by roll are not counted there.
+- Achievements are recorded only if the client has them (`/mem status` shows it).
 
-The following command changes the print chance to 50% (`0.5`). Replace this number with
-any decimal between `0` - to turn off memory printing - and `1` (inclusive) to print every memory.
+## Install
 
-```
-/memoryaddon set memory.printChance 0.5
-```
+1. Download the release and extract it so the folder is named `MemoryForever`.
+2. Put it in your Forever AddOns folder. During the beta this was `World of Warcraft/_classic_beta_/Interface/AddOns/`. Check where your live install keeps addons.
+3. Log in. You should see `Memory Forever: 2.0.0-alpha.1 loaded` in chat.
 
-### Setting up the memory screenshot chance
+### Bringing memories from the original Memory addon
 
-Memory screenshots are disable by default and are part of the addon's 1.2.0 release. You can enable the screenshot chance with a setting called `memory.screenshotChance` which accepts any decimal between `0` - to turn off memory screenshots - and `1` (inclusive) to take screenshots for every memory.
+Memory Forever can import the original addon's data **once, into an empty database**:
 
-It's advised to use a small chance like `0.025` to avoid taking multiple screenshots in a row and also to save some space given that every screenshot is stored as a new file under your World of Warcraft installation folder.
+1. Log out. Do this before logging in with Memory Forever for the first time, or delete `WTF/Account/<ACCOUNT>/SavedVariables/MemoryForever.lua` first.
+2. Copy `WTF/Account/<ACCOUNT>/SavedVariables/Memory.lua` from the install where you used Memory into the Forever install's `WTF/Account/<ACCOUNT>/SavedVariables/` folder, and rename it to `MemoryForever.lua`.
+3. Log in. Chat says how many characters were imported.
 
-```
-/memoryaddon set memory.screenshotChance 0.025
-```
+Characters are matched by realm and character GUID, so only characters that exist on Forever with the same GUID will show their old memories.
 
-### Disabling memories in tooltips
+## Development
 
-The `memory.showInTooltips` setting is responsible for enabling or disabling
-the display of memories in unit and item tooltips. By default, it is 
-enabled, but you can disable it by running the following command:
+No Stormwind Library: the addon is plain Lua 5.1 in a private namespace. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the design and [docs/API_AUDIT.md](docs/API_AUDIT.md) for every event and API, with what changed for Forever.
 
-```
-/memoryaddon set memory.showInTooltips 0
-```
+### Tests
 
-To enable it again, run the same command, but with `1` instead of `0`.
+The tests load the addon **through the Forever TOC** into a stubbed client. The stub simulates secret values, the closed combat log, unknown events and SavedVariables round-trips, and fires the core events.
 
-### Disabling screenshots when earning achievements
-
-Version 1.6.0 introduced a new feature that takes a screenshot when players
-earn achievements which is enabled by default. You can disable it by running the 
-following command:
-
-```lua
-/memoryaddon set memory.screenshotOnAchievement 0
-```
-
-To enable it again, run the same command, but with `1` instead of `0`.
-
-### Disabling screenshots when leveling up
-
-Version 1.4.0 introduced a new feature that takes a screenshot when players
-level up which is enabled by default. You can disable it by running the 
-following command:
-
-```lua
-/memoryaddon set memory.screenshotOnLevelUp 0
+```bash
+python -m venv .venv
+.venv/Scripts/pip install -r requirements-dev.txt   # or .venv/bin/pip
+.venv/Scripts/python tests/run.py
 ```
 
-To enable it again, run the same command, but with `1` instead of `0`.
+`lua5.1 tests/run.lua` works too. CI runs the suite on every push.
 
-## What's on the roadmap for the next versions
+### In-game test checklist
 
-* **Graphical interface** - A simple interface to show memories, moments,
-settings, and other data collected by the addon.
+Install with BugGrabber and BugSack enabled, then:
 
-## Known issues
+- [ ] Fresh character: loads with no errors, `/mem status` shows which trackers are on
+- [ ] `/reload`: no errors, memories still there
+- [ ] Existing SavedVariables (second login)
+- [ ] Walk between subzones: visits counted, return pop-up on a second visit
+- [ ] Talk to an NPC, pick up and turn in a quest, buy, sell and repair: NPC tooltip shows Talked, Quests turned in, Business
+- [ ] Open-world combat: "Fought" on the NPC's tooltip
+- [ ] Loot in the open world, then hover the item
+- [ ] Group with someone (`/mem journal` → Players)
+- [ ] Dungeon (restricted content): no errors, zone visit recorded, loot recorded after closing the loot window
+- [ ] Die and run back: per-place death count, pop-up on a second death there
+- [ ] Level up: screenshot taken, Levels tab
+- [ ] Relog
+- [ ] Options panel under Options > AddOns, minimap button, journal tabs, search and sort
 
-* Quest interactions with NPCs are not being recorded yet, but it's on the 
-radar for the next versions
+### Packaging
 
-## Changelog
+`.pkgmeta` is set up for the CurseForge/BigWigs packager. Releases follow semver starting at `2.0.0`. See [CHANGELOG.md](CHANGELOG.md).
 
-### 2024.08.23 - version 1.6.0
+## License
 
-* Screenshots are now taken when achievements are earned, for Retail and Cataclysm 
-  Classic (thanks to
-[Platetits](https://www.curseforge.com/members/platetits) for the suggestion)
-* Update Stormwind Library to version 1.12.2
-
-### 2024.08.01 - version 1.5.0
-
-* Deaths are now recorded as memories and can be printed to the chat frame,
-  associated with moments and also have a screenshot taken
-* Update Stormwind Library to version 1.11.0
-
-### 2024.07.24 - version 1.4.2
-
-* Update TOC interface number for Retail
-
-### 2024.07.11 - version 1.4.1
-
-* Update TOC interface number for Classic Era
-
-### 2024.06.14 - version 1.4.0
-
-* Feature - Take a screenshot when players level up (thanks to
-[foobanana](https://www.curseforge.com/members/foobanana) for the suggestion)
-* Fix - Fix a bug that was throwing an error when getm command was called 
-without at least one moment set
-* Dev - Update Stormwind Library to version 1.5.0
-
-### 2024.05.07 - version 1.3.1
-
-* Fix a bug that was parsing commands with mixed quotes incorrectly
-* Dev - Update Stormwind Library to prevent incompatibility issues with the
-MultiTargets addon, which is also sharing its pre-release
-
-### 2024.05.04 - version 1.3.0
-
-* Fix - Fix a breaking bug that was preventing the addon to work on Retail
-after API changes to tooltip hooks
-* Dev - Update Stormwind Library to version 1.2.0
-
-### 2024.04.03 - version 1.2.4
-* Feature - Allow disabling the tooltip memory information (thanks to 
-@oddtoddy for the suggestion)
-* Tweak - The `/memoryaddon add moment` command was replaced by `/memoryaddon addm`
-* Tweak - The `/memoryaddon get moment` command was replaced by `/memoryaddon getm`
-* Dev - Add unit testing support
-* Dev - Use the Stormwind Library event system to initialize core
-
-### 2024.02.24 - version 1.2.3
-* Dev - Import Stormwind Library, preparing the field for it to be used in the future
-
-### 2024.02.04 - version 1.2.2
-* Feature - Add the `/memoryaddon get moment` command
-
-### 2024.02.04 - version 1.2.1
-* Fix - Update the build version so it gets compatible with SoD
-
-### 2021.06.13 - version 1.2.0
-* Feature - Memories can take screenshots
-* Fix - Addon support to Retail updated (thanks to @tflo for the GitHub issue post)
-* Dev - Add a helper method to mimic functions like PHP's `sleep`
-
-### 2021.05.16 - version 1.1.1
-* Tweak - Memories printed to chat now may also show the location and level you were on when you got it
-* Tweak - Tooltips now show the player level for their first and last memories
-
-### 2021.03.20 - version 1.1.0
-* Feature - Memories can be associated with **moments**
-* Feature - Memories now are also shown in NPC, player and item tooltips
-* Tweak - The _Invalid loot item msg_ is now a debug message instead of a warning
-
-### 2021.01.10 - version 1.0.0
-* Feature - Add a slash command to set the memory print chance
-* Tweak - `SPELL_AURA_APPLIED` and `SPELL_PERIODIC_DAMAGE` were added to count as fight events
-* Tweak - Only one party event per player per day is registered now
-* Fix - Fix a bug when players were considered NPCs in the fight event
-* Fix - Fix memory sentences being generated with double spaces
-* Fix - Fix a bug on Classic that was preventing memories of looting items
-* Dev - New logging/debug system
-* Dev - Players are now stored with their full names, not with their GUID anymore
-* Dev - Rename `MemoryDataSet` to `MemoryAddon_DataSet` to avoid conflicting with other addons
-
-### 2020.12.12 - version 0.6.0-beta
-* Feature - Friendly memory sentences
-* Dev - Add a date helper instance to core
-* Dev - Add a string helper instance to core
-* Dev - Add the `MemoryString` prototype
-* Dev - Add the first `Memory` utility methods to access `MemoryString` data
-* Dev - Add the `MemoryTextFormatter` prototype
-
-### 2020.11.25 - version 0.5.0-beta
-* Feature - Saved memories have a 10% chance to be printed to the chat frame
-* Dev - Add the `Memory` prototype
-* Dev - Add a `get` method to `MemoryRepository`
-
-### 2020.11.20 - version 0.4.0-alpha
-* Dev - Add a debug method to `MemoryCore`
-* Dev - Add a debug method to `MemoryEvent`
-* Dev - Add the `addEvents` method to attach all the listeners to core
-* Dev - Add the first 6 event listeners to core
-* Dev - Make `MemoryRepository` a real singleton
-* Dev - Prevent `MemoryEvent`s from being initialized after core's initialization
-* Dev - Add an array helper instance to core
-* Dev - Add a compatibility helper instance to core
-* Dev - Add the `MemoryAddon_Player` prototype
-
-### 2020.10.23 - version 0.3.0-alpha
-* Dev - Add the `MemoryEvent` superclass
-* Dev - Add the `eventListeners` list to core
-* Dev - Add the event dispatcher in MemoryCore
-
-### 2020.10.18 - version 0.2.0-alpha
-* Dev - Add the `MemoryRepository` and its unique instance to core
-* Dev - Add the check and store methods to repository
-* Dev - Craft the main memory string
-
-### 2020.10.15 - version 0.1.0-alpha
-* Dev - Add the `.toc` file
-* Dev - Add the `MemoryCore` object
-* Dev - Print the addon number after initialization
-
-## Known issues
-
-* The mouse over the target's frame won't show memories on the tooltip
+GPLv3, same as the original. See [LICENSE](LICENSE). Copyright © 2021-2024 Adriano Castro (Memory), © 2026 Jacob Rozell (Memory Forever changes).
