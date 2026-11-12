@@ -1,0 +1,10 @@
+package-as: MemoryForever
+
+ignore:
+  - tests
+  - docs
+  - resources
+  - .github
+  - .venv
+  - requirements-dev.txt
+  - HANDOFF.md
