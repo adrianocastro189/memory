@@ -31,6 +31,55 @@ describe('Queries', function()
     H.eq(s.since, '26-11-12')
   end)
 
+  it('names the player you grouped with most', function()
+    local ctl = WoW.start()
+    ctl.groupSize = 3
+    ctl.units.party1 = { guid = 'Player-1-00000002', name = 'Sam' }
+    ctl.units.party2 = { guid = 'Player-2-00000003', name = 'Alex', realm = 'Other Realm' }
+    ctl.event('GROUP_ROSTER_UPDATE')
+    ctl.advanceDays(1)
+    ctl.groupSize = 2
+    ctl.units.party2 = nil
+    ctl.event('GROUP_ROSTER_UPDATE')
+    local stats = ctl.ns.Queries.stats()
+    H.eq(stats.players, 2)
+    H.eq(stats.mostGrouped.label, 'Sam-ForeverRealm')
+    H.eq(stats.mostGrouped.x, 2)
+    ctl.slash('stats')
+    H.contains(ctl.chatText(), 'Most grouped with')
+    H.contains(ctl.chatText(), 'Sam-ForeverRealm (2)')
+  end)
+
+  it('sends a reminder to chat, a toast, both, or neither', function()
+    local function remind(style)
+      local ctl = WoW.start()
+      ctl.randomValue = 0
+      ctl.ns.Settings.set('printChance', 1)
+      ctl.ns.Settings.set('reminderStyle', style)
+      local shown = {}
+      ctl.ns.Toast.show = function(_, text) table.insert(shown, text) end
+      local before = #ctl.chat
+      ctl.units.npc = { guid = 'Creature-0-1-2-3-240-0001', name = 'Marshal Dughan' }
+      ctl.event('GOSSIP_SHOW')
+      local added = {}
+      for i = before + 1, #ctl.chat do table.insert(added, ctl.chat[i]) end
+      return table.concat(added, '\n'), shown
+    end
+
+    local chat, toasts = remind('chat')
+    H.contains(chat, 'Marshal Dughan')
+    H.eq(#toasts, 0)
+    chat, toasts = remind('toast')
+    H.notContains(chat, 'Marshal Dughan')
+    H.eq(#toasts, 1)
+    chat, toasts = remind('both')
+    H.contains(chat, 'Marshal Dughan')
+    H.eq(#toasts, 1)
+    chat, toasts = remind('off')
+    H.notContains(chat, 'Marshal Dughan')
+    H.eq(#toasts, 0)
+  end)
+
   it('lists, filters and sorts journal entries', function()
     local ctl = session()
     local Q = ctl.ns.Queries

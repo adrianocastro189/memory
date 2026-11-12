@@ -61,6 +61,41 @@ describe('SavedVariables', function()
     H.eq(ctl.char().npcs['Marshal Dughan'], nil)
   end)
 
+  it('upgrades a database that has memories but no schema version', function()
+    local ctl = WoW.start({ saved = { MemoryForeverDB = {
+      realms = { ['Forever Realm'] = { ['Player-1-00000001'] = {
+        npcs = { Bob = { talk = { first = '24-08-01|1|Elwynn Forest|Goldshire|0', last = '24-08-01|1|Elwynn Forest|Goldshire|0', x = 2 } } },
+      } } },
+    } } })
+    H.noErrors(ctl)
+    H.eq(ctl.env.MemoryForeverDB.schemaVersion, 2)
+    H.eq(ctl.char().npcs.Bob.talk.x, 2)
+  end)
+
+  it('keeps a Memory 1.x import whose realm and GUID are not this character', function()
+    local saved = legacySaved()
+    saved.MemoryAddon_DataSet = {
+      Azeroth = {
+        ['Player-9-OLD'] = saved.MemoryAddon_DataSet['Forever Realm']['Player-1-00000001'],
+      },
+    }
+    local ctl = WoW.start({ saved = saved })
+    H.noErrors(ctl)
+    H.contains(ctl.chatText(), 'Imported memories for 1 character')
+    H.eq(ctl.char().npcs['Marshal Dughan'], nil)
+    local stored = ctl.env.MemoryForeverDB.realms.Azeroth['Player-9-OLD']
+    H.eq(stored.npcs['Marshal Dughan'].talk.x, 4)
+    H.eq(ctl.env.MemoryAddon_DataSet, nil)
+  end)
+
+  it('leaves the legacy file alone when no rows or settings can be copied', function()
+    local junk = { [true] = { nope = true } }
+    local ctl = WoW.start({ saved = { MemoryAddon_DataSet = junk } })
+    H.noErrors(ctl)
+    H.eq(type(ctl.env.MemoryAddon_DataSet), 'table')
+    H.notContains(ctl.chatText(), 'Imported memories')
+  end)
+
   it('leaves data from a newer schema alone', function()
     local ctl = WoW.start({ saved = { MemoryForeverDB = { schemaVersion = 99, realms = {}, settings = {}, moments = {} } } })
     H.noErrors(ctl)

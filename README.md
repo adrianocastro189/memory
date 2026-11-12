@@ -34,7 +34,7 @@ Memories also show in NPC, player and item tooltips.
 |---|---|
 | `/mem` | Open the journal: Zones, NPCs, Items, Players, Deaths, Levels, Moments, Here, Stats |
 | `/mem here` | Everything that happened in this place |
-| `/mem stats` | Deaths, places discovered, most visited place, most deaths... |
+| `/mem stats` | Deaths, places discovered, most visited place, most deaths, most grouped with... |
 | `/mem moment "Leveling with Sam"` | Start a new moment (alias: `addm`) |
 | `/mem moment` | Show the current moment (alias: `getm`) |
 | `/mem options` | Options panel (also under Options > AddOns) |

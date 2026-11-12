@@ -42,14 +42,35 @@ function Group.members()
   return names
 end
 
+local function union(first, second)
+  local names, seen = {}, {}
+  for i = 1, 2 do
+    local list = i == 1 and first or second
+    if type(list) == 'table' then
+      for _, name in ipairs(list) do
+        if not seen[name] then
+          seen[name] = true
+          table.insert(names, name)
+        end
+      end
+    end
+  end
+  return names
+end
+
 function Group.update()
   if not ns.Repository.isReady() then return end
+  local current = Group.members()
   if Safe.api('InCombatLockdown') then
     Group.pending = true
+    -- remember names that are readable now; someone may leave before combat ends
+    if #current > 0 then Group.queued = union(Group.queued, current) end
     return
   end
   Group.pending = false
-  for _, fullName in ipairs(Group.members()) do
+  local names = union(Group.queued, current)
+  Group.queued = nil
+  for _, fullName in ipairs(names) do
     local previous = ns.Repository.get('players', { fullName }, 'party')
     local groupedToday = previous.last and ns.Util.daysAgo(previous.last.date) == 0
     if not groupedToday then
@@ -70,5 +91,6 @@ ns.Trackers.register('group', {
     on('PLAYER_REGEN_ENABLED', function()
       if Group.pending then Group.update() end
     end)
+    Group.update()
   end,
 })

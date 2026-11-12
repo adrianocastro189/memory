@@ -75,32 +75,39 @@ function DB.importLegacy(db)
   end
 
   local characters = 0
+  local copiedRows = false
   if type(legacyData) == 'table' then
     for realm, players in pairs(legacyData) do
       if type(realm) == 'string' and type(players) == 'table' then
         db.realms[realm] = ns.Util.copy(players)
+        copiedRows = true
         for _ in pairs(players) do characters = characters + 1 end
       end
     end
   end
 
+  local copiedSettings = false
   if type(legacySettings) == 'table' then
     if type(legacySettings.moments) == 'table' and #db.moments == 0 then
       for _, moment in ipairs(legacySettings.moments) do
         table.insert(db.moments, tostring(moment))
+        copiedSettings = true
       end
     end
     for oldKey, newKey in pairs(ns.Settings.ALIASES) do
       if legacySettings[oldKey] ~= nil and db.settings[newKey] == nil then
         db.settings[newKey] = legacySettings[oldKey]
+        copiedSettings = true
       end
     end
   end
 
+  -- a file we could not read must stay on disk so it can be tried again
+  if not copiedRows and not copiedSettings then return 0 end
+
   db.importedFrom = 'Memory 1.x'
-  -- stop carrying the old variables around once they're imported
-  MemoryAddon_DataSet = nil
-  MemoryAddon_Settings = nil
+  if copiedRows then MemoryAddon_DataSet = nil end
+  if copiedSettings then MemoryAddon_Settings = nil end
   return characters
 end
 

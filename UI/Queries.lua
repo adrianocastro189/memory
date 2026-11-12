@@ -220,7 +220,7 @@ function Queries.stats()
     zones = 0, subzones = 0, npcs = 0, fights = 0, talks = 0, quests = 0,
     itemKinds = 0, itemsLooted = 0, players = 0, levels = #Repository.levels(),
   }
-  local mostVisited, deadliest
+  local mostVisited, deadliest, mostGrouped
   Repository.walk('zones', function(memory)
     if #memory.path == 1 then
       stats.zones = stats.zones + 1
@@ -244,13 +244,21 @@ function Queries.stats()
     stats.itemKinds = stats.itemKinds + 1
     stats.itemsLooted = stats.itemsLooted + memory.x
   end)
-  Repository.walk('players', function() stats.players = stats.players + 1 end)
+  Repository.walk('players', function(memory)
+    stats.players = stats.players + 1
+    if memory.interaction == 'party' and (not mostGrouped or memory.x > mostGrouped.x) then
+      mostGrouped = memory
+    end
+  end)
 
   if mostVisited then
     stats.mostVisited = { label = mostVisited.path[3] .. ', ' .. mostVisited.path[1], x = mostVisited.x }
   end
   if deadliest then
     stats.deadliest = { label = LABELERS.deaths(deadliest), x = deadliest.x }
+  end
+  if mostGrouped then
+    stats.mostGrouped = { label = mostGrouped.path[1], x = mostGrouped.x }
   end
   local login = Repository.get('misc', {}, 'login')
   stats.since = login.first and login.first.date
@@ -273,6 +281,7 @@ function Queries.statsLines()
   add('Fights', s.fights)
   add('Items looted', s.itemsLooted .. ' (' .. s.itemKinds .. ' different)')
   add('Players grouped with', s.players)
+  if s.mostGrouped then add('Most grouped with', s.mostGrouped.label .. ' (' .. s.mostGrouped.x .. ')') end
   add('Levels remembered', s.levels)
   return lines
 end
